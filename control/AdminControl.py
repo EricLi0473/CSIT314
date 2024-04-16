@@ -17,7 +17,7 @@ class AdminControl(UserControl):
             raise Exception('Username have exist')
         else:
             self.getUser().addUser(username,password,email,userType)
-            return True
+
 
     '''
         admin freeze a user in system

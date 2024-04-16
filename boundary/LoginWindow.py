@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from control.UserControl import UserControl
-from control.AgentControl import AgentControl
+from His.AgentControl import AgentControl
 from AdminMenu import AdminMenu
 from AgentMenu import AgentMenu
 

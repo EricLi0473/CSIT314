@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from control.AgentControl import AgentControl
+from His.AgentControl import AgentControl
 
 class AgentMenu:
 

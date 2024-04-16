@@ -110,3 +110,12 @@ class User:
                 username = usernameDate['username']
                 usernameList.append(username)
         return usernameList
+
+    def findUserTypeByUserId(self,userId):
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select userstatus from users where userid = %s'
+            cursor.execute(sqlQuery,userId)
+            userStatus = cursor.fetchone()['userstatus']
+        return userStatus
