@@ -45,4 +45,3 @@ class LoginWindow:
 
 loginWindow = LoginWindow()
 loginWindow.login()
-print("good")
