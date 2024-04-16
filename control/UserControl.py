@@ -19,7 +19,10 @@ class UserControl:
         userControl = UserControl(user)
         userType = user.getUserType()
         if password == user.getPassword():
-            return userControl,userType
+            if user.getUserStatus() == 'valid':
+                return userControl,userType
+            else:
+                raise Exception('user invalid')
         else:
             raise Exception('Password error')
 
@@ -28,3 +31,6 @@ class UserControl:
 
     def findUserIdByUserName(self,userName):
         return self.getUser().findUserIdByUserName(userName)
+
+    def findUserTypeByUserId(self,userId):
+        return self.getUser().findUserTypeByUserId(userId)

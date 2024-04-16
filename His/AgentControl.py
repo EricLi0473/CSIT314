@@ -1,16 +1,12 @@
 from control.UserControl import UserControl
 from entity.Agent import Agent
 from entity.Property import Property
-from entity.Review import Review
+
 class AgentControl(UserControl):
 
-    def __init__(self,agent = Agent(),property = Property(),review = Review()):
+    def __init__(self,agent = Agent(),property = Property()):
         super().__init__(agent)
         self.property = property
-        self.review = review
-
-    def getReview(self):
-        return self.review
 
     def getProperty(self):
         return self.property
@@ -27,16 +23,24 @@ class AgentControl(UserControl):
 
 
     def updatePropertry(self,newTitle,oldTitle,description,bedNum,bathNum,size,price,status,sellerName):
+        property = self.getProperty().searchProperty(oldTitle)
+        if property.getAgentId() != self.getUser().getUserID():
+            raise Exception('not found property')
         sellerID = self.findUserIdByUserName(sellerName)
         self.getProperty().updateProperty(newTitle=newTitle, oldTitle=oldTitle, description=description, bedNum=bedNum, bathNum=bathNum, size=size, price=price, status=status,sellerId=sellerID)
 
 
     def removeProperty(self,title):
+        property = self.getProperty().searchProperty(title)
+        if property.getAgentId() != self.getUser().getUserID():
+            raise Exception('not found property')
         self.getProperty().removeProperty(title)
 
     def searchProperty(self,title):
         propertyTextList = []
         property = self.getProperty().searchProperty(title)
+        if property.getAgentId() != self.getUser().getUserID():
+            raise Exception('not found property')
         propertyText = []
         propertyText.append(property.getTitle())
         propertyText.append(property.getDescription())
@@ -53,17 +57,8 @@ class AgentControl(UserControl):
         propertyTextList.append(propertyText)
         return propertyTextList
 
-    def viewReviews(self):
-        agentId = self.getUser().getUserID()
-        reviewsTextList = []
-        reviewsList = self.getReview().findReviewByAgentId(agentId)
-        for review in reviewsList:
-            senderId = review.getSenderId()
-            senderName = self.findUsernameByUserId(senderId)
-            reviewsTextList.append(senderName)
-            reviewsTextList.append(review.getRating())
-            reviewsTextList.append(review.getComment())
-        return reviewsList
+    def viewReviewsAndRating(self):
+        pass
     def viewAllProperty(self):
         agentId = self.getUser().getUserID()
         propertyTextList = []
@@ -86,6 +81,3 @@ class AgentControl(UserControl):
         return propertyTextList
 
 
-agent = Agent(userid=3)
-agentControl = AgentControl(agent)
-print(agentControl.viewReviews())

@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from control.UserControl import UserControl
-from control.AgentControl import AgentControl
+from His.AgentControl import AgentControl
 from AdminMenu import AdminMenu
 from AgentMenu import AgentMenu
 
@@ -14,8 +14,8 @@ class LoginWindow:
     def login(self):
         Layout = [
             [sg.Text('Log In')],
-            [sg.Text('UserName'), sg.InputText(default_text='admin1')],
-            [sg.Text('PassWord'), sg.InputText(default_text='admin123')],
+            [sg.Text('UserName'), sg.InputText()],
+            [sg.Text('PassWord'), sg.InputText()],
             [sg.Button('Login'), sg.Button('Cancel')]
         ]
         window = sg.Window('login', Layout)

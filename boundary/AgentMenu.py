@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from control.AgentControl import AgentControl
+from His.AgentControl import AgentControl
 
 class AgentMenu:
 
@@ -54,13 +54,13 @@ class AgentMenu:
     def create(self):
         title = ''
         Layout = [
-            [sg.Text('Title',size=8),sg.InputText('Title')],
-            [sg.Text('Description',size=8), sg.InputText('Description')],
-            [sg.Text('BedNum',size=8), sg.InputText(1)],
-            [sg.Text('BathNum',size=8), sg.InputText(1)],
-            [sg.Text('Size', size=8), sg.InputText(1)],
-            [sg.Text('Price', size=8), sg.InputText(1)],
-            [sg.Text('Seller', size=8), sg.InputText('seller1')],
+            [sg.Text('Title',size=8),sg.InputText()],
+            [sg.Text('Description',size=8), sg.InputText()],
+            [sg.Text('BedNum',size=8), sg.InputText()],
+            [sg.Text('BathNum',size=8), sg.InputText()],
+            [sg.Text('Size', size=8), sg.InputText()],
+            [sg.Text('Price', size=8), sg.InputText()],
+            [sg.Text('Seller', size=8), sg.InputText()],
             [sg.Button('Create'),sg.Button('Cancel')]
         ]
         window = sg.Window('Create', Layout)
@@ -69,10 +69,13 @@ class AgentMenu:
             if event in ('Cancel',None):
                 break
             if event == 'Create':
-                self.getAgentCountrol().createProperty(value[0],value[1],int(value[2]),int(value[3]),int(value[4]),float(value[5]),value[6])
-                title = value[0]
-                sg.Popup('Create success!')
-                break
+                try:
+                    self.getAgentCountrol().createProperty(value[0],value[1],int(value[2]),int(value[3]),int(value[4]),float(value[5]),value[6])
+                    title = value[0]
+                    sg.Popup('Create success!')
+                    break
+                except Exception as e:
+                    sg.Popup('seller not exist')
         window.close()
         return title
 
