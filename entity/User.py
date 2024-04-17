@@ -33,9 +33,12 @@ class User:
                 sqlQuery = 'insert into users (Username,Password,Email,UserType,UserStatus) values (%s,%s,%s,%s,%s)'
                 cursor.execute(sqlQuery, values)
                 connect.commit()
+                return True
+        except Exception:
+            return False
         finally:
             connect.close()
-        return True
+
 
     # update a user by username from database.
     def updataUser(self,oldUsername,newUsername,password,email,userType,userStatus):
@@ -47,9 +50,12 @@ class User:
                 sqlQuery = 'update users set Username = %s, Password = %s, Email = %s, UserType = %s ,UserStatus = %s where Username = %s'
                 cursor.execute(sqlQuery, values)
                 connect.commit()
+                return True
+        except Exception:
+            return False
         finally:
             connect.close()
-        return True
+
 
     # search a user by username from database.
     def searchUser(self, username):
@@ -110,3 +116,21 @@ class User:
                 username = usernameDate['username']
                 usernameList.append(username)
         return usernameList
+
+    def checkLogin(self,username,passwrod):
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select password,userstatus from users where username = %s'
+            cursor.execute(sqlQuery,username)
+            value = cursor.fetchone()
+            if value is None:
+                return False
+            realPassword = value['password']
+            realStatus = value['userstatus']
+            if realPassword == passwrod and realStatus == 'valid':
+                return True
+            else:
+                return False
+
+
