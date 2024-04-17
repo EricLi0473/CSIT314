@@ -1,4 +1,4 @@
-from control.UserControl import UserControl
+from controller.UserControl import UserControl
 from entity.Agent import Agent
 from entity.Property import Property
 
