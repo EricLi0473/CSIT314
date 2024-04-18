@@ -1,8 +1,9 @@
 from boundary.AdminMenu import *
 from AdminMenu_Dialog_AddUser_start import DialogAddUser
+from AdminMenu_Dialog_UpdateUser_start import DialogUpdateUser
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout
+    QWidget, QHBoxLayout, QDialog
 
 from controller.AdminControl import AdminControl
 
@@ -39,6 +40,7 @@ class AdminMenu(QMainWindow):
 
 
         self.ui.btn_addUser.clicked.connect(self.openAddUserDialog)
+
 
         self.ui.SearchLineEdit.textChanged.connect(self.filterUsers)
 
@@ -162,10 +164,23 @@ class AdminMenu(QMainWindow):
 
 
     def editUser(self, row):
-        # 获取用户信息
-        username = self.ui.TableWidget1.item(row, 0).text()
-        # 执行编辑操作
-        print(f"Edit user {username}")
+
+        oldUsername = self.ui.TableWidget1.item(row, 0).text()  # 假设第0列是用户名
+
+        update_dialog = DialogUpdateUser()
+
+        if update_dialog.exec_() == QtWidgets.QDialog.Accepted:
+            # 用户点击了对话框中的确认按钮
+            # 获取对话框中的更新后的用户数据
+            newUsername, newPassword, newEmail, newUserType, newStates = update_dialog.getUpdatedData()
+
+            # 调用后端的更新方法来更新用户信息
+            admin_control = AdminControl()
+            admin_control.updateUser(oldUsername, newUsername, newPassword, newEmail, newUserType, newStates)
+
+            # 更新完毕后刷新表格显示
+            self.displayUserList()
+
 
 
     # function冻结用户
@@ -202,7 +217,7 @@ class AdminMenu(QMainWindow):
                 QMessageBox.warning(self, '失败', f"用户 {username} 激活失败")
 
 
-    # 信号处理器，响应用户在搜索框（QLineEdit）中的输入。当用户在搜索框中键入文字时，此方法会被触发
+    # 信号处理器，实时响应用户在搜索框（QLineEdit）中的输入。当用户在搜索框中键入文字时，此方法会被触发
     def filterUsers(self, text):
         # 从当前用户数据中过滤用户
         self.displayFilteredUsers(text)

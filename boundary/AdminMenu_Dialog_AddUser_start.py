@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetI
 
 class DialogAddUser(QDialog):
 
+    # 为dialog窗口设置触发信号
     userAdded = pyqtSignal()
 
 
