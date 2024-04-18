@@ -27,17 +27,11 @@ class Review:
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = """
-                SELECT Users.Username as SenderName, Reviews.Rating, Reviews.Comment
-                FROM Reviews
-                JOIN Users ON Reviews.SenderId = Users.UserId
-                WHERE Reviews.ReceiverId = %s
-            """
+            sqlQuery = f'select * from reviews where receiverId = %s'
             cursor.execute(sqlQuery, agentId)
             reviewsDataList = cursor.fetchall()
             for review in reviewsDataList:
-                review = Review
-
-
-        return userId
+                review = Review(review['ReviewID'],review['SenderId'],review['ReceiverId'],review['Rating'],review['Comment'])
+                reviewsList.append(review)
+        return reviewsList
 
