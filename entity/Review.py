@@ -27,17 +27,27 @@ class Review:
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = """
-                SELECT Users.Username as SenderName, Reviews.Rating, Reviews.Comment
-                FROM Reviews
-                JOIN Users ON Reviews.SenderId = Users.UserId
-                WHERE Reviews.ReceiverId = %s
-            """
+            sqlQuery = f'select * from reviews where receiverId = %s'
             cursor.execute(sqlQuery, agentId)
             reviewsDataList = cursor.fetchall()
             for review in reviewsDataList:
-                review = Review
+                review = Review(review['ReviewID'],review['SenderId'],review['ReceiverId'],review['Rating'],review['Comment'])
+                reviewsList.append(review)
+        return reviewsList
 
 
-        return userId
-
+    def addReview(self,senderId,receiverId,rating,comment):
+        values = (senderId,receiverId,rating,comment)
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = 'insert into reviews (SenderId,ReceiverId,Rating,Comment) values (%s,%s,%s,%s)'
+                cursor.execute(sqlQuery, values)
+                connect.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+        finally:
+            connect.close()

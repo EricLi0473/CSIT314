@@ -126,3 +126,58 @@ class Property:
                                     propertyData['AgentId'], propertyData['SellerId'])
                 propertyList.append(property)
         return propertyList
+
+    def viewAllProperty(self):
+        propertyList = []
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select * from properties'
+            cursor.execute(sqlQuery)
+            propertyDataList = cursor.fetchall()
+            for propertyData in propertyDataList:
+                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                                    propertyData['BathNum'], propertyData['Size'], propertyData['Price'],
+                                    propertyData['Status'], propertyData['Views'], propertyData['Shortlisted'],
+                                    propertyData['AgentId'], propertyData['SellerId'])
+                propertyList.append(property)
+        return propertyList
+
+    def findPropertyBySellerId(self,sellerId):
+        propertyList = []
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select * from properties where sellerId = %s'
+            cursor.execute(sqlQuery,sellerId)
+            propertyDataList = cursor.fetchall()
+            for propertyData in propertyDataList:
+                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                                    propertyData['BathNum'], propertyData['Size'], propertyData['Price'],
+                                    propertyData['Status'], propertyData['Views'], propertyData['Shortlisted'],
+                                    propertyData['AgentId'], propertyData['SellerId'])
+                propertyList.append(property)
+        return propertyList
+
+    def viewsCountPlasOne(self,title):
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select views from properties where title = %s'
+            cursor.execute(sqlQuery, title)
+            count = cursor.fetchone()['views']
+            count = count + 1
+            value = (count,title)
+        with connect.cursor() as cursor:
+            sqlQuery = 'update users set views = %s where title = %s'
+            cursor.execute(sqlQuery, value)
+        return True
+    def findPropertyIdByName(self,title):
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select PropertyId from properties where Title = %s'
+            cursor.execute(sqlQuery,title)
+            propertyId = cursor.fetchone()['PropertyId']
+        return propertyId
+
