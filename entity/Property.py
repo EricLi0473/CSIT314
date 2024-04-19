@@ -65,31 +65,45 @@ class Property:
         values = (title, description, bedNum, bathNum, size,price,'available','0','0',agentid,sellerid)
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = ('insert into properties (Title,Description,BedNum,BathNum,Size,price,Status,Views,Shortlisted,AgentId,SellerId) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)')
-            cursor.execute(sqlQuery, values)
-            connect.commit()
-        connect.close()
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = ('insert into properties (Title,Description,BedNum,BathNum,Size,price,Status,Views,Shortlisted,AgentId,SellerId) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)')
+                cursor.execute(sqlQuery, values)
+                connect.commit()
+        except Exception:
+            return False
+        finally:
+            connect.close()
+        return True
 
     def removeProperty(self, title):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = 'delete from properties where title = %s'
-            cursor.execute(sqlQuery, title)
-            connect.commit()
-        connect.close()
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = 'delete from properties where title = %s'
+                cursor.execute(sqlQuery, title)
+                connect.commit()
+        except Exception:
+            return False
+        finally:
+            connect.close()
+        return True
+
 
     def updateProperty(self,oldTitle,newTitle,description,bedNum,bathNum,size,price,status,
                        sellerId):
-        values = (newTitle,description,bedNum,bathNum,size,price,status,sellerId,oldTitle)
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
         try:
+            values = (newTitle,description,bedNum,bathNum,size,price,status,sellerId,oldTitle)
+            connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                      cursorclass=pymysql.cursors.DictCursor)
+
             with connect.cursor() as cursor:
                 sqlQuery = 'update properties set title = %s, description = %s, bedNum = %s, bathNum = %s ,size = %s, price = %s,status = %s,SellerId = %s where title = %s'
                 cursor.execute(sqlQuery, values)
                 connect.commit()
+        except Exception:
+            return False
         finally:
             connect.close()
         return True
@@ -107,7 +121,7 @@ class Property:
                                     propertyData['Status'],propertyData['Views'],propertyData['Shortlisted'],
                                     propertyData['AgentId'],propertyData['SellerId'])
             else:
-                raise Exception('Not found property')
+                return False
         connect.close()
         return property
 
@@ -125,6 +139,7 @@ class Property:
                                     propertyData['Status'], propertyData['Views'], propertyData['Shortlisted'],
                                     propertyData['AgentId'], propertyData['SellerId'])
                 propertyList.append(property)
+        connect.close()
         return propertyList
 
     def viewAllProperty(self):
