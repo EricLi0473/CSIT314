@@ -13,27 +13,20 @@ class Profile:
     def findProfileNameById(self,profileId):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        try:
-            with connect.cursor() as cursor:
-                sqlQuery = f'select profileName from profile where profileId = %s'
-                cursor.execute(sqlQuery,profileId)
-                profile = cursor.fetchone()
-                name = profile['profileName']
-            return name
-        except Exception:
-            return None
-        finally:
-            connect.close()
-
+        with connect.cursor() as cursor:
+            sqlQuery = f'select profileName from profile where profileId = %s'
+            cursor.execute(sqlQuery,profileId)
+            name = cursor.fetchone()['profilename']
+        connect.close()
+        return name
 
     def findProfileIdByName(self,name):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = f'select ProfileId from profile where profileName = %s'
+            sqlQuery = f'select ProfileId from users where profileName = %s'
             cursor.execute(sqlQuery,name)
-            profile = cursor.fetchone()
-            profileId = profile['ProfileId']
+            profileId = cursor.fetchone()['userid']
         connect.close()
         return profileId
 
@@ -68,8 +61,8 @@ class Profile:
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = f'update profile set ProfileName = %s where ProfileName = %s'
-            cursor.execute(sqlQuery,(newProfileName,oldProfileName))
+            sqlQuery = f'update profile set profileName = %s where profileName = %s'
+            cursor.execute(sqlQuery,(oldProfileName,newProfileName))
             connect.commit()
         connect.close()
         return True
@@ -78,14 +71,10 @@ class Profile:
     def findAProfile(self,profileName):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        try:
-            with connect.cursor() as cursor:
-                sqlQuery = f'select * from profile where profileName = %s'
-                cursor.execute(sqlQuery,profileName)
-                profileData = cursor.fetchone()
-                profile = Profile(profileData['ProfileId'],profileData['ProfileName'])
-                return profile
-        except Exception:
-            return Profile()
-        finally:
-            connect.close()
+        with connect.cursor() as cursor:
+            sqlQuery = f'select * from profile where profileName = %s'
+            cursor.execute(sqlQuery,profileName)
+            profileData = cursor.fetchone()
+            profile = Profile(profileData['ProfileId'],profileData['ProfileName'])
+        connect.close()
+        return profile

@@ -5,8 +5,14 @@ class ViewAllPropertyControl:
         pass
     def viewAllProperty(self,agentName):
         agentId = User().findUserIdByUserName(agentName)
+        return Property().findPropertyByAgentId(agentId)
+
+    '''
+    查看中介名下所有房产,返回list[Property:object]
+    [<entity.Property.Property object at 0x0000021151D759A0>, <entity.Property.Property object at 0x0000021151D75970>,]
+    '''
+    def transferPropertiesToList(self,propertyList):
         propertyTextList = []
-        propertyList = Property().findPropertyByAgentId(agentId)
         for property in propertyList:
             propertyText = []
             propertyText.append(property.getTitle())
@@ -24,7 +30,10 @@ class ViewAllPropertyControl:
             propertyTextList.append(propertyText)
         return propertyTextList
 
-'''
-中介查看名下所有房产
-返回二维列表，没有报错信息
-'''
+    '''
+    解析list[Property:object]-> list[list[property:string]]
+    [['P1', '1', 1, 1, 1, 1.0, 'available', 0, 0, 'seller1'], ['Property3', 'Spacious villa with a pool', 4, 4, 5000, 600000.0, 'available', 0, 0, 'seller1']]
+    '''
+
+v1 = ViewAllPropertyControl()
+print(v1.transferPropertiesToList(v1.viewAllProperty("agent1")))
