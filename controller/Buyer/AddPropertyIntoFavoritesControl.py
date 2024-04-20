@@ -10,6 +10,7 @@ class AddPropertyIntoFavoritesControl:
         try:
             userId = User().findUserIdByUserName(username)
             propertyId = Property().findPropertyIdByName(title)
+            Property().favoritesCountPlasOne(title)
             return Favorites().addIntoFavorities(userId,propertyId)
         except Exception:
             return False

@@ -1,17 +1,20 @@
 from entity.User import User
-class ViewUserControl:
+from entity.Profile import Profile
+class ViewUserController:
     def __init__(self):
         pass
 
     def viewAllUser(self):
+        return User().findAllUser()
+
+    def TransferUserToList(self,userList):
         userTextList = []
-        userList = User().findAllUser()
         for user in userList:
             userText = []
             userText.append(user.getUsername())
             userText.append(user.getPassword())
             userText.append(user.getEmail())
-            userText.append(user.getUserType())
+            userText.append(Profile().findProfileNameById(user.getUserTypeId()))
             userText.append(user.getUserStatus())
             userTextList.append(userText)
         return userTextList
