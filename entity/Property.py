@@ -44,7 +44,8 @@ class Property:
         with connect.cursor() as cursor:
             sqlQuery = f'select PropertyId from properties where Title = %s'
             cursor.execute(sqlQuery,title)
-            propertyId = cursor.fetchone()['PropertyId']
+            property = cursor.fetchone()
+            propertyId = property['PropertyId']
         connect.close()
         return propertyId
 
@@ -147,38 +148,54 @@ class Property:
     def findAProperty(self, title):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = 'select * from properties where title = %s'
-            cursor.execute(sqlQuery, title)
-            propertyData = cursor.fetchone()
-            property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
-                                propertyData['BathNum'],propertyData['Size'],propertyData['Price'],
-                                propertyData['Status'],propertyData['Views'],propertyData['Shortlisted'],
-                                propertyData['AgentId'],propertyData['SellerId'])
-        connect.close()
-        return property
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = 'select * from properties where title = %s'
+                cursor.execute(sqlQuery, title)
+                propertyData = cursor.fetchone()
+                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                                    propertyData['BathNum'],propertyData['Size'],propertyData['Price'],
+                                    propertyData['Status'],propertyData['Views'],propertyData['Shortlisted'],
+                                    propertyData['AgentId'],propertyData['SellerId'])
+                return property
+        except Exception:
+            return Property()
+        finally:
+            connect.close()
+
 
     # 26 As a seller, I want to be able to track the number of views on properties so that I can know how many people are interested in this property.
     def findViewByTitle(self, title):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = 'select views from properties where title = %s'
-            cursor.execute(sqlQuery, title)
-            view = cursor.fetchone()['views']
-        connect.close()
-        return view
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = 'select views from properties where title = %s'
+                cursor.execute(sqlQuery, title)
+                view = cursor.fetchone()['views']
+                return view
+        except Exception:
+            return -1
+        finally:
+            connect.close()
+
 
     # 27 As a seller, I want to be able to track the number of times being shortlisted on properties so that I can better understand the market feedback and demand for property.
     def findShortlistedByTitle(self, title):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = 'select views from properties where title = %s'
-            cursor.execute(sqlQuery, title)
-            shortlisted = cursor.fetchone()['Shortlisted']
-        connect.close()
-        return shortlisted
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = 'select Shortlisted from properties where title = %s'
+                cursor.execute(sqlQuery, title)
+                property = cursor.fetchone()
+                shortlisted = property['Shortlisted']
+            return shortlisted
+        except Exception:
+            return -1
+        finally:
+            connect.close()
+
 
     # 35 As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
     def viewAllProperty(self):

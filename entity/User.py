@@ -38,7 +38,8 @@ class User:
         with connect.cursor() as cursor:
             sqlQuery = f'select userid from users where username = %s'
             cursor.execute(sqlQuery,username)
-            userId = cursor.fetchone()['userid']
+            user = cursor.fetchone()
+            userId = user['userid']
         connect.close()
         return userId
 

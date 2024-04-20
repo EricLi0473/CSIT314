@@ -1,10 +1,13 @@
 from entity.Property import Property
 from entity.User import User
-class SearchPropertiesControl:
+class SearchPropertyController:
     def __init__(self):
         pass
-    def SearchProperty(self,title):
-        property = Property().searchProperty(title)
+    def searchProperty(self,title):
+        Property().viewsCountPlasOne(title)
+        return Property().findAProperty(title)
+
+    def transferPropertyToList(self,property):
         propertyText = []
         propertyText.append(property.getTitle())
         propertyText.append(property.getDescription())
@@ -13,12 +16,6 @@ class SearchPropertiesControl:
         propertyText.append(property.getSize())
         propertyText.append(property.getPrice())
         propertyText.append(property.getStatus())
-        Property().viewsCountPlasOne(title)
         return propertyText
 
-'''
-用法：按照title搜索房产信息
-返回值：一维列表
-['Property1', 'Beautiful house with a garden', 3, 2, 2000, 300000.0, 'available']
-'''
 

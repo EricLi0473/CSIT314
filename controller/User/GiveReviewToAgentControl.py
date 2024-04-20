@@ -6,8 +6,10 @@ class GiveReviewToAgentControl:
         pass
 
     def giveReviewToAgent(self,senderName,agentName,rating,comment):
-        senderId = User().findUserIdByUserName(senderName)
-        agentId = User().findUserIdByUserName(agentName)
+        try:
+            senderId = User().findUserIdByUserName(senderName)
+            agentId = User().findUserIdByUserName(agentName)
+        except Exception:
+            return False
         return Review().addReview(senderId,agentId,rating,comment)
-
 
