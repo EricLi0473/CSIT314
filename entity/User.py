@@ -46,7 +46,7 @@ class User:
     # 12 As a real estate agent, I want to be able to log into my account so that I can access and manage various aspects of properties.
     # 21 As a seller, I want to be able to log into my account so that I can enter the real estate system.
     # 30 As a buyer, I want to be able to log into my account so that I can enter the real estate system.
-    def checkLogin(self,username,passwrod):
+    def checkLogin(self,username,password):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
@@ -57,7 +57,7 @@ class User:
                 return False
             realPassword = value['password']
             realStatus = value['userstatus']
-            if realPassword == passwrod and realStatus == 'valid':
+            if realPassword == password and realStatus == 'valid':
                 return True
             else:
                 return False

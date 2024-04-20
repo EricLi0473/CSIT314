@@ -109,6 +109,8 @@ class Property:
             sqlQuery = f'select * from properties where agentId = %s'
             cursor.execute(sqlQuery,agentId)
             propertyDataList = cursor.fetchall()
+            if propertyDataList is None:
+                return Property()
             for propertyData in propertyDataList:
                 property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
                                     propertyData['BathNum'], propertyData['Size'], propertyData['Price'],
@@ -151,6 +153,8 @@ class Property:
             sqlQuery = 'select * from properties where title = %s'
             cursor.execute(sqlQuery, title)
             propertyData = cursor.fetchone()
+            if propertyData is None:
+                return Property()
             property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
                                 propertyData['BathNum'],propertyData['Size'],propertyData['Price'],
                                 propertyData['Status'],propertyData['Views'],propertyData['Shortlisted'],
