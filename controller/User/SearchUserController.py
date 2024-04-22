@@ -15,3 +15,6 @@ class SearchUserController:
         userText.append(Profile().findProfileNameById(user.getUserTypeId()))
         userText.append(user.getUserStatus())
         return userText
+
+
+"""返回object，再转换成list"""

@@ -41,5 +41,3 @@ class SearchPropertyControl:
     [None,None....]
     '''
 
-S1 = SearchPropertyControl()
-print(S1.transferPropertyToList(S1.searchProperty("P")))

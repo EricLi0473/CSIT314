@@ -1,12 +1,12 @@
 from entity.Profile import Profile
-class ViewUserController:
+class ViewProfilesController:
     def __init__(self):
         pass
 
     def viewAllProfile(self):
         return Profile().findAllProfile()
 
-    def TransferUserToList(self,profileList):
+    def TransferProfileToList(self,profileList):
         profileTextList = []
         for profile in profileList:
             profileText = []

@@ -6,3 +6,7 @@ class CreateProfileController:
 
     def createProfile(self,name):
         return Profile().addProfile(name)
+
+
+
+"全新的用户类型"

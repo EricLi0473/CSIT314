@@ -17,7 +17,7 @@ class ViewAllPropertyControl:
             propertyText = []
             propertyText.append(property.getTitle())
             propertyText.append(property.getDescription())
-            propertyText.append(property.getBathNum())
+            propertyText.append(property.getBedNum())
             propertyText.append(property.getBathNum())
             propertyText.append(property.getSize())
             propertyText.append(property.getPrice())
@@ -34,6 +34,3 @@ class ViewAllPropertyControl:
     解析list[Property:object]-> list[list[property:string]]
     [['P1', '1', 1, 1, 1, 1.0, 'available', 0, 0, 'seller1'], ['Property3', 'Spacious villa with a pool', 4, 4, 5000, 600000.0, 'available', 0, 0, 'seller1']]
     '''
-
-v1 = ViewAllPropertyControl()
-print(v1.transferPropertiesToList(v1.viewAllProperty("agent1")))

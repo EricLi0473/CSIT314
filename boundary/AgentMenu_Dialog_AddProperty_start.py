@@ -1,26 +1,25 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.AdminMenu_Dialog_AddUser import *
-from controller.User.CreateUserController import CreateUserController
+from boundary.AgentMenu_Dialog_AddProperty import *
+from controller.Agent.CreatePropertyControl import CreatePropertyControl
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog
 
 
-class DialogAddUser(QDialog):
+class DialogAddProperty(QDialog):
 
     # 为dialog窗口设置触发信号
-    userAdded = pyqtSignal()
+    propertyAdded = pyqtSignal()
 
 
-    def __init__(self, parent=None):
-        super(DialogAddUser, self).__init__(parent)
-        self.ui = Ui_Dialog_AddUser()
+    def __init__(self, agent_name, parent=None):
+        super(DialogAddProperty, self).__init__(parent)
+        self.agent_name = agent_name
+        self.ui = Ui_Dialog_AddProperty()
         self.ui.setupUi(self)
 
-        self.ui.ComboBox_type.addItems(["admin", "agent", "buyer", "seller"])
-
-        self.ui.PushButton_create.clicked.connect(self.userCreate)
+        self.ui.PushButton_create.clicked.connect(self.propertyCreate)
 
     # GUI窗口拖动
     def mousePressEvent(self, event):
@@ -39,24 +38,29 @@ class DialogAddUser(QDialog):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
-    def userCreate(self):
+    def propertyCreate(self):
         try:
             # 获取输入框和组合框中的值
-            username = self.ui.LineEdit_username.text()
-            password = self.ui.LineEdit_password.text()
-            email = self.ui.LineEdit_email.text()
-            userType = self.ui.ComboBox_type.currentText()
+            title = self.ui.LineEdit_title.text()
+            description = self.ui.LineEdit_des.text()
+            bedrooms = self.ui.LineEdit_bed.text()
+            bathrooms = self.ui.LineEdit_bath.text()
+            size = self.ui.LineEdit_size.text()
+            price = self.ui.LineEdit_price.text()
+            seller = self.ui.LineEdit_seller.text()
 
             # 调用后端的 createUser 方法
-            create_control = CreateUserController()
-            success = create_control.createUser(username, password, email, userType)
+            create_control = CreatePropertyControl()
+            print(self.agent_name,title,description,bedrooms,bathrooms,size,price,seller)
+            success = create_control.createProperty(self.agent_name, title, description, bedrooms, bathrooms
+                                                    , size, price, seller)
 
             if success:
-                self.userAdded.emit()
+                self.propertyAdded.emit()
                 self.accept()  # 关闭对话框
                 return True
             else:
-                QMessageBox.warning(self, "Error", "Could not create user.")
+                QMessageBox.warning(self, "Error", "Could not create property.")
                 return False
         except Exception as e:
             # 打印或记录异常信息

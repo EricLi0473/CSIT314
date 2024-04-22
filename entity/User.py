@@ -118,6 +118,16 @@ class User:
         connect.close()
         return True
 
+    def activateUser(self,username):
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = 'update users set UserStatus = %s where Username = %s'
+            cursor.execute(sqlQuery, ('valid',username))
+            connect.commit()
+        connect.close()
+        return True
+
     # 11 As a system admin, I want to be able to search a user account so that I can view the details of the accounts.
     # 24 As a seller, I want to be able to view my account so that I can ensure my details are correct.
     # 33 As a buyer, I want to be able to view my account so that I can ensure my details are correct.
