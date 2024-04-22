@@ -124,11 +124,7 @@ class AdminMenu(QMainWindow):
     # function在表格窗口（user_manage_table_widget)中显示数据库中user的信息
     def displayUserList(self):
         viewUser_control = ViewUserController()    # 实例化AdminControl()
-        # viewProfile_control = ViewProfilesController()
-
         user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())     # 调用AdminControl中的viewAllUser（）方法，获取用户信息，并添加到user_list
-
-        ## profile_list = viewProfile_control.TransferProfileToList(viewProfile_control.viewAllProfile())
 
         self.ui.TableWidget1.clearContents()        # 清除 QTableWidget 中现有的内容，但保留表头
         self.ui.TableWidget1.setRowCount(len(user_list))        # 根据用户列表的长度，设置 QTableWidget 的行数

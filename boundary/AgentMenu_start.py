@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QSize, pyqtSignal
 from PyQt5.QtGui import QIcon, QColor, QFont
 
 from boundary.AgentMenu import *
@@ -26,6 +26,7 @@ from AgentMenu_Dialog_UpdateProperty_start import DialogUpdateProperty
 
 """
 class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
+    refreshRequested = pyqtSignal()
     def __init__(self, icon, title, content, isChecked=True, parent=None):
         super().__init__(icon=icon, title=title, content=content, isChecked=isChecked, parent=parent)
 
@@ -106,23 +107,22 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
 
     # 编辑按钮对应的触发函数
     def editContent(self):
-        # 编辑内容的逻辑
-        oldTitle = self.property_title
 
         update_dialog = DialogUpdateProperty()
 
         if update_dialog.exec_() == QtWidgets.QDialog.Accepted:
+            # 用户点击了对话框中的确认按钮
+            # 获取对话框中的更新后的用户数据
+            newTitle, description, bedNum, bathNum, size, price, status, sellerName = update_dialog.getUpdatedProperty()
 
-            newTitle, description, bedNum, bathNum, size, price, status, sellerName
-            = update_dialog()
+            # 调用后端的更新方法来更新用户信息
+            update_control = UpdatePropertyControl()
+            update_control.updatePropertry(newTitle, self.property_title, description, bedNum, bathNum, size, price,
+                                           status, sellerName)
 
+            # 更新完毕后刷新表格显示
 
-        update_property_control = UpdatePropertyControl()
-        update_property_control.updatePropertry(newTitle, oldTitle, description, bedNum, bathNum, size, price,
-                                                status, sellerName)
-
-        self.addContentDashboardCardWidgets()
-        print("Edit button clicked")
+            self.refreshRequested.emit()
 
 
     # 删除按钮对应额触发函数
@@ -236,6 +236,8 @@ class AgentMenu(QMainWindow):
             card_widget.label_status.setText(f"Status: {property_data[6]}")
             card_widget.label_views.setText(f"Views: {property_data[7]}")
             card_widget.label_seller.setText(f"Seller: {property_data[9]}")
+
+            card_widget.refreshRequested.connect(self.refreshUserList)
 
             layout.addWidget(card_widget)
 

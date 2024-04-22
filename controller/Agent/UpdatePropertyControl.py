@@ -8,8 +8,6 @@ class UpdatePropertyControl:
         try:
             sellerID = User().findUserIdByUserName(sellerName)
             Property().findAProperty(oldTitle)
-            if not isinstance(bedNum, int) or not isinstance(bathNum, int) or not (isinstance(price, int) or isinstance(price, float)):
-                raise Exception
             Property().updateProperty(newTitle=newTitle, oldTitle=oldTitle, description=description, bedNum=bedNum, bathNum=bathNum, size=size, price=price, status=status,sellerId=sellerID)
         except Exception:
             return False
@@ -20,3 +18,5 @@ class UpdatePropertyControl:
 更新成功返回True，如果错误返回False
 '''
 
+# u1 = UpdatePropertyControl()
+# u1.updatePropertry("property1","property1","111",1,1,1000,10000,"available","seller1")

@@ -2,7 +2,7 @@ from qfluentwidgetspro import setLicense
 
 from boundary.LoginMenu import *
 from boundary.AdminMenu_start import AdminMenu
-from boundary.AgentMenu_start import AgentMenu
+from boundary.AgentMenu_start import AgentMenu, ExtendedContentDashboardCardWidget
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox

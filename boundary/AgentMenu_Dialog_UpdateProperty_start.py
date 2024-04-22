@@ -43,7 +43,7 @@ class DialogUpdateProperty(QDialog):
         newTitle = self.ui.LineEdit_title.text()
         description = self.ui.LineEdit_des.text()
         bedNum = self.ui.LineEdit_bed.text()
-        bathNum = self.ui.LineEdit_bath.currentText()
+        bathNum = self.ui.LineEdit_bath.text()
         size = self.ui.LineEdit_size.text()
         price = self.ui.LineEdit_price.text()
         status = self.ui.ComboBox_status.currentText()
@@ -53,4 +53,3 @@ class DialogUpdateProperty(QDialog):
         self.accept()
 
         return newTitle, description, bedNum, bathNum, size, price, status, sellerName
-
