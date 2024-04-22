@@ -1,25 +1,25 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.AdminMenu_Dialog_UpdateUser import *
+from boundary.AgentMenu_Dialog_UpdateProperty import *
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog
 
 
-class DialogUpdateUser(QDialog):
+class DialogUpdateProperty(QDialog):
 
     # 为dialog窗口设置触发信号
-    userUpdated = pyqtSignal()
+    propertyUpdated = pyqtSignal()
 
 
     def __init__(self, parent=None):
-        super(DialogUpdateUser, self).__init__(parent)
-        self.ui = Ui_Dialog_UpdateUser()
+        super(DialogUpdateProperty, self).__init__(parent)
+        self.ui = Ui_Dialog_UpdateProperty()
         self.ui.setupUi(self)
 
-        self.ui.ComboBox_type.addItems(["admin", "agent", "buyer", "seller"])
+        self.ui.ComboBox_status.addItems(["available", "sold"])
 
-        self.ui.PushButton_update.clicked.connect(self.getUpdatedData)
+        self.ui.PushButton_update.clicked.connect(self.getUpdatedProperty)
 
     # GUI窗口拖动
     def mousePressEvent(self, event):
@@ -38,15 +38,19 @@ class DialogUpdateUser(QDialog):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
-    def getUpdatedData(self):
+    def getUpdatedProperty(self):
         # 收集对话框中的数据
-        newUsername = self.ui.LineEdit_newName.text()
-        password = self.ui.LineEdit_password.text()
-        email = self.ui.LineEdit_email.text()
-        userType = self.ui.ComboBox_type.currentText()
+        newTitle = self.ui.LineEdit_title.text()
+        description = self.ui.LineEdit_des.text()
+        bedNum = self.ui.LineEdit_bed.text()
+        bathNum = self.ui.LineEdit_bath.currentText()
+        size = self.ui.LineEdit_size.text()
+        price = self.ui.LineEdit_price.text()
+        status = self.ui.ComboBox_status.currentText()
+        sellerName = self.ui.LineEdit_seller.text()
 
-        self.userUpdated.emit()
+        self.propertyUpdated.emit()
         self.accept()
 
-        return newUsername, password, email, userType
+        return newTitle, description, bedNum, bathNum, size, price, status, sellerName
 

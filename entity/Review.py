@@ -1,6 +1,6 @@
 import pymysql
 class Review:
-    def __init__(self,reviewId = None,senderId = None,receiverID = None,rating = None,comment = None):
+    def __init__(self,reviewId = None,senderId = None,receiverID = None,rating = 0,comment = None):
         self.reviewId = reviewId
         self.senderId = senderId
         self.receiverId = receiverID

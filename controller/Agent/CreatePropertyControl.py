@@ -22,3 +22,5 @@ class CreatePropertyControl:
 中介创建新的房产信息
 创建成功返回True，错误返回False
 '''
+# c1 = CreatePropertyControl()
+# c1.createProperty("agent1","test","test",1,1,1,1,"seller1")

@@ -5,14 +5,21 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog
 
-from controller.AdminControl import AdminControl
-
+from controller.Admin.CreateProfileController import CreateProfileController
+from controller.Admin.FreezeUserController import FreezeUserController
+from controller.Admin.ActivateUserController import ActivateUserController
+from controller.Admin.SearchProfileController import SearchUserController
+from controller.User.UpdateUserController import UpdateUserController
+from controller.Admin.ViewProfilesController import ViewProfilesController
+from controller.Admin.ViewUsersController import ViewUserController
 
 class AdminMenu(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_AdminMenu()
         self.ui.setupUi(self)
+
+
 
         self.displayUserList()
 
@@ -116,8 +123,12 @@ class AdminMenu(QMainWindow):
 
     # function在表格窗口（user_manage_table_widget)中显示数据库中user的信息
     def displayUserList(self):
-        admin_control = AdminControl()              # 实例化AdminControl()
-        user_list = admin_control.viewAllUser()     # 调用AdminControl中的viewAllUser（）方法，获取用户信息，并添加到user_list
+        viewUser_control = ViewUserController()    # 实例化AdminControl()
+        # viewProfile_control = ViewProfilesController()
+
+        user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())     # 调用AdminControl中的viewAllUser（）方法，获取用户信息，并添加到user_list
+
+        ## profile_list = viewProfile_control.TransferProfileToList(viewProfile_control.viewAllProfile())
 
         self.ui.TableWidget1.clearContents()        # 清除 QTableWidget 中现有的内容，但保留表头
         self.ui.TableWidget1.setRowCount(len(user_list))        # 根据用户列表的长度，设置 QTableWidget 的行数
@@ -138,8 +149,8 @@ class AdminMenu(QMainWindow):
             for column_index, data in enumerate(user_info):
                 self.ui.TableWidget1.setItem(row_index, column_index, QTableWidgetItem(str(data)))
                 self.setupTableButtons(row_index)
-
         self.ui.TableWidget1.viewport().update()  # 要求 QTableWidget 的视图组件进行更新，以便显示最新的内容
+
 
 
 
@@ -165,19 +176,18 @@ class AdminMenu(QMainWindow):
 
     def editUser(self, row):
 
-        oldUsername = self.ui.TableWidget1.item(row, 0).text()  # 假设第0列是用户名
+        oldUsername = self.ui.TableWidget1.item(row, 0).text()
 
         update_dialog = DialogUpdateUser()
 
         if update_dialog.exec_() == QtWidgets.QDialog.Accepted:
             # 用户点击了对话框中的确认按钮
             # 获取对话框中的更新后的用户数据
-            newUsername, newPassword, newEmail, newUserType, newStates = update_dialog.getUpdatedData()
+            newUsername, newPassword, newEmail, newUserType = update_dialog.getUpdatedData()
 
             # 调用后端的更新方法来更新用户信息
-            admin_control = AdminControl()
-            admin_control.updateUser(oldUsername, newUsername, newPassword, newEmail, newUserType, newStates)
-
+            update_control = UpdateUserController()
+            update_control.updateUser(oldUsername, newUsername, newPassword, newEmail, newUserType)
             # 更新完毕后刷新表格显示
             self.displayUserList()
 
@@ -192,13 +202,14 @@ class AdminMenu(QMainWindow):
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # 选择是的时候，调用AdminControl中的freezeUser方法
         if reply == QMessageBox.Yes:
-            admin_control = AdminControl()
-            success = admin_control.freezeUser(username)
+            freeze_control = FreezeUserController()
+            success = freeze_control.freezeUser(username)
             if success:
                 QMessageBox.information(self, '成功', f"用户 {username} 已被冻结")
                 self.ui.TableWidget1.item(row, 4).setText('invalid')  # 更新状态
             else:
                 QMessageBox.warning(self, '失败', f"用户 {username} 冻结失败")
+
 
     def activateUser(self, row):
         # 获取用户信息
@@ -208,13 +219,14 @@ class AdminMenu(QMainWindow):
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # 选择是的时候，调用AdminControl中的activateUser方法
         if reply == QMessageBox.Yes:
-            admin_control = AdminControl()
-            success = admin_control.activateUser(username)
+            activate_user_control = ActivateUserController()
+            success = activate_user_control.activateUser(username)
             if success:
                 QMessageBox.information(self, '成功', f"用户 {username} 已被激活")
                 self.ui.TableWidget1.item(row, 4).setText('valid')  # 更新状态
             else:
                 QMessageBox.warning(self, '失败', f"用户 {username} 激活失败")
+
 
 
     # 信号处理器，实时响应用户在搜索框（QLineEdit）中的输入。当用户在搜索框中键入文字时，此方法会被触发
@@ -224,9 +236,9 @@ class AdminMenu(QMainWindow):
 
     # 根据用户输入的文本来过滤和显示用户信息到表格
     def displayFilteredUsers(self, filter_text):
-        admin_control = AdminControl()
+        viewUser_control = ViewUserController()
 
-        user_list = admin_control.viewAllUser()        # 全部用户数据
+        user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())        # 全部用户数据
         self.ui.TableWidget1.clearContents()            # 清除当前内容
         self.ui.TableWidget1.setRowCount(0)             # 清除当前行数
 

@@ -18,3 +18,6 @@ class ViewUserController:
             userText.append(user.getUserStatus())
             userTextList.append(userText)
         return userTextList
+
+v1 = ViewUserController().viewAllUser()
+print(ViewUserController().TransferUserToList(v1))

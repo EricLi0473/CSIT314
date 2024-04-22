@@ -16,7 +16,7 @@ class Profile:
         with connect.cursor() as cursor:
             sqlQuery = f'select profileName from profile where profileId = %s'
             cursor.execute(sqlQuery,profileId)
-            name = cursor.fetchone()['profilename']
+            name = cursor.fetchone()['profileName']
         connect.close()
         return name
 
@@ -24,9 +24,9 @@ class Profile:
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = f'select ProfileId from users where profileName = %s'
+            sqlQuery = f'select ProfileId from Profile where profileName = %s'
             cursor.execute(sqlQuery,name)
-            profileId = cursor.fetchone()['userid']
+            profileId = cursor.fetchone()['ProfileId']
         connect.close()
         return profileId
 

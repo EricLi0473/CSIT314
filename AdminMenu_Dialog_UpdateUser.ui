@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>398</width>
-    <height>416</height>
+    <width>382</width>
+    <height>345</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -253,22 +253,6 @@ PlainTextEdit:disabled {
      </item>
      <item>
       <widget class="ComboBox" name="ComboBox_type"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_status">
-       <property name="font">
-        <font>
-         <family>PT Root UI Bold</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Status</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ComboBox" name="ComboBox_status"/>
      </item>
     </layout>
    </item>

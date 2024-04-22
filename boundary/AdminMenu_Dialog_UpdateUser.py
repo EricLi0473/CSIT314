@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog_UpdateUser(object):
     def setupUi(self, Dialog_UpdateUser):
         Dialog_UpdateUser.setObjectName("Dialog_UpdateUser")
-        Dialog_UpdateUser.resize(398, 416)
+        Dialog_UpdateUser.resize(382, 345)
         Dialog_UpdateUser.setStyleSheet("background-color: rgb(245, 250, 254);")
         self.gridLayout = QtWidgets.QGridLayout(Dialog_UpdateUser)
         self.gridLayout.setObjectName("gridLayout")
@@ -222,16 +222,6 @@ class Ui_Dialog_UpdateUser(object):
         self.ComboBox_type = ComboBox(Dialog_UpdateUser)
         self.ComboBox_type.setObjectName("ComboBox_type")
         self.verticalLayout.addWidget(self.ComboBox_type)
-        self.label_status = QtWidgets.QLabel(Dialog_UpdateUser)
-        font = QtGui.QFont()
-        font.setFamily("PT Root UI Bold")
-        font.setPointSize(12)
-        self.label_status.setFont(font)
-        self.label_status.setObjectName("label_status")
-        self.verticalLayout.addWidget(self.label_status)
-        self.ComboBox_status = ComboBox(Dialog_UpdateUser)
-        self.ComboBox_status.setObjectName("ComboBox_status")
-        self.verticalLayout.addWidget(self.ComboBox_status)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -398,7 +388,6 @@ class Ui_Dialog_UpdateUser(object):
         self.label_password.setText(_translate("Dialog_UpdateUser", "password"))
         self.label_email.setText(_translate("Dialog_UpdateUser", "email"))
         self.label_type.setText(_translate("Dialog_UpdateUser", "type"))
-        self.label_status.setText(_translate("Dialog_UpdateUser", "Status"))
         self.PushButton_update.setText(_translate("Dialog_UpdateUser", "update user"))
         self.PushButton_cancel.setText(_translate("Dialog_UpdateUser", "Cancel"))
 from qfluentwidgets import ComboBox, LineEdit, PushButton
