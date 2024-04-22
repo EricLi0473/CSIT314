@@ -1,14 +1,12 @@
 import pymysql
-class Review:
-    def __init__(self,reviewId = None,senderId = None,receiverID = None,rating = None,comment = None):
-        self.reviewId = reviewId
+class Rating:
+    def __init__(self,ratingId = None,senderId = None,receiverID = None,rating = -1):
+        self.ratingId = ratingId
         self.senderId = senderId
         self.receiverId = receiverID
         self.rating = rating
-        self.comment = comment
-
-    def getReviewId(self):
-        return self.reviewId
+    def getRatingId(self):
+        return self.ratingId
 
     def getSenderId(self):
         return self.senderId
@@ -19,35 +17,29 @@ class Review:
     def getRating(self):
         return self.rating
 
-    def getComment(self):
-        return self.comment
-
     # 19 As a real estate agent, I want to be able to view my rating of my services so that I can understand customer feedback and improve my service.
-    # 20 As a real estate agent, I want to be able to view my reviews of my services so that I can understand customer feedback and improve my service.
-    def findReviewByAgentId(self, agentId):
+    def findRatingByAgentId(self, agentId):
         reviewsList = []
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = f'select * from reviews where receiverId = %s'
+            sqlQuery = f'select * from rating where receiverId = %s'
             cursor.execute(sqlQuery, agentId)
             reviewsDataList = cursor.fetchall()
             for review in reviewsDataList:
-                review = Review(review['ReviewID'],review['SenderId'],review['ReceiverId'],review['Rating'],review['Comment'])
+                review = Rating(review['RatingID'],review['SenderId'],review['ReceiverId'],review['Rating'])
                 reviewsList.append(review)
         connect.close()
         return reviewsList
 
     # 28 As a seller, I want to be able to submit a rating in the system for the real estate agents so that I can share my satisfaction and experience.
-    # 29 As a seller, I want to be able to write a text to review my experience working with a real estate agent so that other users can learn more.
     # 40 As a buyer, I want to be able to submit a rating in the system for the real estate agents so that I can share my satisfaction and experience.
-    # 41 As a buyer, I want to be able to write a text to review my experience working with a real estate agent so that other users can learn more.
-    def addReview(self,senderId,receiverId,rating,comment):
-        values = (senderId,receiverId,rating,comment)
+    def addRating(self,senderId,receiverId,rating):
+        values = (senderId,receiverId,rating)
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = 'insert into reviews (SenderId,ReceiverId,Rating,Comment) values (%s,%s,%s,%s)'
+            sqlQuery = 'insert into rating (SenderId,ReceiverId,Rating) values (%s,%s,%s)'
             cursor.execute(sqlQuery, values)
             connect.commit()
         connect.close()
