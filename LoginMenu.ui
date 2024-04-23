@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1640</width>
     <height>830</height>
    </rect>
   </property>
@@ -60,11 +60,17 @@ border-bottom-right-radius:30px;
    <widget class="QLabel" name="label_introduce">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>160</y>
-      <width>241</width>
+      <x>760</x>
+      <y>180</y>
+      <width>311</width>
       <height>111</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>311</width>
+      <height>111</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -77,67 +83,6 @@ border-bottom-right-radius:30px;
     </property>
     <property name="text">
      <string>find your dream home today</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_username">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>270</y>
-      <width>311</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border:none;
-border-bottom:2px solid rgb(0,0,0);</string>
-    </property>
-    <property name="placeholderText">
-     <string>Username</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_password">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>350</y>
-      <width>311</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border:none;
-border-bottom:2px solid rgb(0,0,0);</string>
-    </property>
-    <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
-    </property>
-    <property name="placeholderText">
-     <string>Password</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>440</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial Rounded MT Bold</family>
-      <pointsize>9</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-      <underline>false</underline>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>Remember me</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
@@ -188,14 +133,20 @@ QPushButton:hover{
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_login">
+   <widget class="QPushButton" name="pushButton_account">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>500</y>
-      <width>311</width>
+      <x>760</x>
+      <y>300</y>
+      <width>141</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>141</width>
+      <height>41</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -220,17 +171,215 @@ QPushButton:pressed{
 }</string>
     </property>
     <property name="text">
-     <string>login</string>
+     <string>Have account</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_login_2">
+   <widget class="SlideAniStackedWidget" name="SlideAniStackedWidget">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>570</y>
-      <width>311</width>
+      <x>740</x>
+      <y>350</y>
+      <width>335</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="page_login">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLineEdit" name="lineEdit_username">
+          <property name="minimumSize">
+           <size>
+            <width>311</width>
+            <height>61</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border:none;
+border-bottom:2px solid rgb(0,0,0);</string>
+          </property>
+          <property name="placeholderText">
+           <string>Username</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_password">
+          <property name="minimumSize">
+           <size>
+            <width>311</width>
+            <height>61</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border:none;
+border-bottom:2px solid rgb(0,0,0);</string>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+          <property name="placeholderText">
+           <string>Password</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_login">
+        <property name="minimumSize">
+         <size>
+          <width>311</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Rounded MT Bold</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+
+	color: rgb(255, 255, 255);
+
+	border:2px solid rgb(0, 0, 0);
+
+	border-radius:10px;
+}
+
+QPushButton:pressed{
+	padding-top:5pax;
+	padding-left:5pax;
+}</string>
+        </property>
+        <property name="text">
+         <string>login</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="page_reg">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_username_reg">
+        <property name="minimumSize">
+         <size>
+          <width>311</width>
+          <height>61</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border:none;
+border-bottom:2px solid rgb(0,0,0);</string>
+        </property>
+        <property name="placeholderText">
+         <string>Username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_password_reg">
+        <property name="minimumSize">
+         <size>
+          <width>311</width>
+          <height>61</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border:none;
+border-bottom:2px solid rgb(0,0,0);</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Password</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_email">
+        <property name="minimumSize">
+         <size>
+          <width>311</width>
+          <height>61</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border:none;
+border-bottom:2px solid rgb(0,0,0);</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="placeholderText">
+         <string>email</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="ComboBox" name="ComboBox_type"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_reg">
+        <property name="minimumSize">
+         <size>
+          <width>311</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial Rounded MT Bold</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+
+	color: rgb(255, 255, 255);
+
+	border:2px solid rgb(0, 0, 0);
+
+	border-radius:10px;
+}
+
+QPushButton:pressed{
+	padding-top:5pax;
+	padding-left:5pax;
+}</string>
+        </property>
+        <property name="text">
+         <string>register</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Sign">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>300</y>
+      <width>141</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>141</width>
+      <height>41</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -255,20 +404,31 @@ QPushButton:pressed{
 }</string>
     </property>
     <property name="text">
-     <string>register</string>
+     <string>Sign up</string>
     </property>
    </widget>
    <zorder>label_input_layer</zorder>
    <zorder>label_introduce</zorder>
-   <zorder>lineEdit_username</zorder>
-   <zorder>lineEdit_password</zorder>
-   <zorder>checkBox</zorder>
    <zorder>label_picture</zorder>
    <zorder>frame</zorder>
-   <zorder>pushButton_login</zorder>
-   <zorder>pushButton_login_2</zorder>
+   <zorder>pushButton_account</zorder>
+   <zorder>SlideAniStackedWidget</zorder>
+   <zorder>pushButton_Sign</zorder>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SlideAniStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header>qfluentwidgetspro</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="res.qrc"/>
  </resources>

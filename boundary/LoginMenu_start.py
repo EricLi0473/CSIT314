@@ -2,12 +2,13 @@ from qfluentwidgetspro import setLicense
 
 from boundary.LoginMenu import *
 from boundary.AdminMenu_start import AdminMenu
-from boundary.AgentMenu_start import AgentMenu, ExtendedContentDashboardCardWidget
+from boundary.AgentMenu_start import AgentMenu
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
 from controller.User.LoginController import LoginController
+from controller.User.CreateUserController import CreateUserController
 
 
 class LoginMenu(QMainWindow):
@@ -17,16 +18,22 @@ class LoginMenu(QMainWindow):
         self.ui = Ui_loginWindow()
         self.ui.setupUi(self)
 
+        self.ui.pushButton_login.clicked.connect(self.login)    # 给login按钮绑定login的方法
 
-        self.ui.pushButton_login.clicked.connect(self.login)    # 给login按钮绑定事件槽
+        # 主界面have account和sign up绑定对应切换界面
+        self.ui.pushButton_account.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
+        self.ui.pushButton_Sign.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(1))
 
-         #  隐藏window窗口
+        self.ui.ComboBox_type.addItems(["admin","agent", "buyer", "seller"])    # 给注册时的combobox增加选项卡
+
+        self.ui.pushButton_reg.clicked.connect(self.signUp)     # 给sign up界面绑定signUp的方法
+
+        #  隐藏window窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.show()
 
-
-    # GUI窗口拖动
+        # GUI窗口拖动
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
             self.m_flag = True
@@ -43,32 +50,63 @@ class LoginMenu(QMainWindow):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
+    # 改进了代码架构，把登录成功后的检查userType并打开对应窗口封装成了一个方法
+    def after_login_success(self, username):
+        user_type = self.user_login_control.findUserType(username)
+        if user_type == 1:
+            self.adminMenu = AdminMenu()
+            self.adminMenu.show()
+        elif user_type == 2:
+            self.agentMenu = AgentMenu(username)
+            self.agentMenu.show()
+        else:
+            QMessageBox.warning(self, 'Error', 'User type not recognized.')
 
-    # login方法（检查用户输入的用户名和密码，是否与数据库匹配）
+    # login方法，封装套娃
     def login(self):
-
-        user_login_Control = LoginController()
+        self.user_login_control = LoginController()
 
         username = self.ui.lineEdit_username.text()
         password = self.ui.lineEdit_password.text()
 
         try:
-            if user_login_Control.checkLogin(username, password):
-                self.hide()  # 登录成功，隐藏登录窗口
-                user_type = user_login_Control.findUserType(username)
-                if user_type == 1:
-                    self.adminMenu = AdminMenu()
-                    self.adminMenu.show()
-
-                elif user_type == 2:
-                    self.agentMenu = AgentMenu(username)
-                    self.agentMenu.show()  # 显示 SellerMenu 窗口
-                else:
-                    QMessageBox.warning(self, 'Error', 'User type not recognized.')
+            if self.user_login_control.checkLogin(username, password):
+                self.hide()
+                self.after_login_success(username)      # 调用上面的type检查方法，套娃
             else:
                 QMessageBox.warning(self, 'Error', 'Invalid username or password.')
-        except Exception as e:
+        except Exception as e:  # Replace SpecificException with the actual exception you expect
             QMessageBox.warning(self, 'Error', str(e))
+
+
+    def signUp(self):
+        username = self.ui.lineEdit_username_reg.text()
+        password = self.ui.lineEdit_password_reg.text()
+        email = self.ui.lineEdit_email.text()
+        user_type = self.ui.ComboBox_type.currentText()
+
+        # 调用后端的 createUser 方法
+        create_control = CreateUserController()
+        success = create_control.createUser(username, password, email, user_type)
+
+        print(success)
+        print(username, password, email, user_type)
+        if success:
+            try:
+                username = username
+                password = password
+                self.user_login_control = LoginController()
+
+                if self.user_login_control.checkLogin(username, password):
+                    self.hide()
+                    self.after_login_success(username)  # 调用上面的type检查方法，套娃
+                else:
+                    QMessageBox.warning(self, 'Error', 'Invalid username or password.')
+            except Exception as e:  # Replace SpecificException with the actual exception you expect
+                QMessageBox.warning(self, 'Error', str(e))
+
+        else:
+            QMessageBox.warning(self, 'Error', 'Sign up failed. Please check your details.')
 
 if __name__ == '__main__':
     setLicense(

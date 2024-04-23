@@ -8,15 +8,13 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog, QVBoxLayout, QScrollArea, QLabel
 
+from qfluentwidgetspro import ContentDashboardCardWidget, SingleScoreWidget
 
-from qfluentwidgetspro import ContentDashboardCardWidget
-
-from controller.Agent.CreatePropertyControl import CreatePropertyControl
 from controller.Agent.RemovePropertyControl import RemovePropertyControl
-from controller.Agent.SearchPropertyControl import SearchPropertyControl
 from controller.Agent.UpdatePropertyControl import UpdatePropertyControl
 from controller.Agent.ViewAllPropertyControl import ViewAllPropertyControl
-from controller.Agent.ViewReviewsAndRatingControl import ViewReviewsAndRatingControl
+from controller.Agent.ViewRatingControl import ViewRatingControl
+from controller.Agent.ViewCommentControl import ViewCommentControl
 from AgentMenu_Dialog_AddProperty_start import DialogAddProperty
 from AgentMenu_Dialog_UpdateProperty_start import DialogUpdateProperty
 
@@ -25,12 +23,19 @@ from AgentMenu_Dialog_UpdateProperty_start import DialogUpdateProperty
 增加了一组水平布局的button，用于编辑和删除对应房产信息卡片
 
 """
+
+
 class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
+
+    # 这个信号跟agentMenu class里的addContentDashboardCardWidgets方法连接，用于编辑后刷新界面
     refreshRequested = pyqtSignal()
+
+    # 参数是icon，title，content
     def __init__(self, icon, title, content, isChecked=True, parent=None):
         super().__init__(icon=icon, title=title, content=content, isChecked=isChecked, parent=parent)
 
         self.property_title = title
+        self.content = content
 
         # 创建水平布局放置房产属性标签
         properties_layout = QHBoxLayout()
@@ -73,8 +78,38 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
         # 添加编辑和删除按钮
         self.edit_button = QPushButton('Edit')
         self.delete_button = QPushButton('Delete')
-        self.edit_button.setStyleSheet("QPushButton { min-width: 80px; }")
-        self.delete_button.setStyleSheet("QPushButton { min-width: 80px; }")
+        self.edit_button.setStyleSheet("QPushButton {"
+                                       "min-width: 250px; "
+                                       "min-height: 30px; "
+                                       "background-color: black;"
+                                       "color: white;"
+                                       "border: none;"
+                                       "border-radius: 15px;"
+                                       "font-family: PT Root UI;"  # 设置字体为 Arial
+                                       "font-size: 14px;"  # 设置字体大小为 14 像素
+                                       "font-weight: bold;"  # 设置字体加粗
+                                       "}"
+                                       "QPushButton:pressed {"
+                                       "padding-top: 5px;"
+                                       "padding-left: 5px;"
+                                       "}"
+                                       )
+        self.delete_button.setStyleSheet("QPushButton {"
+                                         "min-width: 250px; "
+                                         "min-height: 30px; "
+                                         "background-color: rgb(170, 0, 0);"
+                                         "color: white;"
+                                         "border: none;"
+                                         "border-radius: 15px;"
+                                         "font-family: PT Root UI;"  # 设置字体为 Arial
+                                         "font-size: 14px;"  # 设置字体大小为 14 像素
+                                         "font-weight: bold;"  # 设置字体加粗
+                                         "}"
+                                         "QPushButton:pressed {"
+                                         "padding-top: 5px;"
+                                         "padding-left: 5px;"
+                                         "}"
+                                         )
 
         # 把编辑按钮和删除按钮放入水平布局之中
         buttons_layout.addWidget(self.edit_button)
@@ -103,16 +138,27 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
         main_layout.setContentsMargins(10, 10, 10, 10)
         main_layout.setSpacing(10)
 
-
-
     # 编辑按钮对应的触发函数
     def editContent(self):
+        # 当编辑按钮被点击时调用此方法
+        # 打包创建content card时传进来的当前数据
+        property_data = {
+            'title': self.property_title,
+            'description': self.content,
+            'beds': self.label_beds.text().split(": ")[1],
+            'baths': self.label_baths.text().split(": ")[1],
+            'size': self.label_size.text().split(": ")[1],
+            'price': self.label_price.text().split(": ")[1],
+            'status': self.label_status.text(),
+            'seller': self.label_seller.text().split(": ")[1],
+        }
 
-        update_dialog = DialogUpdateProperty()
+        # 把打包数据传给UpdateProperty窗口，之后用于lineEdit中默认显示未编辑前的值
+        update_dialog = DialogUpdateProperty(property_data=property_data, parent=self)
 
+        # 用户点击了对话框中的确认按钮，信号是Accepted
         if update_dialog.exec_() == QtWidgets.QDialog.Accepted:
-            # 用户点击了对话框中的确认按钮
-            # 获取对话框中的更新后的用户数据
+            # 获取对话框中的更新后的用户数据，UpdateProperty窗口传了如下数据回来
             newTitle, description, bedNum, bathNum, size, price, status, sellerName = update_dialog.getUpdatedProperty()
 
             # 调用后端的更新方法来更新用户信息
@@ -120,14 +166,14 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
             update_control.updatePropertry(newTitle, self.property_title, description, bedNum, bathNum, size, price,
                                            status, sellerName)
 
-            # 更新完毕后刷新表格显示
-
+            # 更新完毕后刷新表格显示，前面的信号也跟这里连接
             self.refreshRequested.emit()
 
 
-    # 删除按钮对应额触发函数
+
+    # 删除按钮的函数
     def deleteContent(self):
-        # 删除卡片的逻辑
+        # 需要当前title参数
         property_title_to_delete = self.property_title
 
         remove_property_control = RemovePropertyControl()
@@ -138,26 +184,28 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
         self.deleteLater()  # 删除卡片对象
 
 
-
 class AgentMenu(QMainWindow):
     def __init__(self, agent_name):
         super().__init__()
         self.ui = Ui_AgentMenu()
         self.ui.setupUi(self)
 
-        self.agent_name = agent_name        # 获取从主窗口中传递过来的agent_name，用于显示对应agent房产
-        self.addContentDashboardCardWidgets()
+        self.agent_name = agent_name  # 获取从主窗口中传递过来的agent_name，用于显示对应agent房产
 
-        #  隐藏window窗口
-        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.show()
+        # 自使用函数
+        self.addContentDashboardCardWidgets()
+        self.addRatings()
+        self.addComments()
 
         # self.ui.TableWidget1.resizeColumnsToContents()
 
+        # property页面中的add按钮绑定openAddPropertyDialog方法
         self.ui.btn_addProperty.clicked.connect(self.openAddPropertyDialog)
 
-        # 给缩小化和正常化的导航栏里的每一个图标（button）绑定到stack weidget里对应的页面
+        # property页面中的SearchLine实现动态搜索，并绑定searchProperty方法
+        self.ui.SearchLineEdit.textChanged.connect(self.searchProperty)
+
+        # 给缩小化和正常化的导航栏里的每一个图标（button）绑定到stack widget里对应的页面
         self.ui.btn_dashboard1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
         self.ui.btn_dashboard2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
 
@@ -175,6 +223,11 @@ class AgentMenu(QMainWindow):
 
         self.ui.icon_name_widget.setHidden(True)
 
+        #  隐藏window窗口
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.show()
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
             self.m_flag = True
@@ -184,15 +237,15 @@ class AgentMenu(QMainWindow):
 
     def mouseMoveEvent(self, mouse_event):
         if QtCore.Qt.LeftButton and self.m_flag:
-            self.move(mouse_event.globalPos() - self.m_Position)   # 更改窗口位置
+            self.move(mouse_event.globalPos() - self.m_Position)  # 更改窗口位置
             mouse_event.accept()
 
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
-    # 根据后端方法（数据库）动态添加ContentDashboardCardWidgets组件
-    def addContentDashboardCardWidgets(self):
+    # 根据后端方法（数据库）动态添加ContentDashboardCardWidgets组件，这里的search_text参数被search line传递
+    def addContentDashboardCardWidgets(self, search_text=""):
 
         property_control = ViewAllPropertyControl()  # 实例化后端class
 
@@ -219,27 +272,36 @@ class AgentMenu(QMainWindow):
                 widget_to_remove.setParent(None)
                 widget_to_remove.deleteLater()
 
-        # 动态创建和添加属性卡片到 UI
+        # 动态创建和添加属性卡片到 UI，默认给found绑定了一个false用于搜索
+        found = False
         for property_data in properties_data:
-            card_widget = ExtendedContentDashboardCardWidget(
-                icon=QIcon('path_to_icon.png'),
-                title=property_data[0],         # 获取title
-                content=property_data[1],       # 获取description
-                isChecked=True
-            )
+            # 搜索时如果有任何字母时是属于title的
+            if search_text.lower() in property_data[0].lower():
+                found = True
+                card_widget = ExtendedContentDashboardCardWidget(
+                    icon=QIcon('path_to_icon.png'),
+                    title=property_data[0],  # 获取title
+                    content=property_data[1],  # 获取description
+                    isChecked=False
+                )
 
-        # 设置自定义属性数据
-            card_widget.label_beds.setText(f"Beds: {property_data[2]}")
-            card_widget.label_baths.setText(f"Baths: {property_data[3]}")
-            card_widget.label_size.setText(f"Size: {property_data[4]}")
-            card_widget.label_price.setText(f"Price: {property_data[5]}")
-            card_widget.label_status.setText(f"Status: {property_data[6]}")
-            card_widget.label_views.setText(f"Views: {property_data[7]}")
-            card_widget.label_seller.setText(f"Seller: {property_data[9]}")
+                # 设置自定义属性数据
+                card_widget.label_beds.setText(f"Beds: {property_data[2]}")
+                card_widget.label_baths.setText(f"Baths: {property_data[3]}")
+                card_widget.label_size.setText(f"Size: {property_data[4]}")
+                card_widget.label_price.setText(f"Price: {property_data[5]}")
+                card_widget.label_status.setText(f"Status: {property_data[6]}")
+                card_widget.label_views.setText(f"Views: {property_data[7]}")
+                card_widget.label_seller.setText(f"Seller: {property_data[9]}")
 
-            card_widget.refreshRequested.connect(self.refreshUserList)
+                #刷新页面，refreshRequested信号绑定到了refreshUserList
+                card_widget.refreshRequested.connect(self.refreshUserList)
 
-            layout.addWidget(card_widget)
+                layout.addWidget(card_widget)
+
+        if not found:  # 如果没有找到匹配的房产，可能需要处理这种情况
+            label_no_result = QLabel("No properties found matching the search criteria.")
+            layout.addWidget(label_no_result)
 
     def openAddPropertyDialog(self):
         # 创建并显示 AddUserDialog 对话框
@@ -248,7 +310,53 @@ class AgentMenu(QMainWindow):
         dialog_addProperty.propertyAdded.connect(self.refreshUserList)
 
         dialog_addProperty.exec_()  # 以模态方式运行对话框
+
     def refreshUserList(self):
 
         self.addContentDashboardCardWidgets()
 
+    def searchProperty(self):
+        search_text = self.ui.SearchLineEdit.text().strip().lower()
+        self.addContentDashboardCardWidgets(search_text)
+
+    def addRatings(self):
+        rating_control = ViewRatingControl()
+        rating_list = rating_control.transferRatingToList(rating_control.viewRating(self.agent_name))
+
+        self.ui.RoundListWidget.clear()
+
+        font = QFont()
+        font.setPointSize(9)
+        font.setFamily("PT Root UI Bold")
+
+        for rating in rating_list:
+            username = rating[0]
+            score = rating[1]
+
+            item_text = f"{username}:\t{score}"
+            # 创建一个新的列表项
+            list_item = QListWidgetItem(item_text)
+            # list_item.setFont(font)
+            # 将列表项添加到列表中
+            self.ui.RoundListWidget.addItem(list_item)
+
+    def addComments(self):
+        comment_control = ViewCommentControl()
+        comment_list = comment_control.transferCommentToList(comment_control.viewComment(self.agent_name))
+
+        self.ui.RoundListWidget_2.clear()
+
+        font = QFont()
+        font.setPointSize(9)
+        font.setFamily("PT Root UI Bold")
+
+        for comment in comment_list:
+            username = comment[0]
+            comment = comment[1]
+
+            item_text = f"{username}:\t{comment}"
+            # 创建一个新的列表项
+            list_item = QListWidgetItem(item_text)
+            # list_item.setFont(font)
+            # 将列表项添加到列表中
+            self.ui.RoundListWidget_2.addItem(list_item)

@@ -308,7 +308,7 @@ QPushButton:checked{
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="page_dashborad">
           <widget class="TitleLabel" name="TitleLabel">
@@ -408,23 +408,87 @@ QPushButton:checked{
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_profile">
-          <layout class="QVBoxLayout" name="verticalLayout_6"/>
+         <widget class="QWidget" name="page_rating">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>20</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Rating info</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>10</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>View your rating here</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="RoundListWidget" name="RoundListWidget"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
-         <widget class="QWidget" name="page_favorites">
-          <widget class="TitleLabel" name="TitleLabel_4">
-           <property name="geometry">
-            <rect>
-             <x>270</x>
-             <y>140</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Favorites</string>
-           </property>
-          </widget>
+         <widget class="QWidget" name="page_review">
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>20</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Comments info</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_9">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>10</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>View your comments here</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="RoundListWidget" name="RoundListWidget_2"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="page_messages">
           <widget class="TitleLabel" name="TitleLabel_5">
@@ -559,7 +623,7 @@ QPushButton:checked{
          <item>
           <widget class="QPushButton" name="btn_profile2">
            <property name="text">
-            <string>Profile</string>
+            <string>check my rating</string>
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
@@ -577,7 +641,7 @@ QPushButton:checked{
          <item>
           <widget class="QPushButton" name="btn_favorites2">
            <property name="text">
-            <string>Favorites</string>
+            <string>check my reviews</string>
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
@@ -683,6 +747,16 @@ QPushButton:checked{
    <class>SearchLineEdit</class>
    <extends>LineEdit</extends>
    <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ListWidget</class>
+   <extends>QListWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>RoundListWidget</class>
+   <extends>ListWidget</extends>
+   <header>qfluentwidgetspro</header>
   </customwidget>
  </customwidgets>
  <resources>

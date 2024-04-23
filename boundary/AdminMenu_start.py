@@ -1,6 +1,9 @@
+from PyQt5.QtGui import QFont
+
 from boundary.AdminMenu import *
 from AdminMenu_Dialog_AddUser_start import DialogAddUser
 from AdminMenu_Dialog_UpdateUser_start import DialogUpdateUser
+from AdminMenu_Dialog_AddProfile_start import DialogAddProfile
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog
@@ -19,15 +22,14 @@ class AdminMenu(QMainWindow):
         self.ui = Ui_AdminMenu()
         self.ui.setupUi(self)
 
-
-
+        # 自运行下列方法
         self.displayUserList()
+        self.viewProfile()
 
         #  隐藏window窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.show()
-
 
         # 给缩小化和正常化的导航栏里的每一个图标（button）绑定到stack weidget里对应的页面
         self.ui.btn_dashboard1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
@@ -45,10 +47,11 @@ class AdminMenu(QMainWindow):
         self.ui.btn_messages1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(4))
         self.ui.btn_messages2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(4))
 
-
+        # 给user mange和profile manage中的add按钮绑定对应的触发窗口
         self.ui.btn_addUser.clicked.connect(self.openAddUserDialog)
+        self.ui.btn_addProfile1.clicked.connect(self.openAddProfileDialog)
 
-
+        # 给user mange的搜索栏绑定实时搜索方法
         self.ui.SearchLineEdit.textChanged.connect(self.filterUsers)
 
         # 开启窗口时默认隐藏缩小化的导航栏
@@ -121,10 +124,12 @@ class AdminMenu(QMainWindow):
 
 
 
-    # function在表格窗口（user_manage_table_widget)中显示数据库中user的信息
+    # 在user manage页面中的表格窗口（user_manage_table_widget)中显示数据库中user的信息
     def displayUserList(self):
         viewUser_control = ViewUserController()    # 实例化AdminControl()
-        user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())     # 调用AdminControl中的viewAllUser（）方法，获取用户信息，并添加到user_list
+
+        # 调用ViewUserController()中的viewAllUser（）方法，获取用户信息，并添加到user_list
+        user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())
 
         self.ui.TableWidget1.clearContents()        # 清除 QTableWidget 中现有的内容，但保留表头
         self.ui.TableWidget1.setRowCount(len(user_list))        # 根据用户列表的长度，设置 QTableWidget 的行数
@@ -133,9 +138,6 @@ class AdminMenu(QMainWindow):
         # 设置 QTableWidget 的水平表头标签
         self.ui.TableWidget1.setHorizontalHeaderLabels(
             ["Username", "Password", "Email", "User Type", "Status", "Edit", "Freeze", "Activate"])
-
-
-
 
         # 遍历用户信息列表，填充 QTableWidget 的每一行
         # 遍历单个用户信息的每一项，填充对应的单元格
@@ -147,19 +149,27 @@ class AdminMenu(QMainWindow):
                 self.setupTableButtons(row_index)
         self.ui.TableWidget1.viewport().update()  # 要求 QTableWidget 的视图组件进行更新，以便显示最新的内容
 
-
-
-
-
-
+    # add user窗口
     def openAddUserDialog(self):
-        # 创建并显示 AddUserDialog 对话框
+        # 显示 AddUserDialog 对话框
         dialog_addUser = DialogAddUser(self)
 
+        # 用户点击确认之后触发userAdded信号，信号连接refreshUserList方法刷新页面
         dialog_addUser.userAdded.connect(self.refreshUserList)
 
         dialog_addUser.exec_()  # 以模态方式运行对话框
 
+    # add profile窗口
+    def openAddProfileDialog(self):
+        # 显示 AddProfileDialog 对话框
+        dialog_addProfile = DialogAddProfile(self)
+
+        # 用户点击确认之后触发profileAdded信号，信号连接refreshProfileList方法刷新页面
+        dialog_addProfile.profileAdded.connect(self.refreshProfileList)
+
+        dialog_addProfile.exec_()  # 以模态方式运行对话框
+
+    # 刷新user manage表格页面
     def refreshUserList(self):
         # 清除现有数据
         self.ui.TableWidget1.clearContents()
@@ -168,8 +178,15 @@ class AdminMenu(QMainWindow):
         # 重新从数据库获取数据并填充到 QTableWidget
         self.displayUserList()
 
+    # 刷新profile manage页面
+    def refreshProfileList(self):
+        # 清除现有数据
+        self.ui.RoundListWidget.clear()
 
+        # 重新从数据库获取数据并填充到 QTableWidget
+        self.viewProfile()
 
+    # 编辑对应用户，用row参数定位定位老数据
     def editUser(self, row):
 
         oldUsername = self.ui.TableWidget1.item(row, 0).text()
@@ -177,8 +194,8 @@ class AdminMenu(QMainWindow):
         update_dialog = DialogUpdateUser()
 
         if update_dialog.exec_() == QtWidgets.QDialog.Accepted:
-            # 用户点击了对话框中的确认按钮
-            # 获取对话框中的更新后的用户数据
+            # 用户点击了对话框中的确认按钮，信号是Accepted
+            # 获取对话框中的更新后的用户数据，edit窗口会传4个数据回来
             newUsername, newPassword, newEmail, newUserType = update_dialog.getUpdatedData()
 
             # 调用后端的更新方法来更新用户信息
@@ -223,9 +240,7 @@ class AdminMenu(QMainWindow):
             else:
                 QMessageBox.warning(self, '失败', f"用户 {username} 激活失败")
 
-
-
-    # 信号处理器，实时响应用户在搜索框（QLineEdit）中的输入。当用户在搜索框中键入文字时，此方法会被触发
+    # 搜索栏过滤用户，用户输入的text是参数
     def filterUsers(self, text):
         # 从当前用户数据中过滤用户
         self.displayFilteredUsers(text)
@@ -254,3 +269,25 @@ class AdminMenu(QMainWindow):
                 self.setupTableButtons(row_position)                                           # 添加按钮
 
         self.ui.TableWidget1.viewport().update()
+
+    # profile 页面信息获取
+    def viewProfile(self):
+        view_profile_control = ViewProfilesController()
+        profile_list = view_profile_control.TransferProfileToList(view_profile_control.viewAllProfile())
+
+        self.ui.RoundListWidget.clear()
+
+        font = QFont()
+        font.setPointSize(9)
+        font.setFamily("PT Root UI Bold")
+
+        for profile in profile_list:
+            profile_name = profile[0]
+
+            print(profile_name)
+            item_text = f"{profile_name}"
+            # 创建一个新的列表项
+            list_item = QListWidgetItem(item_text)
+            # list_item.setFont(font)
+            # 将列表项添加到列表中
+            self.ui.RoundListWidget.addItem(list_item)

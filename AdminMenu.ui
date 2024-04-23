@@ -302,7 +302,7 @@ QPushButton:checked{
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_dashborad">
           <widget class="TitleLabel" name="TitleLabel">
@@ -321,28 +321,6 @@ QPushButton:checked{
          </widget>
          <widget class="QWidget" name="page_manage">
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="font">
-              <font>
-               <family>PT Root UI Bold</family>
-               <pointsize>20</pointsize>
-               <italic>false</italic>
-               <underline>false</underline>
-              </font>
-             </property>
-             <property name="text">
-              <string>User info</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1" rowspan="2">
-            <widget class="TitleLabel" name="TitleLabel_2">
-             <property name="text">
-              <string>Total Users</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_5">
              <property name="font">
@@ -355,13 +333,6 @@ QPushButton:checked{
              </property>
              <property name="text">
               <string>Welcome to user management page</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="FilledPushButton" name="btn_addUser">
-             <property name="text">
-              <string>Add User</string>
              </property>
             </widget>
            </item>
@@ -392,6 +363,35 @@ QPushButton:checked{
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>PT Root UI Bold</family>
+               <pointsize>20</pointsize>
+               <italic>false</italic>
+               <underline>false</underline>
+              </font>
+             </property>
+             <property name="text">
+              <string>User info</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" rowspan="2">
+            <widget class="TitleLabel" name="TitleLabel_2">
+             <property name="text">
+              <string>Total Users</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="FilledPushButton" name="btn_addUser">
+             <property name="text">
+              <string>Add User</string>
+             </property>
+            </widget>
            </item>
            <item row="4" column="0" colspan="2">
             <widget class="TableWidget" name="TableWidget1">
@@ -518,19 +518,48 @@ QTableCornerButton::section:pressed {
           </layout>
          </widget>
          <widget class="QWidget" name="page_profile">
-          <widget class="TitleLabel" name="TitleLabel_3">
-           <property name="geometry">
-            <rect>
-             <x>250</x>
-             <y>170</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Profile</string>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="font">
+              <font>
+               <family>PT Root UI Bold</family>
+               <pointsize>20</pointsize>
+               <italic>false</italic>
+               <underline>false</underline>
+              </font>
+             </property>
+             <property name="text">
+              <string>Profile info</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="font">
+              <font>
+               <family>PT Root UI Bold</family>
+               <pointsize>10</pointsize>
+               <italic>false</italic>
+               <underline>false</underline>
+              </font>
+             </property>
+             <property name="text">
+              <string>check profile types here</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="FilledPushButton" name="btn_addProfile1">
+             <property name="text">
+              <string>Add Profile</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="RoundListWidget" name="RoundListWidget"/>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="page_favorites">
           <widget class="TitleLabel" name="TitleLabel_4">
@@ -805,6 +834,16 @@ QPushButton:checked{
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
+   <class>ListWidget</class>
+   <extends>QListWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>RoundListWidget</class>
+   <extends>ListWidget</extends>
+   <header>qfluentwidgetspro</header>
+  </customwidget>
+  <customwidget>
    <class>TableWidget</class>
    <extends>QTableWidget</extends>
    <header>qfluentwidgets</header>
@@ -1013,8 +1052,8 @@ QPushButton:checked{
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>50</x>
-     <y>586</y>
+     <x>61</x>
+     <y>751</y>
     </hint>
     <hint type="destinationlabel">
      <x>36</x>
@@ -1029,8 +1068,8 @@ QPushButton:checked{
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>588</y>
+     <x>278</x>
+     <y>751</y>
     </hint>
     <hint type="destinationlabel">
      <x>163</x>

@@ -12,7 +12,7 @@ class DialogUpdateProperty(QDialog):
     propertyUpdated = pyqtSignal()
 
 
-    def __init__(self, parent=None):
+    def __init__(self, property_data=None, parent=None):
         super(DialogUpdateProperty, self).__init__(parent)
         self.ui = Ui_Dialog_UpdateProperty()
         self.ui.setupUi(self)
@@ -20,6 +20,9 @@ class DialogUpdateProperty(QDialog):
         self.ui.ComboBox_status.addItems(["available", "sold"])
 
         self.ui.PushButton_update.clicked.connect(self.getUpdatedProperty)
+
+        if property_data:
+            self.setInitialValues(property_data)
 
     # GUI窗口拖动
     def mousePressEvent(self, event):
@@ -53,3 +56,13 @@ class DialogUpdateProperty(QDialog):
         self.accept()
 
         return newTitle, description, bedNum, bathNum, size, price, status, sellerName
+
+    def setInitialValues(self, data):
+        self.ui.LineEdit_title.setText(data.get('title', ''))
+        self.ui.LineEdit_des.setText(data.get('description', ''))
+        self.ui.LineEdit_bed.setText(str(data.get('beds', '')))
+        self.ui.LineEdit_bath.setText(str(data.get('baths', '')))
+        self.ui.LineEdit_size.setText(str(data.get('size', '')))
+        self.ui.LineEdit_price.setText(str(data.get('price', '')))
+        self.ui.ComboBox_status.setCurrentText(data.get('status', 'available'))
+        self.ui.LineEdit_seller.setText(data.get('seller', ''))

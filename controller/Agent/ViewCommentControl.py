@@ -26,6 +26,3 @@ class ViewCommentControl:
     解析list[Reviews:object]-> list[list[reviews:string]]
     [['buyer1', 'Excellent service from the agent'], ['buyer3', 'Very helpful throughout the process'], ['seller1', 'Agent did a great job selling my property']]
     '''
-
-v1 = ViewCommentControl()
-print(v1.transferCommentToList(v1.viewReviewsAndRating('agent1')))
