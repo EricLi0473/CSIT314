@@ -446,5 +446,22 @@ RoundPushButton[hasIcon=true] {
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>PushButton_cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog_UpdateUser</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>291</x>
+     <y>330</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>280</x>
+     <y>341</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

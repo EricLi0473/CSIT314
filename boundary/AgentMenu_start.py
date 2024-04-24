@@ -2,8 +2,6 @@ from PyQt5.QtCore import QSize, pyqtSignal
 from PyQt5.QtGui import QIcon, QColor, QFont
 
 from boundary.AgentMenu import *
-from AdminMenu_Dialog_AddUser_start import DialogAddUser
-from AdminMenu_Dialog_UpdateUser_start import DialogUpdateUser
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog, QVBoxLayout, QScrollArea, QLabel
@@ -185,19 +183,23 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
 
 
 class AgentMenu(QMainWindow):
-    def __init__(self, agent_name):
+    def __init__(self, agent_name, loginMenu):
         super().__init__()
         self.ui = Ui_AgentMenu()
         self.ui.setupUi(self)
 
         self.agent_name = agent_name  # 获取从主窗口中传递过来的agent_name，用于显示对应agent房产
 
+        # 与 类似AdminMenu，它是使用username（登录代理的用户名）和对LoginMenu实例的引用来初始化的。
+        # 添加注销按钮，该按钮连接到实例logout的方法LoginMenu
+        self.loginMenu = loginMenu
+        self.ui.btn_logout.clicked.connect(self.loginMenu.logout)
+
         # 自使用函数
         self.addContentDashboardCardWidgets()
         self.addRatings()
         self.addComments()
 
-        # self.ui.TableWidget1.resizeColumnsToContents()
 
         # property页面中的add按钮绑定openAddPropertyDialog方法
         self.ui.btn_addProperty.clicked.connect(self.openAddPropertyDialog)
@@ -360,3 +362,5 @@ class AgentMenu(QMainWindow):
             # list_item.setFont(font)
             # 将列表项添加到列表中
             self.ui.RoundListWidget_2.addItem(list_item)
+
+

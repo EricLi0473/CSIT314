@@ -379,6 +379,7 @@ class Ui_Dialog_UpdateUser(object):
         self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
 
         self.retranslateUi(Dialog_UpdateUser)
+        self.PushButton_cancel.clicked.connect(Dialog_UpdateUser.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog_UpdateUser)
 
     def retranslateUi(self, Dialog_UpdateUser):

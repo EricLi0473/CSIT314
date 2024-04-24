@@ -286,16 +286,22 @@ QPushButton:checked{
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_user">
+           <widget class="QPushButton" name="btn_logout">
+            <property name="font">
+             <font>
+              <family>PT Root UI Bold</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">border:none;</string>
             </property>
             <property name="text">
-             <string/>
+             <string>log out</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
-              <normaloff>:/icons2/icons/icon2/image.png</normaloff>:/icons2/icons/icon2/image.png</iconset>
+              <normaloff>:/blue/icons/blue/log-out.svg</normaloff>:/blue/icons/blue/log-out.svg</iconset>
             </property>
            </widget>
           </item>
@@ -399,8 +405,8 @@ QPushButton:checked{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>839</width>
-                <height>618</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
              </widget>

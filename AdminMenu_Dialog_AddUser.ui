@@ -442,5 +442,22 @@ PlainTextEdit:disabled {
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>PushButton_cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog_AddUser</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>442</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>465</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

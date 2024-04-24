@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtSignal
 from qfluentwidgetspro import setLicense
 
 from boundary.LoginMenu import *
@@ -12,11 +13,14 @@ from controller.User.CreateUserController import CreateUserController
 
 
 class LoginMenu(QMainWindow):
-
     def __init__(self):
         super().__init__()
         self.ui = Ui_loginWindow()
         self.ui.setupUi(self)
+
+        # 引入了一个currentSession属性来跟踪当前活动的会话窗口（如AdminMenu或AgentMenu）
+        # 最初，它被设置为None因为第一次启动时没有活动会话LoginMenu。
+        self.currentSession = None
 
         self.ui.pushButton_login.clicked.connect(self.login)    # 给login按钮绑定login的方法
 
@@ -53,11 +57,21 @@ class LoginMenu(QMainWindow):
     # 改进了代码架构，把登录成功后的检查userType并打开对应窗口封装成了一个方法
     def after_login_success(self, username):
         user_type = self.user_login_control.findUserType(username)
+
+        # 它首先检查是否存在现有会话窗口 ( currentSession)。
+        # 如果是这样，它就会隐藏它。这可确保一次仅打开一个会话窗口。
+        if self.currentSession:
+            self.currentSession.hide()
+
+        # 根据用户类型 ( user_type)，它实例化AdminMenu AgentMenu并将其分配给currentSession。
+        # 新实例化的会话窗口将显示给用户。
         if user_type == 1:
-            self.adminMenu = AdminMenu()
+            self.adminMenu = AdminMenu(self)
+            self.currentSession = self.adminMenu
             self.adminMenu.show()
         elif user_type == 2:
-            self.agentMenu = AgentMenu(username)
+            self.agentMenu = AgentMenu(username, self)
+            self.currentSession = self.agentMenu
             self.agentMenu.show()
         else:
             QMessageBox.warning(self, 'Error', 'User type not recognized.')
@@ -89,8 +103,6 @@ class LoginMenu(QMainWindow):
         create_control = CreateUserController()
         success = create_control.createUser(username, password, email, user_type)
 
-        print(success)
-        print(username, password, email, user_type)
         if success:
             try:
                 username = username
@@ -107,6 +119,12 @@ class LoginMenu(QMainWindow):
 
         else:
             QMessageBox.warning(self, 'Error', 'Sign up failed. Please check your details.')
+
+    def logout(self):
+        if self.currentSession:
+            self.currentSession.hide()
+        self.currentSession = None
+        self.show()
 
 if __name__ == '__main__':
     setLicense(

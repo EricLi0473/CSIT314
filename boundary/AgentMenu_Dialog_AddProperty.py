@@ -643,6 +643,7 @@ class Ui_Dialog_AddProperty(object):
         self.verticalLayout_6.addLayout(self.horizontalLayout)
 
         self.retranslateUi(Dialog_AddProperty)
+        self.PushButton_cancel.clicked.connect(Dialog_AddProperty.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog_AddProperty)
 
     def retranslateUi(self, Dialog_AddProperty):

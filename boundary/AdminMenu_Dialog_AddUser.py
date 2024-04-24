@@ -376,6 +376,7 @@ class Ui_Dialog_AddUser(object):
         self.gridLayout.addWidget(self.LineEdit_password, 3, 0, 1, 1)
 
         self.retranslateUi(Dialog_AddUser)
+        self.PushButton_cancel.clicked.connect(Dialog_AddUser.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog_AddUser)
 
     def retranslateUi(self, Dialog_AddUser):

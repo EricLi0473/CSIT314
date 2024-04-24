@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QFont
 
 from boundary.AdminMenu import *
@@ -17,10 +18,16 @@ from controller.Admin.ViewProfilesController import ViewProfilesController
 from controller.Admin.ViewUsersController import ViewUserController
 
 class AdminMenu(QMainWindow):
-    def __init__(self):
+    def __init__(self, loginMenu):
         super().__init__()
         self.ui = Ui_AdminMenu()
         self.ui.setupUi(self)
+
+        # 实例化后，它会收到对实例的引用LoginMenu( loginMenu)。
+        # 创建一个注销按钮，并将其clicked信号连接到实例logout的方法LoginMenu。
+        self.loginMenu = loginMenu
+        self.ui.btn_log_out.clicked.connect(self.loginMenu.logout)
+
 
         # 自运行下列方法
         self.displayUserList()
@@ -54,6 +61,10 @@ class AdminMenu(QMainWindow):
         # 给user mange的搜索栏绑定实时搜索方法
         self.ui.SearchLineEdit.textChanged.connect(self.filterUsers)
 
+        #  隐藏window窗口
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.show()
         # 开启窗口时默认隐藏缩小化的导航栏
         self.ui.icon_name_widget.setHidden(True)
 
@@ -72,6 +83,8 @@ class AdminMenu(QMainWindow):
             btn_edit.clicked.connect(lambda checked, row=i: self.freezeUser(row))
             btn_activate.clicked.connect(lambda checked, row=i: self.activate(row))
 
+        for column in range(self.ui.TableWidget1.columnCount()):
+            self.ui.TableWidget1.resizeColumnToContents(column)
     # GUI窗口拖动
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
@@ -95,6 +108,25 @@ class AdminMenu(QMainWindow):
         # 创建按钮
         button = QPushButton(text)
         button.clicked.connect(function)
+
+        button.setStyleSheet("""
+                QPushButton {
+                    background-color: #0078D7; /* 背景色 */
+                    color: white; /* 文字颜色 */
+                    border-radius: 5px; /* 边框圆角 */
+                    padding: 5px; /* 内边距 */
+                    margin: 2px; /* 外边距 */
+                    border: none; /* 无边框 */
+                    font-family: 'PT Root UI', PT root UI bold; /* 字体 */
+                }
+                QPushButton:hover {
+                    background-color: #005A9E; /* 鼠标悬停时的背景色 */
+                }
+                QPushButton:pressed {
+                    background-color: #003A6C; /* 鼠标按下时的背景色 */
+                }
+            """)
+
         # 创建布局
         widget = QWidget()
         layout = QHBoxLayout(widget)

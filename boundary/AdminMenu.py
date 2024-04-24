@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_AdminMenu(object):
     def setupUi(self, AdminMenu):
         AdminMenu.setObjectName("AdminMenu")
-        AdminMenu.resize(1176, 763)
+        AdminMenu.resize(957, 763)
         AdminMenu.setStyleSheet("background-color: rgb(245, 250, 254);")
         self.centralwidget = QtWidgets.QWidget(AdminMenu)
         self.centralwidget.setObjectName("centralwidget")
@@ -160,14 +160,17 @@ class Ui_AdminMenu(object):
         self.horizontalLayout_4.addLayout(self.horizontalLayout)
         spacerItem2 = QtWidgets.QSpacerItem(162, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem2)
-        self.btn_user = QtWidgets.QPushButton(self.header_widget)
-        self.btn_user.setStyleSheet("border:none;")
-        self.btn_user.setText("")
+        self.btn_log_out = QtWidgets.QPushButton(self.header_widget)
+        font = QtGui.QFont()
+        font.setFamily("PT Root UI Bold")
+        font.setPointSize(10)
+        self.btn_log_out.setFont(font)
+        self.btn_log_out.setStyleSheet("border:none;")
         icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/icons2/icons/icon2/image.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_user.setIcon(icon8)
-        self.btn_user.setObjectName("btn_user")
-        self.horizontalLayout_4.addWidget(self.btn_user)
+        icon8.addPixmap(QtGui.QPixmap(":/blue/icons/blue/log-out.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_log_out.setIcon(icon8)
+        self.btn_log_out.setObjectName("btn_log_out")
+        self.horizontalLayout_4.addWidget(self.btn_log_out)
         self.verticalLayout_5.addWidget(self.header_widget)
         self.SlideAniStackedWidget = SlideAniStackedWidget(self.main_menu)
         self.SlideAniStackedWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -462,7 +465,7 @@ class Ui_AdminMenu(object):
         AdminMenu.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(AdminMenu)
-        self.SlideAniStackedWidget.setCurrentIndex(2)
+        self.SlideAniStackedWidget.setCurrentIndex(1)
         self.btn_messages1.toggled['bool'].connect(self.btn_messages2.setChecked) # type: ignore
         self.btn_favorites1.toggled['bool'].connect(self.btn_favorites2.setChecked) # type: ignore
         self.btn_profile1.toggled['bool'].connect(self.btn_profile2.setChecked) # type: ignore
@@ -482,6 +485,7 @@ class Ui_AdminMenu(object):
     def retranslateUi(self, AdminMenu):
         _translate = QtCore.QCoreApplication.translate
         AdminMenu.setWindowTitle(_translate("AdminMenu", "MainWindow"))
+        self.btn_log_out.setText(_translate("AdminMenu", "log out"))
         self.TitleLabel.setText(_translate("AdminMenu", "Dashboard"))
         self.label_5.setText(_translate("AdminMenu", "Welcome to user management page"))
         self.ComboBox.setText(_translate("AdminMenu", "user type"))

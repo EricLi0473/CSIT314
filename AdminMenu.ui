@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1176</width>
+    <width>957</width>
     <height>763</height>
    </rect>
   </property>
@@ -280,16 +280,22 @@ QPushButton:checked{
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_user">
+           <widget class="QPushButton" name="btn_log_out">
+            <property name="font">
+             <font>
+              <family>PT Root UI Bold</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">border:none;</string>
             </property>
             <property name="text">
-             <string/>
+             <string>log out</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
-              <normaloff>:/icons2/icons/icon2/image.png</normaloff>:/icons2/icons/icon2/image.png</iconset>
+              <normaloff>:/blue/icons/blue/log-out.svg</normaloff>:/blue/icons/blue/log-out.svg</iconset>
             </property>
            </widget>
           </item>
@@ -302,7 +308,7 @@ QPushButton:checked{
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="page_dashborad">
           <widget class="TitleLabel" name="TitleLabel">
