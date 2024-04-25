@@ -215,16 +215,17 @@ class Property:
         connect.close()
         return propertyList
 
+    # Decide move  to Buyer.calculateMonthlyPaymentControl
     # 39 As a buyer, I want to be able to calculate the monthly payments based on the price of the property, interest rate, and other relevant factors so that I can know if the property is within my budget.
-    def calculateMonthlyPayments(self,title,month):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select price from properties where title = %s'
-            cursor.execute(sqlQuery,title)
-            price = cursor.fetchone()['Price']
-        connect.close()
-        return  price/month
+    # def calculateMonthlyPayments(self,title,month):
+    #     connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+    #                               cursorclass=pymysql.cursors.DictCursor)
+    #     with connect.cursor() as cursor:
+    #         sqlQuery = f'select price from properties where title = %s'
+    #         cursor.execute(sqlQuery,title)
+    #         price = cursor.fetchone()['Price']
+    #     connect.close()
+    #     return  price/month
 
     # 42 As a seller, I want to be able to view all my properties so that I can manage and track properties I own
     def findPropertyBySellerId(self,sellerId):
