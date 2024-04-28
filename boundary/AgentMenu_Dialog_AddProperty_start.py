@@ -56,6 +56,7 @@ class DialogAddProperty(QDialog):
                                                     , size, price, seller)
 
             if success:
+                QMessageBox.information(self, 'Success', f"Successful create property")
                 self.propertyAdded.emit()
                 self.accept()  # 关闭对话框
                 return True

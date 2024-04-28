@@ -5,17 +5,84 @@ from boundary.AdminMenu import *
 from AdminMenu_Dialog_AddUser_start import DialogAddUser
 from AdminMenu_Dialog_UpdateUser_start import DialogUpdateUser
 from AdminMenu_Dialog_AddProfile_start import DialogAddProfile
+from AdminMenu_Dialog_UpdatedProfile_start import DialogUpdateProfile
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog
+    QWidget, QHBoxLayout, QDialog, QLabel
 
-from controller.Admin.CreateProfileController import CreateProfileController
 from controller.Admin.FreezeUserController import FreezeUserController
 from controller.Admin.ActivateUserController import ActivateUserController
-from controller.Admin.SearchProfileController import SearchUserController
 from controller.User.UpdateUserController import UpdateUserController
 from controller.Admin.ViewProfilesController import ViewProfilesController
 from controller.Admin.ViewUsersController import ViewUserController
+from controller.Admin.UpdateProfileController import UpdateProfileController
+from controller.Admin.SearchProfileController import SearchUserController
+
+class ProfileListItem(QWidget):
+
+    requestRefresh = pyqtSignal()
+    def __init__(self, text, parent=None):
+        super(ProfileListItem, self).__init__(parent)
+        layout = QHBoxLayout(self)
+
+        self.text_label = QLabel(text)
+        font = QFont()
+        font.setPointSize(9)  # Set the font size
+        font.setFamily("PT Root UI")  # Set the font family
+        self.text_label.setFont(font)
+        self.text_label.setStyleSheet("background-color: transparent;")  # Set the background to transparent
+
+        self.edit_button = QPushButton("Edit")
+
+        self.edit_button.setStyleSheet("""
+                        QPushButton {
+                            background-color: #0078D7; /* 背景色 */
+                            color: white; /* 文字颜色 */
+                            border-radius: 5px; /* 边框圆角 */
+                            padding: 5px; /* 内边距 */
+                            margin: 2px; /* 外边距 */
+                            border: none; /* 无边框 */
+                            font-family: 'PT Root UI', PT root UI bold; /* 字体 */
+                        }
+                        QPushButton:hover {
+                            background-color: #005A9E; /* 鼠标悬停时的背景色 */
+                        }
+                        QPushButton:pressed {
+                            background-color: #003A6C; /* 鼠标按下时的背景色 */
+                        }
+                    """)
+
+
+        self.edit_button.clicked.connect(self.editProfile)
+
+        layout.addWidget(self.text_label)
+        layout.addWidget(self.edit_button)
+
+        # Adjust the margins and spacing as needed
+        layout.setContentsMargins(2, 2, 2, 2)
+        layout.setSpacing(2)
+
+    def editProfile(self):
+        oldProfilename = self.text_label.text()
+
+        update_dialog = DialogUpdateProfile()
+
+        if update_dialog.exec_() == QtWidgets.QDialog.Accepted:
+            # 用户点击了对话框中的确认按钮，信号是Accepted
+            newProfileName = update_dialog.getUpdatedData()
+
+            print(oldProfilename, newProfileName)
+
+            # 调用后端的更新方法来更新用户信息
+            if UpdateProfileController().updateProfile(oldProfilename, newProfileName):
+                QMessageBox.information(self, 'Success', f"Successful update")
+                self.requestRefresh.emit()
+            else:
+                QMessageBox.warning(self, 'Failed', f"Update failure")
+            # 更新完毕后刷新表格显示
+
+
+
 
 class AdminMenu(QMainWindow):
     def __init__(self, loginMenu):
@@ -232,7 +299,11 @@ class AdminMenu(QMainWindow):
 
             # 调用后端的更新方法来更新用户信息
             update_control = UpdateUserController()
-            update_control.updateUser(oldUsername, newUsername, newPassword, newEmail, newUserType)
+            success = update_control.updateUser(oldUsername, newUsername, newPassword, newEmail, newUserType)
+            if success:
+                QMessageBox.information(self, 'Success', f"Successful update account")
+            else:
+                QMessageBox.information(self, 'Error', f"Could not update account")
             # 更新完毕后刷新表格显示
             self.displayUserList()
 
@@ -309,17 +380,20 @@ class AdminMenu(QMainWindow):
 
         self.ui.RoundListWidget.clear()
 
-        font = QFont()
-        font.setPointSize(9)
-        font.setFamily("PT Root UI Bold")
-
         for profile in profile_list:
             profile_name = profile[0]
-
             print(profile_name)
-            item_text = f"{profile_name}"
-            # 创建一个新的列表项
-            list_item = QListWidgetItem(item_text)
-            # list_item.setFont(font)
-            # 将列表项添加到列表中
+
+            # Create the custom widget for the list item
+            profile_widget = ProfileListItem(profile_name)
+            profile_widget.requestRefresh.connect(self.refreshProfileList)
+
+            # Create the list item and set its widget
+            list_item = QListWidgetItem(self.ui.RoundListWidget)
+            list_item.setSizeHint(
+                profile_widget.sizeHint())  # Ensure the list item has the right size for the custom widget
+
+            # Finally, add the widget to the list
             self.ui.RoundListWidget.addItem(list_item)
+            self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
+

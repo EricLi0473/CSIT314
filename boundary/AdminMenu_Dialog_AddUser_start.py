@@ -52,6 +52,7 @@ class DialogAddUser(QDialog):
             success = create_control.createUser(username, password, email, userType)
 
             if success:
+                QMessageBox.information(self, 'Success', f"Successful create new account")
                 self.userAdded.emit()
                 self.accept()  # 关闭对话框
                 return True

@@ -4,6 +4,7 @@ from qfluentwidgetspro import setLicense
 from boundary.LoginMenu import *
 from boundary.AdminMenu_start import AdminMenu
 from boundary.AgentMenu_start import AgentMenu
+from boundary.BuyerMenu_start import BuyerMenu
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
@@ -73,6 +74,10 @@ class LoginMenu(QMainWindow):
             self.agentMenu = AgentMenu(username, self)
             self.currentSession = self.agentMenu
             self.agentMenu.show()
+        elif user_type == 4:
+            self.buyerMenu = BuyerMenu(username, self)
+            self.currentSession = self.buyerMenu
+            self.buyerMenu.show()
         else:
             QMessageBox.warning(self, 'Error', 'User type not recognized.')
 
@@ -85,6 +90,7 @@ class LoginMenu(QMainWindow):
 
         try:
             if self.user_login_control.checkLogin(username, password):
+                QMessageBox.warning(self, 'Success', f'Welcome, {username}')
                 self.hide()
                 self.after_login_success(username)      # 调用上面的type检查方法，套娃
             else:

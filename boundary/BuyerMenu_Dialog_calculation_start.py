@@ -1,24 +1,21 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.AdminMenu_Dialog_UpdateUser import *
+from boundary.BuyerMenu_Dialog_calculation import *
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog
 
+from controller.Buyer.calculateMonthlyPaymentControl import CalculateMonthlyPaymentControl
 
-class DialogUpdateUser(QDialog):
 
-    # 为dialog窗口设置触发信号
-    userUpdated = pyqtSignal()
+class DialogCalculation(QDialog):
 
     def __init__(self, parent=None):
-        super(DialogUpdateUser, self).__init__(parent)
-        self.ui = Ui_Dialog_UpdateUser()
+        super(DialogCalculation, self).__init__(parent)
+        self.ui = Ui_BuyerMenu_Dialog_calculation()
         self.ui.setupUi(self)
 
-        self.ui.ComboBox_type.addItems(["admin", "agent", "buyer", "seller"])
-
-        self.ui.PushButton_update.clicked.connect(self.getUpdatedData)
+        self.ui.PushButton_calculate.clicked.connect(self.calculation)
 
     # GUI窗口拖动
     def mousePressEvent(self, event):
@@ -37,15 +34,19 @@ class DialogUpdateUser(QDialog):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
-    def getUpdatedData(self):
+    def calculation(self):
         # 收集对话框中的数据
-        newUsername = self.ui.LineEdit_newName.text()
-        password = self.ui.LineEdit_password.text()
-        email = self.ui.LineEdit_email.text()
-        userType = self.ui.ComboBox_type.currentText()
+        price = self.ui.LineEdit_price.text()
+        down_payment_rate = self.ui.LineEdit_payment_rate.text()
+        interest_rate = self.ui.LineEdit_interest_rate.text()
+        loan_years = self.ui.LineEdit_loan_year.text()
 
-        self.userUpdated.emit()
-        self.accept()
 
-        return newUsername, password, email, userType
+
+        calculation_control = CalculateMonthlyPaymentControl()
+        result = calculation_control.calculateMonthlyPayment(price, interest_rate, loan_years, down_payment_rate)
+        result = str(result)
+        self.ui.SubtitleLabel.setText(result)
+        print(result)
+        print(type(result))
 

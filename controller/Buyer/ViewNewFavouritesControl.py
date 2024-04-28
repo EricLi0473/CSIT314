@@ -17,10 +17,23 @@ class ViewNewFavouritesControl:
 
     def transFerNewFavoritesToList(self, newFavorites):
         NewFavoritesList = []
-
         for newFavorite in newFavorites:
-            PropertyTitle = Property().findPropertyTitledById(newFavorite.getPropertyId())
-            NewFavoritesList.append(PropertyTitle)
+            propertyList = []
+            propertyTitle = Property().findPropertyTitledById(newFavorite.getPropertyId())
+            property = Property().findAProperty(propertyTitle)
+            propertyList.append(property.getTitle())
+            propertyList.append(property.getDescription())
+            propertyList.append(property.getBedNum())
+            propertyList.append(property.getBathNum())
+            propertyList.append(property.getSize())
+            propertyList.append(property.getPrice())
+            propertyList.append(property.getStatus())
+            propertyList.append(property.getViews())
+            propertyList.append(property.getShortListed())
+            agentID = property.getAgentId()
+            agentName = User().findUsernameByUserId(agentID)
+            propertyList.append(agentName)
+            NewFavoritesList.append(propertyList)
         return NewFavoritesList
     '''''
     将 list[NewFavorites:object] 转换为 list[PropertyTitle:String]

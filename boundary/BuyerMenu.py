@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'AdminMenu.ui'
+# Form implementation generated from reading ui file 'BuyerMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -11,12 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_AdminMenu(object):
-    def setupUi(self, AdminMenu):
-        AdminMenu.setObjectName("AdminMenu")
-        AdminMenu.resize(1034, 763)
-        AdminMenu.setStyleSheet("background-color: rgb(245, 250, 254);")
-        self.centralwidget = QtWidgets.QWidget(AdminMenu)
+class Ui_BuyerMenu(object):
+    def setupUi(self, BuyerMenu):
+        BuyerMenu.setObjectName("BuyerMenu")
+        BuyerMenu.resize(1200, 855)
+        BuyerMenu.setMinimumSize(QtCore.QSize(1200, 400))
+        BuyerMenu.setStyleSheet("background-color: rgb(245, 250, 254);")
+        self.centralwidget = QtWidgets.QWidget(BuyerMenu)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -66,16 +67,16 @@ class Ui_AdminMenu(object):
         self.btn_dashboard1.setAutoExclusive(True)
         self.btn_dashboard1.setObjectName("btn_dashboard1")
         self.verticalLayout.addWidget(self.btn_dashboard1)
-        self.btn_manage = QtWidgets.QPushButton(self.icon_name_widget_2)
-        self.btn_manage.setText("")
+        self.btn_property = QtWidgets.QPushButton(self.icon_name_widget_2)
+        self.btn_property.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/white/icons/white/search.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon1.addPixmap(QtGui.QPixmap(":/icons2/icons/icon2/iconizer-search.svg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.btn_manage.setIcon(icon1)
-        self.btn_manage.setCheckable(True)
-        self.btn_manage.setAutoExclusive(True)
-        self.btn_manage.setObjectName("btn_manage")
-        self.verticalLayout.addWidget(self.btn_manage)
+        self.btn_property.setIcon(icon1)
+        self.btn_property.setCheckable(True)
+        self.btn_property.setAutoExclusive(True)
+        self.btn_property.setObjectName("btn_property")
+        self.verticalLayout.addWidget(self.btn_property)
         self.btn_profile1 = QtWidgets.QPushButton(self.icon_name_widget_2)
         self.btn_profile1.setText("")
         icon2 = QtGui.QIcon()
@@ -160,17 +161,17 @@ class Ui_AdminMenu(object):
         self.horizontalLayout_4.addLayout(self.horizontalLayout)
         spacerItem2 = QtWidgets.QSpacerItem(162, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem2)
-        self.btn_log_out = QtWidgets.QPushButton(self.header_widget)
+        self.btn_logout = QtWidgets.QPushButton(self.header_widget)
         font = QtGui.QFont()
         font.setFamily("PT Root UI Bold")
         font.setPointSize(10)
-        self.btn_log_out.setFont(font)
-        self.btn_log_out.setStyleSheet("border:none;")
+        self.btn_logout.setFont(font)
+        self.btn_logout.setStyleSheet("border:none;")
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap(":/blue/icons/blue/log-out.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_log_out.setIcon(icon8)
-        self.btn_log_out.setObjectName("btn_log_out")
-        self.horizontalLayout_4.addWidget(self.btn_log_out)
+        self.btn_logout.setIcon(icon8)
+        self.btn_logout.setObjectName("btn_logout")
+        self.horizontalLayout_4.addWidget(self.btn_logout)
         self.verticalLayout_5.addWidget(self.header_widget)
         self.SlideAniStackedWidget = SlideAniStackedWidget(self.main_menu)
         self.SlideAniStackedWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -183,31 +184,11 @@ class Ui_AdminMenu(object):
         self.SlideAniStackedWidget.addWidget(self.page_dashborad)
         self.page_manage = QtWidgets.QWidget()
         self.page_manage.setObjectName("page_manage")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.page_manage)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.label_5 = QtWidgets.QLabel(self.page_manage)
-        font = QtGui.QFont()
-        font.setFamily("PT Root UI Bold")
-        font.setPointSize(10)
-        font.setItalic(False)
-        font.setUnderline(False)
-        self.label_5.setFont(font)
-        self.label_5.setObjectName("label_5")
-        self.gridLayout_2.addWidget(self.label_5, 1, 0, 1, 1)
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.ComboBox = ComboBox(self.page_manage)
-        self.ComboBox.setObjectName("ComboBox")
-        self.horizontalLayout_5.addWidget(self.ComboBox)
-        self.ComboBox_2 = ComboBox(self.page_manage)
-        self.ComboBox_2.setObjectName("ComboBox_2")
-        self.horizontalLayout_5.addWidget(self.ComboBox_2)
-        self.SearchLineEdit = SearchLineEdit(self.page_manage)
-        self.SearchLineEdit.setText("")
-        self.SearchLineEdit.setObjectName("SearchLineEdit")
-        self.horizontalLayout_5.addWidget(self.SearchLineEdit)
-        self.gridLayout_2.addLayout(self.horizontalLayout_5, 3, 0, 1, 2)
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.page_manage)
+        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.label = QtWidgets.QLabel(self.page_manage)
         font = QtGui.QFont()
         font.setFamily("PT Root UI Bold")
@@ -216,124 +197,47 @@ class Ui_AdminMenu(object):
         font.setUnderline(False)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
-        self.TitleLabel_2 = TitleLabel(self.page_manage)
-        self.TitleLabel_2.setObjectName("TitleLabel_2")
-        self.gridLayout_2.addWidget(self.TitleLabel_2, 0, 1, 2, 1)
-        self.btn_addUser = FilledPushButton(self.page_manage)
-        self.btn_addUser.setObjectName("btn_addUser")
-        self.gridLayout_2.addWidget(self.btn_addUser, 2, 0, 1, 1)
-        self.TableWidget1 = TableWidget(self.page_manage)
-        self.TableWidget1.setStyleSheet("QTableView {\n"
-"    background: transparent;\n"
-"    outline: none;\n"
-"    border: none;\n"
-"    /* font: 13px \'Segoe UI\', \'Microsoft YaHei\'; */\n"
-"    selection-background-color: transparent;\n"
-"    alternate-background-color: transparent;\n"
-"}\n"
-"\n"
-"QTableView[isBorderVisible=true] {\n"
-"    border: 1px solid rgba(0, 0, 0, 15);\n"
-"}\n"
-"\n"
-"QTableView::item {\n"
-"    background: transparent;\n"
-"    border: 0px;\n"
-"    padding-left: 16px;\n"
-"    padding-right: 16px;\n"
-"    height: 35px;\n"
-"}\n"
-"\n"
-"\n"
-"QTableView::indicator {\n"
-"    width: 18px;\n"
-"    height: 18px;\n"
-"    border-radius: 5px;\n"
-"    border: none;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"\n"
-"QHeaderView {\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QHeaderView::section {\n"
-"    background-color:  ;\n"
-"    background-color: rgb(238, 238, 238);\n"
-"    color: black;\n"
-"    padding-left: 5px;\n"
-"    padding-right: 5px;\n"
-"    border: 1px solid rgba(0, 0, 0, 15);\n"
-"    font: 17px \'Segoe UI\', \'Microsoft YaHei\', \'PingFang SC\';\n"
-"}\n"
-"\n"
-"QHeaderView::section:horizontal {\n"
-"    border-left: none;\n"
-"    height: 33px;\n"
-"}\n"
-"\n"
-"QTableView[isBorderVisible=true] QHeaderView::section:horizontal {\n"
-"    border-top: none;\n"
-"}\n"
-"\n"
-"QHeaderView::section:horizontal:last {\n"
-"    border-right: none;\n"
-"}\n"
-"\n"
-"QHeaderView::section:vertical {\n"
-"    border-top: none;\n"
-"}\n"
-"\n"
-"QHeaderView::section:checked {\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QHeaderView::down-arrow {\n"
-"    subcontrol-origin: padding;\n"
-"    subcontrol-position: center right;\n"
-"    margin-right: 6px;\n"
-"    image: url(:/qfluentwidgets/images/table_view/Down_black.svg);\n"
-"}\n"
-"\n"
-"QHeaderView::up-arrow {\n"
-"    subcontrol-origin: padding;\n"
-"    subcontrol-position: center right;\n"
-"    margin-right: 6px;\n"
-"    image: url(:/qfluentwidgets/images/table_view/Up_black.svg);\n"
-"}\n"
-"\n"
-"QTableCornerButton::section {\n"
-"    background-color: transparent;\n"
-"    border: 1px solid rgba(0, 0, 0, 15);\n"
-"}\n"
-"\n"
-"QTableCornerButton::section:pressed {\n"
-"    background-color: rgba(0, 0, 0, 12);\n"
-"}")
-        self.TableWidget1.setObjectName("TableWidget1")
-        self.TableWidget1.setColumnCount(5)
-        self.TableWidget1.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
-        self.TableWidget1.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.TableWidget1.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.TableWidget1.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.TableWidget1.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.TableWidget1.setHorizontalHeaderItem(4, item)
-        self.TableWidget1.horizontalHeader().setDefaultSectionSize(160)
-        self.gridLayout_2.addWidget(self.TableWidget1, 4, 0, 1, 2)
+        self.verticalLayout_7.addWidget(self.label)
+        self.label_5 = QtWidgets.QLabel(self.page_manage)
+        font = QtGui.QFont()
+        font.setFamily("PT Root UI Bold")
+        font.setPointSize(10)
+        font.setItalic(False)
+        font.setUnderline(False)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
+        self.verticalLayout_7.addWidget(self.label_5)
+        self.verticalLayout_8.addLayout(self.verticalLayout_7)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.btn_addProperty = FilledPushButton(self.page_manage)
+        self.btn_addProperty.setObjectName("btn_addProperty")
+        self.horizontalLayout_5.addWidget(self.btn_addProperty)
+        self.btn_addProperty_2 = FilledPushButton(self.page_manage)
+        self.btn_addProperty_2.setObjectName("btn_addProperty_2")
+        self.horizontalLayout_5.addWidget(self.btn_addProperty_2)
+        self.SearchLineEdit = SearchLineEdit(self.page_manage)
+        self.SearchLineEdit.setText("")
+        self.SearchLineEdit.setObjectName("SearchLineEdit")
+        self.horizontalLayout_5.addWidget(self.SearchLineEdit)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_5)
+        self.SmoothScrollArea = SmoothScrollArea(self.page_manage)
+        self.SmoothScrollArea.setWidgetResizable(True)
+        self.SmoothScrollArea.setObjectName("SmoothScrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 839, 623))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.SmoothScrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.verticalLayout_8.addWidget(self.SmoothScrollArea)
         self.SlideAniStackedWidget.addWidget(self.page_manage)
-        self.page_profile = QtWidgets.QWidget()
-        self.page_profile.setObjectName("page_profile")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.page_profile)
+        self.page_rating = QtWidgets.QWidget()
+        self.page_rating.setObjectName("page_rating")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.page_rating)
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.label_6 = QtWidgets.QLabel(self.page_profile)
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.label_6 = QtWidgets.QLabel(self.page_rating)
         font = QtGui.QFont()
         font.setFamily("PT Root UI Bold")
         font.setPointSize(20)
@@ -341,8 +245,8 @@ class Ui_AdminMenu(object):
         font.setUnderline(False)
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
-        self.verticalLayout_6.addWidget(self.label_6)
-        self.label_7 = QtWidgets.QLabel(self.page_profile)
+        self.verticalLayout_9.addWidget(self.label_6)
+        self.label_7 = QtWidgets.QLabel(self.page_rating)
         font = QtGui.QFont()
         font.setFamily("PT Root UI Bold")
         font.setPointSize(10)
@@ -350,20 +254,60 @@ class Ui_AdminMenu(object):
         font.setUnderline(False)
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
-        self.verticalLayout_6.addWidget(self.label_7)
-        self.btn_addProfile1 = FilledPushButton(self.page_profile)
-        self.btn_addProfile1.setObjectName("btn_addProfile1")
-        self.verticalLayout_6.addWidget(self.btn_addProfile1)
-        self.RoundListWidget = RoundListWidget(self.page_profile)
+        self.verticalLayout_9.addWidget(self.label_7)
+        self.RoundListWidget = RoundListWidget(self.page_rating)
         self.RoundListWidget.setObjectName("RoundListWidget")
-        self.verticalLayout_6.addWidget(self.RoundListWidget)
-        self.SlideAniStackedWidget.addWidget(self.page_profile)
-        self.page_favorites = QtWidgets.QWidget()
-        self.page_favorites.setObjectName("page_favorites")
-        self.TitleLabel_4 = TitleLabel(self.page_favorites)
-        self.TitleLabel_4.setGeometry(QtCore.QRect(270, 140, 123, 38))
-        self.TitleLabel_4.setObjectName("TitleLabel_4")
-        self.SlideAniStackedWidget.addWidget(self.page_favorites)
+        self.verticalLayout_9.addWidget(self.RoundListWidget)
+        self.verticalLayout_6.addLayout(self.verticalLayout_9)
+        self.SlideAniStackedWidget.addWidget(self.page_rating)
+        self.page_review = QtWidgets.QWidget()
+        self.page_review.setObjectName("page_review")
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.page_review)
+        self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.label_8 = QtWidgets.QLabel(self.page_review)
+        font = QtGui.QFont()
+        font.setFamily("PT Root UI Bold")
+        font.setPointSize(20)
+        font.setItalic(False)
+        font.setUnderline(False)
+        self.label_8.setFont(font)
+        self.label_8.setObjectName("label_8")
+        self.verticalLayout_10.addWidget(self.label_8)
+        self.label_9 = QtWidgets.QLabel(self.page_review)
+        font = QtGui.QFont()
+        font.setFamily("PT Root UI Bold")
+        font.setPointSize(10)
+        font.setItalic(False)
+        font.setUnderline(False)
+        self.label_9.setFont(font)
+        self.label_9.setObjectName("label_9")
+        self.verticalLayout_10.addWidget(self.label_9)
+        self.verticalLayout_11.addLayout(self.verticalLayout_10)
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.btn_addProperty_3 = FilledPushButton(self.page_review)
+        self.btn_addProperty_3.setObjectName("btn_addProperty_3")
+        self.horizontalLayout_6.addWidget(self.btn_addProperty_3)
+        self.btn_addProperty_4 = FilledPushButton(self.page_review)
+        self.btn_addProperty_4.setObjectName("btn_addProperty_4")
+        self.horizontalLayout_6.addWidget(self.btn_addProperty_4)
+        self.SearchLineEdit_2 = SearchLineEdit(self.page_review)
+        self.SearchLineEdit_2.setText("")
+        self.SearchLineEdit_2.setObjectName("SearchLineEdit_2")
+        self.horizontalLayout_6.addWidget(self.SearchLineEdit_2)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_6)
+        self.SmoothScrollArea_2 = SmoothScrollArea(self.page_review)
+        self.SmoothScrollArea_2.setWidgetResizable(True)
+        self.SmoothScrollArea_2.setObjectName("SmoothScrollArea_2")
+        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 839, 623))
+        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.SmoothScrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
+        self.verticalLayout_11.addWidget(self.SmoothScrollArea_2)
+        self.SlideAniStackedWidget.addWidget(self.page_review)
         self.page_messages = QtWidgets.QWidget()
         self.page_messages.setObjectName("page_messages")
         self.TitleLabel_5 = TitleLabel(self.page_messages)
@@ -429,12 +373,12 @@ class Ui_AdminMenu(object):
         self.btn_dashboard2.setAutoExclusive(True)
         self.btn_dashboard2.setObjectName("btn_dashboard2")
         self.verticalLayout_2.addWidget(self.btn_dashboard2)
-        self.btn_manage2 = QtWidgets.QPushButton(self.icon_name_widget)
-        self.btn_manage2.setIcon(icon1)
-        self.btn_manage2.setCheckable(True)
-        self.btn_manage2.setAutoExclusive(True)
-        self.btn_manage2.setObjectName("btn_manage2")
-        self.verticalLayout_2.addWidget(self.btn_manage2)
+        self.btn_property2 = QtWidgets.QPushButton(self.icon_name_widget)
+        self.btn_property2.setIcon(icon1)
+        self.btn_property2.setCheckable(True)
+        self.btn_property2.setAutoExclusive(True)
+        self.btn_property2.setObjectName("btn_property2")
+        self.verticalLayout_2.addWidget(self.btn_property2)
         self.btn_profile2 = QtWidgets.QPushButton(self.icon_name_widget)
         self.btn_profile2.setIcon(icon2)
         self.btn_profile2.setCheckable(True)
@@ -462,60 +406,51 @@ class Ui_AdminMenu(object):
         self.btn_signout2.setObjectName("btn_signout2")
         self.verticalLayout_4.addWidget(self.btn_signout2)
         self.gridLayout.addWidget(self.icon_name_widget, 0, 1, 1, 1)
-        AdminMenu.setCentralWidget(self.centralwidget)
+        BuyerMenu.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(AdminMenu)
-        self.SlideAniStackedWidget.setCurrentIndex(1)
+        self.retranslateUi(BuyerMenu)
+        self.SlideAniStackedWidget.setCurrentIndex(3)
         self.btn_messages1.toggled['bool'].connect(self.btn_messages2.setChecked) # type: ignore
         self.btn_favorites1.toggled['bool'].connect(self.btn_favorites2.setChecked) # type: ignore
         self.btn_profile1.toggled['bool'].connect(self.btn_profile2.setChecked) # type: ignore
-        self.btn_manage.toggled['bool'].connect(self.btn_manage2.setChecked) # type: ignore
+        self.btn_property.toggled['bool'].connect(self.btn_property2.setChecked) # type: ignore
         self.btn_dashboard1.toggled['bool'].connect(self.btn_dashboard2.setChecked) # type: ignore
         self.btn_dashboard2.toggled['bool'].connect(self.btn_dashboard1.setChecked) # type: ignore
-        self.btn_manage2.toggled['bool'].connect(self.btn_manage.setChecked) # type: ignore
+        self.btn_property2.toggled['bool'].connect(self.btn_property.setChecked) # type: ignore
         self.btn_profile2.toggled['bool'].connect(self.btn_profile1.setChecked) # type: ignore
         self.btn_favorites2.toggled['bool'].connect(self.btn_favorites1.setChecked) # type: ignore
         self.btn_messages2.toggled['bool'].connect(self.btn_messages1.setChecked) # type: ignore
         self.btn_nav_bar.toggled['bool'].connect(self.icon_name_widget_2.setHidden) # type: ignore
         self.btn_nav_bar.toggled['bool'].connect(self.icon_name_widget.setVisible) # type: ignore
-        self.btn_signout1.toggled['bool'].connect(AdminMenu.close) # type: ignore
-        self.btn_signout2.toggled['bool'].connect(AdminMenu.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(AdminMenu)
+        self.btn_signout1.toggled['bool'].connect(BuyerMenu.close) # type: ignore
+        self.btn_signout2.toggled['bool'].connect(BuyerMenu.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(BuyerMenu)
 
-    def retranslateUi(self, AdminMenu):
+    def retranslateUi(self, BuyerMenu):
         _translate = QtCore.QCoreApplication.translate
-        AdminMenu.setWindowTitle(_translate("AdminMenu", "MainWindow"))
-        self.btn_log_out.setText(_translate("AdminMenu", "log out"))
-        self.TitleLabel.setText(_translate("AdminMenu", "Dashboard"))
-        self.label_5.setText(_translate("AdminMenu", "Welcome to user management page"))
-        self.ComboBox.setText(_translate("AdminMenu", "user type"))
-        self.ComboBox_2.setText(_translate("AdminMenu", "user status"))
-        self.SearchLineEdit.setPlaceholderText(_translate("AdminMenu", "search user name"))
-        self.label.setText(_translate("AdminMenu", "User info"))
-        self.TitleLabel_2.setText(_translate("AdminMenu", "Total Users"))
-        self.btn_addUser.setText(_translate("AdminMenu", "Add User"))
-        item = self.TableWidget1.horizontalHeaderItem(0)
-        item.setText(_translate("AdminMenu", "username"))
-        item = self.TableWidget1.horizontalHeaderItem(1)
-        item.setText(_translate("AdminMenu", "email"))
-        item = self.TableWidget1.horizontalHeaderItem(2)
-        item.setText(_translate("AdminMenu", "password"))
-        item = self.TableWidget1.horizontalHeaderItem(3)
-        item.setText(_translate("AdminMenu", "type"))
-        item = self.TableWidget1.horizontalHeaderItem(4)
-        item.setText(_translate("AdminMenu", "status"))
-        self.label_6.setText(_translate("AdminMenu", "Profile info"))
-        self.label_7.setText(_translate("AdminMenu", "check profile types here"))
-        self.btn_addProfile1.setText(_translate("AdminMenu", "Add Profile"))
-        self.TitleLabel_4.setText(_translate("AdminMenu", "Favorites"))
-        self.TitleLabel_5.setText(_translate("AdminMenu", "Messages"))
-        self.label_3.setText(_translate("AdminMenu", "Real Estate"))
-        self.btn_dashboard2.setText(_translate("AdminMenu", "dashboard"))
-        self.btn_manage2.setText(_translate("AdminMenu", "User Management"))
-        self.btn_profile2.setText(_translate("AdminMenu", "Profile"))
-        self.btn_favorites2.setText(_translate("AdminMenu", "Favorites"))
-        self.btn_messages2.setText(_translate("AdminMenu", "Messages"))
-        self.btn_signout2.setText(_translate("AdminMenu", "Sign out"))
-from qfluentwidgets import ComboBox, LineEdit, SearchLineEdit, TableWidget, TitleLabel
+        BuyerMenu.setWindowTitle(_translate("BuyerMenu", "MainWindow"))
+        self.btn_logout.setText(_translate("BuyerMenu", "log out"))
+        self.TitleLabel.setText(_translate("BuyerMenu", "Dashboard"))
+        self.label.setText(_translate("BuyerMenu", "Property info"))
+        self.label_5.setText(_translate("BuyerMenu", "Welcome to property page"))
+        self.btn_addProperty.setText(_translate("BuyerMenu", "give a review"))
+        self.btn_addProperty_2.setText(_translate("BuyerMenu", "give a score"))
+        self.SearchLineEdit.setPlaceholderText(_translate("BuyerMenu", "search user name"))
+        self.label_6.setText(_translate("BuyerMenu", "Rating info"))
+        self.label_7.setText(_translate("BuyerMenu", "View your rating here"))
+        self.label_8.setText(_translate("BuyerMenu", "Favorite properties"))
+        self.label_9.setText(_translate("BuyerMenu", "view your favorites here"))
+        self.btn_addProperty_3.setText(_translate("BuyerMenu", "give a review"))
+        self.btn_addProperty_4.setText(_translate("BuyerMenu", "give a score"))
+        self.SearchLineEdit_2.setPlaceholderText(_translate("BuyerMenu", "search user name"))
+        self.TitleLabel_5.setText(_translate("BuyerMenu", "Messages"))
+        self.label_3.setText(_translate("BuyerMenu", "Real Estate"))
+        self.btn_dashboard2.setText(_translate("BuyerMenu", "dashboard"))
+        self.btn_property2.setText(_translate("BuyerMenu", "search property"))
+        self.btn_profile2.setText(_translate("BuyerMenu", "my profile"))
+        self.btn_favorites2.setText(_translate("BuyerMenu", "my favorite"))
+        self.btn_messages2.setText(_translate("BuyerMenu", "Messages"))
+        self.btn_signout2.setText(_translate("BuyerMenu", "Sign out"))
+from qfluentwidgets import LineEdit, SearchLineEdit, SmoothScrollArea, TitleLabel
 from qfluentwidgetspro import FilledPushButton, RoundListWidget, SlideAniStackedWidget
 import res_rc

@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1176</width>
-    <height>763</height>
+    <width>1200</width>
+    <height>855</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>400</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -95,7 +101,7 @@ QPushButton:checked{
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_properties1">
+          <widget class="QPushButton" name="btn_property">
            <property name="text">
             <string/>
            </property>
@@ -199,6 +205,359 @@ QPushButton:checked{
       </layout>
      </widget>
     </item>
+    <item row="0" column="2">
+     <widget class="QWidget" name="main_menu" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QWidget" name="header_widget" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QPushButton" name="btn_nav_bar">
+            <property name="styleSheet">
+             <string notr="true">border:none;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="res.qrc">
+              <normaloff>:/icons2/icons/icon2/menu.png</normaloff>:/icons2/icons/icon2/menu.png</iconset>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>140</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+             <number>7</number>
+            </property>
+            <item>
+             <widget class="LineEdit" name="LineEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_search">
+              <property name="styleSheet">
+               <string notr="true">border:none</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/icons2/icons/icon2/search.png</normaloff>:/icons2/icons/icon2/search.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>162</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_logout">
+            <property name="font">
+             <font>
+              <family>PT Root UI Bold</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border:none;</string>
+            </property>
+            <property name="text">
+             <string>log out</string>
+            </property>
+            <property name="icon">
+             <iconset resource="res.qrc">
+              <normaloff>:/blue/icons/blue/log-out.svg</normaloff>:/blue/icons/blue/log-out.svg</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="SlideAniStackedWidget" name="SlideAniStackedWidget">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="currentIndex">
+          <number>3</number>
+         </property>
+         <widget class="QWidget" name="page_dashborad">
+          <widget class="TitleLabel" name="TitleLabel">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>70</y>
+             <width>261</width>
+             <height>101</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Dashboard</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="page_manage">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>20</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Property info</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>10</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Welcome to property page</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="FilledPushButton" name="btn_addProperty">
+               <property name="text">
+                <string>give a review</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="FilledPushButton" name="btn_addProperty_2">
+               <property name="text">
+                <string>give a score</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="SearchLineEdit" name="SearchLineEdit">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>search user name</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="SmoothScrollArea" name="SmoothScrollArea">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>839</width>
+                <height>623</height>
+               </rect>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_rating">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>20</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Rating info</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>10</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>View your rating here</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="RoundListWidget" name="RoundListWidget"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_review">
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>20</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Favorite properties</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_9">
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>10</pointsize>
+                 <italic>false</italic>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>view your favorites here</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="FilledPushButton" name="btn_addProperty_3">
+               <property name="text">
+                <string>give a review</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="FilledPushButton" name="btn_addProperty_4">
+               <property name="text">
+                <string>give a score</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="SearchLineEdit" name="SearchLineEdit_2">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>search user name</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="SmoothScrollArea" name="SmoothScrollArea_2">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_2">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>839</width>
+                <height>623</height>
+               </rect>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_messages">
+          <widget class="TitleLabel" name="TitleLabel_5">
+           <property name="geometry">
+            <rect>
+             <x>240</x>
+             <y>190</y>
+             <width>123</width>
+             <height>38</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Messages</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QWidget" name="icon_name_widget" native="true">
       <property name="styleSheet">
@@ -292,9 +651,9 @@ QPushButton:checked{
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_properties2">
+          <widget class="QPushButton" name="btn_property2">
            <property name="text">
-            <string>Properties</string>
+            <string>search property</string>
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
@@ -312,7 +671,7 @@ QPushButton:checked{
          <item>
           <widget class="QPushButton" name="btn_profile2">
            <property name="text">
-            <string>Profile</string>
+            <string>my profile</string>
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
@@ -330,7 +689,7 @@ QPushButton:checked{
          <item>
           <widget class="QPushButton" name="btn_favorites2">
            <property name="text">
-            <string>Favorites</string>
+            <string>my favorite</string>
            </property>
            <property name="icon">
             <iconset resource="res.qrc">
@@ -396,412 +755,10 @@ QPushButton:checked{
       </layout>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QWidget" name="main_menu" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QWidget" name="header_widget" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QPushButton" name="btn_nav_bar">
-            <property name="styleSheet">
-             <string notr="true">border:none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="res.qrc">
-              <normaloff>:/icons2/icons/icon2/menu.png</normaloff>:/icons2/icons/icon2/menu.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>140</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="spacing">
-             <number>7</number>
-            </property>
-            <item>
-             <widget class="LineEdit" name="LineEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btn_search">
-              <property name="styleSheet">
-               <string notr="true">border:none</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="res.qrc">
-                <normaloff>:/icons2/icons/icon2/search.png</normaloff>:/icons2/icons/icon2/search.png</iconset>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>162</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_user">
-            <property name="styleSheet">
-             <string notr="true">border:none;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="res.qrc">
-              <normaloff>:/icons2/icons/icon2/image.png</normaloff>:/icons2/icons/icon2/image.png</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="SlideAniStackedWidget" name="SlideAniStackedWidget">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="currentIndex">
-          <number>1</number>
-         </property>
-         <widget class="QWidget" name="page_dashborad">
-          <widget class="TitleLabel" name="TitleLabel">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>70</y>
-             <width>261</width>
-             <height>101</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Dashboard</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_properties">
-          <widget class="TableWidget" name="TableWidget1">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>190</y>
-             <width>811</width>
-             <height>471</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QTableView {
-    background: transparent;
-    outline: none;
-    border: none;
-    /* font: 13px 'Segoe UI', 'Microsoft YaHei'; */
-    selection-background-color: transparent;
-    alternate-background-color: transparent;
-}
-
-QTableView[isBorderVisible=true] {
-    border: 1px solid rgba(0, 0, 0, 15);
-}
-
-QTableView::item {
-    background: transparent;
-    border: 0px;
-    padding-left: 16px;
-    padding-right: 16px;
-    height: 35px;
-}
-
-
-QTableView::indicator {
-    width: 18px;
-    height: 18px;
-    border-radius: 5px;
-    border: none;
-    background-color: transparent;
-}
-
-
-QHeaderView {
-    background-color: transparent;
-}
-
-QHeaderView::section {
-    background-color:  ;
-	background-color: rgb(238, 238, 238);
-    color: black;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 1px solid rgba(0, 0, 0, 15);
-    font: 17px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
-}
-
-QHeaderView::section:horizontal {
-    border-left: none;
-    height: 33px;
-}
-
-QTableView[isBorderVisible=true] QHeaderView::section:horizontal {
-    border-top: none;
-}
-
-QHeaderView::section:horizontal:last {
-    border-right: none;
-}
-
-QHeaderView::section:vertical {
-    border-top: none;
-}
-
-QHeaderView::section:checked {
-    background-color: transparent;
-}
-
-QHeaderView::down-arrow {
-    subcontrol-origin: padding;
-    subcontrol-position: center right;
-    margin-right: 6px;
-    image: url(:/qfluentwidgets/images/table_view/Down_black.svg);
-}
-
-QHeaderView::up-arrow {
-    subcontrol-origin: padding;
-    subcontrol-position: center right;
-    margin-right: 6px;
-    image: url(:/qfluentwidgets/images/table_view/Up_black.svg);
-}
-
-QTableCornerButton::section {
-    background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 15);
-}
-
-QTableCornerButton::section:pressed {
-    background-color: rgba(0, 0, 0, 12);
-}</string>
-           </property>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>160</number>
-           </attribute>
-           <column>
-            <property name="text">
-             <string>username</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>email</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>password</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>type</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>status</string>
-            </property>
-           </column>
-          </widget>
-          <widget class="QLabel" name="label">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>141</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>PT Root UI Bold</family>
-             <pointsize>20</pointsize>
-             <italic>false</italic>
-             <underline>false</underline>
-            </font>
-           </property>
-           <property name="text">
-            <string>User info</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_5">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>60</y>
-             <width>281</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>PT Root UI Bold</family>
-             <pointsize>10</pointsize>
-             <italic>false</italic>
-             <underline>false</underline>
-            </font>
-           </property>
-           <property name="text">
-            <string>Welcome to user management page</string>
-           </property>
-          </widget>
-          <widget class="FilledPushButton" name="FilledPushButton">
-           <property name="geometry">
-            <rect>
-             <x>40</x>
-             <y>100</y>
-             <width>137</width>
-             <height>32</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Add User</string>
-           </property>
-          </widget>
-          <widget class="ComboBox" name="ComboBox">
-           <property name="geometry">
-            <rect>
-             <x>40</x>
-             <y>140</y>
-             <width>101</width>
-             <height>32</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>user type</string>
-           </property>
-          </widget>
-          <widget class="ComboBox" name="ComboBox_2">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>140</y>
-             <width>111</width>
-             <height>32</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>user status</string>
-           </property>
-          </widget>
-          <widget class="SearchLineEdit" name="SearchLineEdit">
-           <property name="geometry">
-            <rect>
-             <x>280</x>
-             <y>140</y>
-             <width>381</width>
-             <height>33</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>search user name</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_profile">
-          <widget class="TitleLabel" name="TitleLabel_3">
-           <property name="geometry">
-            <rect>
-             <x>250</x>
-             <y>170</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Profile</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_favorites">
-          <widget class="TitleLabel" name="TitleLabel_4">
-           <property name="geometry">
-            <rect>
-             <x>270</x>
-             <y>140</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Favorites</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_messages">
-          <widget class="TitleLabel" name="TitleLabel_5">
-           <property name="geometry">
-            <rect>
-             <x>240</x>
-             <y>190</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Messages</string>
-           </property>
-          </widget>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
    </layout>
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>ComboBox</class>
-   <extends>QPushButton</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
   <customwidget>
    <class>PushButton</class>
    <extends>QPushButton</extends>
@@ -811,6 +768,12 @@ QTableCornerButton::section:pressed {
    <class>FilledPushButton</class>
    <extends>PushButton</extends>
    <header>qfluentwidgetspro</header>
+  </customwidget>
+  <customwidget>
+   <class>SmoothScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>SlideAniStackedWidget</class>
@@ -834,9 +797,14 @@ QTableCornerButton::section:pressed {
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>TableWidget</class>
-   <extends>QTableWidget</extends>
+   <class>ListWidget</class>
+   <extends>QListWidget</extends>
    <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>RoundListWidget</class>
+   <extends>ListWidget</extends>
+   <header>qfluentwidgetspro</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -892,9 +860,9 @@ QTableCornerButton::section:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>btn_properties1</sender>
+   <sender>btn_property</sender>
    <signal>toggled(bool)</signal>
-   <receiver>btn_properties2</receiver>
+   <receiver>btn_property2</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -940,9 +908,9 @@ QTableCornerButton::section:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>btn_properties2</sender>
+   <sender>btn_property2</sender>
    <signal>toggled(bool)</signal>
-   <receiver>btn_properties1</receiver>
+   <receiver>btn_property</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">

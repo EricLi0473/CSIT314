@@ -82,7 +82,7 @@ border-bottom-right-radius:30px;
      </font>
     </property>
     <property name="text">
-     <string>find your dream home today</string>
+     <string>find your dream home</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
@@ -136,9 +136,9 @@ QPushButton:hover{
    <widget class="QPushButton" name="pushButton_account">
     <property name="geometry">
      <rect>
-      <x>760</x>
+      <x>740</x>
       <y>300</y>
-      <width>141</width>
+      <width>161</width>
       <height>51</height>
      </rect>
     </property>
@@ -371,7 +371,7 @@ QPushButton:pressed{
      <rect>
       <x>910</x>
       <y>300</y>
-      <width>141</width>
+      <width>161</width>
       <height>51</height>
      </rect>
     </property>

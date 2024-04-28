@@ -62,7 +62,7 @@ class Profile:
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
             sqlQuery = f'update profile set profileName = %s where profileName = %s'
-            cursor.execute(sqlQuery,(oldProfileName,newProfileName))
+            cursor.execute(sqlQuery,(newProfileName,oldProfileName))
             connect.commit()
         connect.close()
         return True

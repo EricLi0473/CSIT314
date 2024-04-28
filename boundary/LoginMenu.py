@@ -72,7 +72,7 @@ class Ui_loginWindow(object):
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout.addWidget(self.pushButton_2)
         self.pushButton_account = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_account.setGeometry(QtCore.QRect(760, 300, 141, 51))
+        self.pushButton_account.setGeometry(QtCore.QRect(740, 300, 161, 51))
         self.pushButton_account.setMinimumSize(QtCore.QSize(141, 41))
         font = QtGui.QFont()
         font.setFamily("Arial Rounded MT Bold")
@@ -192,7 +192,7 @@ class Ui_loginWindow(object):
         self.verticalLayout_3.addWidget(self.pushButton_reg)
         self.SlideAniStackedWidget.addWidget(self.page_reg)
         self.pushButton_Sign = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_Sign.setGeometry(QtCore.QRect(910, 300, 141, 51))
+        self.pushButton_Sign.setGeometry(QtCore.QRect(910, 300, 161, 51))
         self.pushButton_Sign.setMinimumSize(QtCore.QSize(141, 41))
         font = QtGui.QFont()
         font.setFamily("Arial Rounded MT Bold")
@@ -231,7 +231,7 @@ class Ui_loginWindow(object):
     def retranslateUi(self, loginWindow):
         _translate = QtCore.QCoreApplication.translate
         loginWindow.setWindowTitle(_translate("loginWindow", "MainWindow"))
-        self.label_introduce.setText(_translate("loginWindow", "find your dream home today"))
+        self.label_introduce.setText(_translate("loginWindow", "find your dream home"))
         self.pushButton_account.setText(_translate("loginWindow", "Have account"))
         self.lineEdit_username.setPlaceholderText(_translate("loginWindow", "Username"))
         self.lineEdit_password.setPlaceholderText(_translate("loginWindow", "Password"))

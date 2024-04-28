@@ -1,24 +1,22 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.AdminMenu_Dialog_UpdateUser import *
+from boundary.AdminMenu_Dialog_UpdatedProfile import *
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout, QDialog
 
 
-class DialogUpdateUser(QDialog):
+class DialogUpdateProfile(QDialog):
 
     # 为dialog窗口设置触发信号
-    userUpdated = pyqtSignal()
+    ProfileUpdated = pyqtSignal()
 
     def __init__(self, parent=None):
-        super(DialogUpdateUser, self).__init__(parent)
-        self.ui = Ui_Dialog_UpdateUser()
+        super(DialogUpdateProfile, self).__init__(parent)
+        self.ui = Ui_Dialog_UpdateProfile()
         self.ui.setupUi(self)
 
-        self.ui.ComboBox_type.addItems(["admin", "agent", "buyer", "seller"])
-
-        self.ui.PushButton_update.clicked.connect(self.getUpdatedData)
+        self.ui.PushButton_create.clicked.connect(self.getUpdatedData)
 
     # GUI窗口拖动
     def mousePressEvent(self, event):
@@ -39,13 +37,9 @@ class DialogUpdateUser(QDialog):
 
     def getUpdatedData(self):
         # 收集对话框中的数据
-        newUsername = self.ui.LineEdit_newName.text()
-        password = self.ui.LineEdit_password.text()
-        email = self.ui.LineEdit_email.text()
-        userType = self.ui.ComboBox_type.currentText()
+        newProfilename = self.ui.LineEdit_profile.text()
 
-        self.userUpdated.emit()
+        self.ProfileUpdated.emit()
         self.accept()
 
-        return newUsername, password, email, userType
-
+        return newProfilename

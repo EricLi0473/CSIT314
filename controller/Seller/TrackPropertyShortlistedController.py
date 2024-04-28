@@ -1,5 +1,5 @@
 from entity.Property import Property
-class TrackPropertyViewedController:
+class TrackPropertyShortlistedController:
     def __init__(self):
         pass
     def trackPropertyViewed(self,title):

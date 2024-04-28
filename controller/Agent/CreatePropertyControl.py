@@ -9,6 +9,10 @@ class CreatePropertyControl:
         try:
             agentID = User().findUserIdByUserName(agentName)
             sellerID = User().findUserIdByUserName(Sellername)
+            ##检测类型 "1" = True, "xxx" False
+            bedNum = int(bedNum)
+            size = float(size)
+            price = float(price)
             # if not isinstance(bedNum, int) or not isinstance(bathNum, int) or not (isinstance(price, int) or isinstance(price, float)):
             #     raise Exception
             Property().addProperty(title=title, description=description, bedNum=bedNum,

@@ -48,6 +48,7 @@ class DialogAddProfile(QDialog):
             success = create_control.createProfile(profileNmae)
 
             if success:
+                QMessageBox.information(self, 'Success', f"Successful create new profile")
                 self.profileAdded.emit()
                 self.accept()  # 关闭对话框
                 return True
