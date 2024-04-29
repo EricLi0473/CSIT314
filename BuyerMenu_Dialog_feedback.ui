@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BuyerMenu_Dialog_feedback</class>
+ <widget class="QDialog" name="BuyerMenu_Dialog_feedback">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>414</width>
+    <height>319</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(245, 250, 254);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="PushButton" name="btn_score">
+       <property name="minimumSize">
+        <size>
+         <width>121</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>give a score</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="btn_review">
+       <property name="minimumSize">
+        <size>
+         <width>121</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>give a review</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="SlideAniStackedWidget" name="SlideAniStackedWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="SubtitleLabel" name="SubtitleLabel">
+           <property name="text">
+            <string>Agent name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ComboBox" name="ComboBox_agent_2">
+           <property name="minimumSize">
+            <size>
+             <width>121</width>
+             <height>31</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="SubtitleLabel" name="SubtitleLabel_2">
+           <property name="text">
+            <string>Score:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ComboBox" name="ComboBox_score"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="FilledPushButton" name="btn_submit_score">
+           <property name="text">
+            <string>submit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="PushButton" name="PushButton">
+           <property name="text">
+            <string>cancel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="SubtitleLabel" name="SubtitleLabel_3">
+           <property name="text">
+            <string>Agent name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ComboBox" name="ComboBox_agent">
+           <property name="minimumSize">
+            <size>
+             <width>121</width>
+             <height>31</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="SubtitleLabel" name="SubtitleLabel_4">
+           <property name="text">
+            <string>review:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="TextEdit" name="TextEdit_review"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="FilledPushButton" name="btn_submit_review">
+           <property name="text">
+            <string>submit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="PushButton" name="PushButton_cancel">
+           <property name="text">
+            <string>cancel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>FilledPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgetspro</header>
+  </customwidget>
+  <customwidget>
+   <class>SlideAniStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header>qfluentwidgetspro</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>PushButton_cancel</sender>
+   <signal>pressed()</signal>
+   <receiver>BuyerMenu_Dialog_feedback</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>282</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton</sender>
+   <signal>pressed()</signal>
+   <receiver>BuyerMenu_Dialog_feedback</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>315</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>317</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

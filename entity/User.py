@@ -148,5 +148,15 @@ class User:
         finally:
             connect.close()
 
-
-
+    def getAllAgentName(self):
+        agentNameList = []
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = 'select username from users where usertypeid = 2'
+            cursor.execute(sqlQuery)
+            agentNameData = cursor.fetchall()
+            for agentName in agentNameData:
+                agentNameList.append(agentName['username'])
+        connect.close()
+        return agentNameList

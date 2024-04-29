@@ -10,12 +10,15 @@ from controller.Buyer.calculateMonthlyPaymentControl import CalculateMonthlyPaym
 
 class DialogCalculation(QDialog):
 
-    def __init__(self, parent=None):
+    def __init__(self, price=None, parent=None):
         super(DialogCalculation, self).__init__(parent)
         self.ui = Ui_BuyerMenu_Dialog_calculation()
         self.ui.setupUi(self)
 
         self.ui.PushButton_calculate.clicked.connect(self.calculation)
+
+        if price:
+            self.ui.LineEdit_price.setText(str(price.get('price', '')))
 
     # GUI窗口拖动
     def mousePressEvent(self, event):

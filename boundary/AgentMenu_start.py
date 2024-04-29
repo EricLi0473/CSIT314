@@ -304,8 +304,8 @@ class AgentMenu(QMainWindow):
                 card_widget.label_views.setText(f"Views: {property_data[7]}")
                 card_widget.label_seller.setText(f"Seller: {property_data[9]}")
 
-                #刷新页面，refreshRequested信号绑定到了refreshUserList
-                card_widget.refreshRequested.connect(self.refreshUserList)
+                #刷新页面，refreshRequested信号绑定到了refreshPropertyList
+                card_widget.refreshRequested.connect(self.refreshPropertyList)
 
                 layout.addWidget(card_widget)
 
@@ -317,11 +317,11 @@ class AgentMenu(QMainWindow):
         # 创建并显示 AddUserDialog 对话框
         dialog_addProperty = DialogAddProperty(self.agent_name, self)
 
-        dialog_addProperty.propertyAdded.connect(self.refreshUserList)
+        dialog_addProperty.propertyAdded.connect(self.refreshPropertyList)
 
         dialog_addProperty.exec_()  # 以模态方式运行对话框
 
-    def refreshUserList(self):
+    def refreshPropertyList(self):
 
         self.addContentDashboardCardWidgets()
 
