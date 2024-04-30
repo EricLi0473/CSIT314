@@ -25,3 +25,8 @@ class ViewPropertiesControl:
             propertyText.append(agentName)
             propertyTextList.append(propertyText)
         return propertyTextList
+'''''
+return PropertyList by SellerName
+[['Property1', 'Beautiful house with a garden', 2, 2, 2000, 300000.0, 'sold', 0, 1, 'agent1'], 
+ ['Property3', 'Spacious villa with a pool', 4, 4, 5000, 600000.0, 'sold', 0, 0, 'agent1']]
+'''''

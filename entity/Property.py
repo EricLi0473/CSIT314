@@ -163,38 +163,41 @@ class Property:
         finally:
             connect.close()
 
-
+    '''''
+    User stories #26&27 merge and change to #26
+    # 26 As a seller, I want to be able to view all my properties so that I can manage and track properties I own
+    '''''
     # 26 As a seller, I want to be able to track the number of views on properties so that I can know how many people are interested in this property.
-    def findViewByTitle(self, title):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        try:
-            with connect.cursor() as cursor:
-                sqlQuery = 'select views from properties where title = %s'
-                cursor.execute(sqlQuery, title)
-                view = cursor.fetchone()['views']
-                return view
-        except Exception:
-            return -1
-        finally:
-            connect.close()
+    # def findViewByTitle(self, title):
+    #     connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+    #                               cursorclass=pymysql.cursors.DictCursor)
+    #     try:
+    #         with connect.cursor() as cursor:
+    #             sqlQuery = 'select views from properties where title = %s'
+    #             cursor.execute(sqlQuery, title)
+    #             view = cursor.fetchone()['views']
+    #             return view
+    #     except Exception:
+    #         return -1
+    #     finally:
+    #         connect.close()
 
 
     # 27 As a seller, I want to be able to track the number of times being shortlisted on properties so that I can better understand the market feedback and demand for property.
-    def findShortlistedByTitle(self, title):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        try:
-            with connect.cursor() as cursor:
-                sqlQuery = 'select Shortlisted from properties where title = %s'
-                cursor.execute(sqlQuery, title)
-                property = cursor.fetchone()
-                shortlisted = property['Shortlisted']
-            return shortlisted
-        except Exception:
-            return -1
-        finally:
-            connect.close()
+    # def findShortlistedByTitle(self, title):
+    #     connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+    #                               cursorclass=pymysql.cursors.DictCursor)
+    #     try:
+    #         with connect.cursor() as cursor:
+    #             sqlQuery = 'select Shortlisted from properties where title = %s'
+    #             cursor.execute(sqlQuery, title)
+    #             property = cursor.fetchone()
+    #             shortlisted = property['Shortlisted']
+    #         return shortlisted
+    #     except Exception:
+    #         return -1
+    #     finally:
+    #         connect.close()
 
 
     # 35 As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
@@ -215,19 +218,7 @@ class Property:
         connect.close()
         return propertyList
 
-    # Decide move  to Buyer.calculateMonthlyPaymentControl
-    # 39 As a buyer, I want to be able to calculate the monthly payments based on the price of the property, interest rate, and other relevant factors so that I can know if the property is within my budget.
-    # def calculateMonthlyPayments(self,title,month):
-    #     connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-    #                               cursorclass=pymysql.cursors.DictCursor)
-    #     with connect.cursor() as cursor:
-    #         sqlQuery = f'select price from properties where title = %s'
-    #         cursor.execute(sqlQuery,title)
-    #         price = cursor.fetchone()['Price']
-    #     connect.close()
-    #     return  price/month
-
-    # 42 As a seller, I want to be able to view all my properties so that I can manage and track properties I own
+    # 26 As a seller, I want to be able to view all my properties so that I can manage and track properties I own
     def findPropertyBySellerId(self,sellerId):
         propertyList = []
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',

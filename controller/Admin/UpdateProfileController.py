@@ -5,5 +5,3 @@ class UpdateProfileController:
 
     def updateProfile(self,oldUsername,newUsername):
         return Profile().updateProfile(oldUsername,newUsername)
-
-print(UpdateProfileController().updateProfile("test1","test"))
