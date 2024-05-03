@@ -38,7 +38,7 @@ class DialogAddUser(QDialog):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-
+#todo 7
     def userCreate(self):
         try:
             # 获取输入框和组合框中的值

@@ -387,7 +387,7 @@ QPushButton:checked{
               </widget>
              </item>
              <item>
-              <widget class="PushButton" name="btn_search_user">
+              <widget class="PushButton" name="btn_search_property">
                <property name="minimumSize">
                 <size>
                  <width>150</width>

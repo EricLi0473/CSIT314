@@ -1,5 +1,5 @@
 from entity.Profile import Profile
-class SearchUserController:
+class SearchProfileController:
     def __init__(self):
         pass
     def searchAProfile(self,name):
