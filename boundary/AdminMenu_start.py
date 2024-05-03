@@ -53,7 +53,7 @@ class ProfileListItem(QWidget):
                     """)
 
 
-        self.edit_button.clicked.connect(self.editProfile)
+        self.edit_button.clicked.connect(self.updateUserProfile)
 
         layout.addWidget(self.text_label)
         layout.addWidget(self.edit_button)
@@ -62,7 +62,7 @@ class ProfileListItem(QWidget):
         layout.setContentsMargins(2, 2, 2, 2)
         layout.setSpacing(2)
 
-    def editProfile(self):
+    def updateUserProfile(self):
         oldProfilename = self.text_label.text()
 
         update_dialog = DialogUpdateProfile()

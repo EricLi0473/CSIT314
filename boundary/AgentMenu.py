@@ -217,15 +217,16 @@ class Ui_AgentMenu(object):
         self.SearchLineEdit.setText("")
         self.SearchLineEdit.setObjectName("SearchLineEdit")
         self.horizontalLayout_5.addWidget(self.SearchLineEdit)
-        self.TitleLabel_2 = TitleLabel(self.page_manage)
-        self.TitleLabel_2.setObjectName("TitleLabel_2")
-        self.horizontalLayout_5.addWidget(self.TitleLabel_2)
+        self.btn_search_user = PushButton(self.page_manage)
+        self.btn_search_user.setMinimumSize(QtCore.QSize(150, 0))
+        self.btn_search_user.setObjectName("btn_search_user")
+        self.horizontalLayout_5.addWidget(self.btn_search_user)
         self.verticalLayout_8.addLayout(self.horizontalLayout_5)
         self.SmoothScrollArea = SmoothScrollArea(self.page_manage)
         self.SmoothScrollArea.setWidgetResizable(True)
         self.SmoothScrollArea.setObjectName("SmoothScrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 98, 28))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 839, 623))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.SmoothScrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_8.addWidget(self.SmoothScrollArea)
@@ -391,7 +392,7 @@ class Ui_AgentMenu(object):
         AgentMenu.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(AgentMenu)
-        self.SlideAniStackedWidget.setCurrentIndex(3)
+        self.SlideAniStackedWidget.setCurrentIndex(1)
         self.btn_messages1.toggled['bool'].connect(self.btn_messages2.setChecked) # type: ignore
         self.btn_favorites1.toggled['bool'].connect(self.btn_favorites2.setChecked) # type: ignore
         self.btn_profile1.toggled['bool'].connect(self.btn_profile2.setChecked) # type: ignore
@@ -417,7 +418,7 @@ class Ui_AgentMenu(object):
         self.label_5.setText(_translate("AgentMenu", "Welcome to property management page"))
         self.btn_addProperty.setText(_translate("AgentMenu", "Add property"))
         self.SearchLineEdit.setPlaceholderText(_translate("AgentMenu", "search user name"))
-        self.TitleLabel_2.setText(_translate("AgentMenu", "Total property"))
+        self.btn_search_user.setText(_translate("AgentMenu", "search"))
         self.label_6.setText(_translate("AgentMenu", "Rating info"))
         self.label_7.setText(_translate("AgentMenu", "View your rating here"))
         self.label_8.setText(_translate("AgentMenu", "Comments info"))
@@ -430,6 +431,6 @@ class Ui_AgentMenu(object):
         self.btn_favorites2.setText(_translate("AgentMenu", "check my reviews"))
         self.btn_messages2.setText(_translate("AgentMenu", "Messages"))
         self.btn_signout2.setText(_translate("AgentMenu", "Sign out"))
-from qfluentwidgets import LineEdit, SearchLineEdit, SmoothScrollArea, TitleLabel
+from qfluentwidgets import LineEdit, PushButton, SearchLineEdit, SmoothScrollArea, TitleLabel
 from qfluentwidgetspro import FilledPushButton, RoundListWidget, SlideAniStackedWidget
 import res_rc
