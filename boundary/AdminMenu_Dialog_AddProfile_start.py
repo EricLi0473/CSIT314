@@ -40,12 +40,12 @@ class DialogAddProfile(QDialog):
     def profileCreate(self):
         try:
             # 获取输入框和组合框中的值
-            profileNmae = self.ui.LineEdit_profile.text()
+            profileName = self.ui.LineEdit_profile.text()
 
 
             # 调用后端的 createUser 方法
             create_control = CreateProfileController()
-            success = create_control.createProfile(profileNmae)
+            success = create_control.createProfile(profileName)
 
             if success:
                 QMessageBox.information(self, 'Success', f"Successful create new profile")

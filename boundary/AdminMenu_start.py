@@ -83,10 +83,12 @@ class ProfileListItem(QWidget):
 
 
 class AdminMenu(QMainWindow):
-    def __init__(self, loginMenu):
+    def __init__(self, user,loginMenu):
         super().__init__()
         self.ui = Ui_AdminMenu()
         self.ui.setupUi(self)
+        #新建一个user对象
+        self.user = user
 
         # 实例化后，它会收到对实例的引用LoginMenu( loginMenu)。
         # 创建一个注销按钮，并将其clicked信号连接到实例logout的方法LoginMenu。
@@ -354,13 +356,13 @@ class AdminMenu(QMainWindow):
     # 搜索栏过滤用户，用户输入的text是参数
     def filterUsers(self, text):
         # 从当前用户数据中过滤用户
-        self.displayFilteredUsers(text)
+        self.searchAUserAccount(text)
 
     # 根据用户输入的文本来过滤和显示用户信息到表格
-    def displayFilteredUsers(self, filter_text):
+    def searchAUserAccount(self, filter_text):
         viewUser_control = ViewUserController()
 
-        user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())        # 全部用户数据
+        user_list = viewUser_control.viewAllUser()       # 全部用户数据
         self.ui.TableWidget1.clearContents()            # 清除当前内容
         self.ui.TableWidget1.setRowCount(0)             # 清除当前行数
 
@@ -368,14 +370,14 @@ class AdminMenu(QMainWindow):
 
             # 判断用户列表中的用户名是否包含搜索框中输入的文本（不区分大小写）
             # 如果包含，就在 QTableWidget 中添加一行并填充相应的用户数据
-            if filter_text.lower() in user_data[0].lower():
+            if filter_text.lower() in user_data.username.lower():
                 row_position = self.ui.TableWidget1.rowCount()
                 self.ui.TableWidget1.insertRow(row_position)
-                self.ui.TableWidget1.setItem(row_position, 0, QTableWidgetItem(user_data[0]))  # username
-                self.ui.TableWidget1.setItem(row_position, 1, QTableWidgetItem(user_data[1]))  # password
-                self.ui.TableWidget1.setItem(row_position, 2, QTableWidgetItem(user_data[2]))  # email
-                self.ui.TableWidget1.setItem(row_position, 3, QTableWidgetItem(user_data[3]))  # userType
-                self.ui.TableWidget1.setItem(row_position, 4, QTableWidgetItem(user_data[4]))  # status
+                self.ui.TableWidget1.setItem(row_position, 0, QTableWidgetItem(user_data.username))  # username
+                self.ui.TableWidget1.setItem(row_position, 1, QTableWidgetItem(user_data.password))  # password
+                self.ui.TableWidget1.setItem(row_position, 2, QTableWidgetItem(user_data.email))  # email
+                self.ui.TableWidget1.setItem(row_position, 3, QTableWidgetItem(user_data.userTypeName))  # userType
+                self.ui.TableWidget1.setItem(row_position, 4, QTableWidgetItem(user_data.userStatus))  # status
 
                 self.setupTableButtons(row_position)                                           # 添加按钮
 
@@ -384,13 +386,12 @@ class AdminMenu(QMainWindow):
     # profile 页面信息获取
     def viewProfile(self):
         view_profile_control = ViewProfilesController()
-        profile_list = view_profile_control.TransferProfileToList(view_profile_control.viewAllProfile())
+        profile_list = view_profile_control.viewAllProfile()
 
         self.ui.RoundListWidget.clear()
 
         for profile in profile_list:
-            profile_name = profile[0]
-            print(profile_name)
+            profile_name = profile.profileName
 
             # Create the custom widget for the list item
             profile_widget = ProfileListItem(profile_name)

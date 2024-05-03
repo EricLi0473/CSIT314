@@ -67,8 +67,7 @@ class LoginMenu(QMainWindow):
         # 根据用户类型 ( user_type)，它实例化AdminMenu AgentMenu并将其分配给currentSession。
         # 新实例化的会话窗口将显示给用户。
         if user.userTypeId == 1:
-            #todo AdminMenu没有传user进去，我不太清楚要怎么重构
-            self.adminMenu = AdminMenu(self)
+            self.adminMenu = AdminMenu(user, self)
             self.currentSession = self.adminMenu
             self.adminMenu.show()
         elif user.userTypeId == 2:

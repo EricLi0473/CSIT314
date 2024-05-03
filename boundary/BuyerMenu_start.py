@@ -17,7 +17,7 @@ from controller.Buyer.ViewNewFavouritesControl import ViewNewFavouritesControl
 from controller.Buyer.ViewOldFavouritesControl import ViewOldFavouritesControl
 from controller.User.SearchUserController import SearchUserController
 from controller.User.UpdateUserController import UpdateUserController
-from entity.User import User
+
 
 
 """
@@ -279,7 +279,7 @@ class BuyerMenu(QMainWindow):
         # 自使用函数
         self.viewNewAndOldProperties()
         self.viewNewPropertyFavouritesList()
-        self.addOldFavContentDashboardCardWidgets()
+        self.viewOldPropertyFavouritesList()
         self.profilePage()
         # property页面中的add按钮绑定openAddPropertyDialog方法
 
@@ -337,11 +337,11 @@ class BuyerMenu(QMainWindow):
     def refreshAllProperty(self):
         self.viewNewAndOldProperties()
         self.viewNewPropertyFavouritesList()
-        self.addOldFavContentDashboardCardWidgets()
+        self.viewOldPropertyFavouritesList()
     ##def ContentDashboardCardWidgets
     def refreshFavProperty(self):
         self.viewNewPropertyFavouritesList()
-        self.addOldFavContentDashboardCardWidgets()
+        self.viewOldPropertyFavouritesList()
     #35
     def searchPropertyAll(self):
         search_text = self.ui.SearchLineEdit.text().strip().lower()
@@ -353,7 +353,7 @@ class BuyerMenu(QMainWindow):
 
     def searchPropertyOld(self):
         search_text = self.ui.SearchLineEdit_old.text().strip().lower()
-        self.addOldFavContentDashboardCardWidgets(search_text)
+        self.viewOldPropertyFavouritesList(search_text)
     #todo userstory:36, search both new and old property listings,将搜索和 viewAll分开
     def viewNewAndOldProperties(self, search_text=""):
 
@@ -403,7 +403,7 @@ class BuyerMenu(QMainWindow):
                 card_widget.label_price.setText(f"Price: {property_data.price}")
                 card_widget.label_status.setText(f"Status: {property_data.status}")
                 card_widget.label_views.setText(f"Views: {property_data.views}")
-                card_widget.label_agent.setText(f"Agents: {User().findAUser(property_data.agentId).username}")
+                card_widget.label_agent.setText(f"Agents: {property_data.agentName}")
 
                 layout.addWidget(card_widget)
 
