@@ -7,8 +7,8 @@ class UpdatePropertyControl:
     def updatePropertry(self,newTitle,oldTitle,description,bedNum,bathNum,size,price,status,sellerName):
         try:
             sellerID = User().findAUser(sellerName).userid
-            Property().findAProperty(oldTitle)
-            Property().updateProperty(newTitle=newTitle, oldTitle=oldTitle, description=description, bedNum=bedNum, bathNum=bathNum, size=size, price=price, status=status,sellerId=sellerID)
+            property =  Property().findAProperty(oldTitle)
+            Property().updateProperty(newTitle=newTitle, oldTitle=oldTitle, description=description, bedNum=bedNum, bathNum=bathNum, size=size, price=price, status=status,views=property.views,sellerId=sellerID)
         except Exception:
             return False
         else:
