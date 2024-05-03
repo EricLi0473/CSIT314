@@ -5,7 +5,7 @@ class SearchUserController:
     def searchAProfile(self,name):
         return Profile().findAProfile(name)
 
-    def TransferProfileToList(self, profile):
-        userText = []
-        userText.append(profile.getProfileName())
-        return userText
+    # def TransferProfileToList(self, profile):
+    #     userText = []
+    #     userText.append(profile.getProfileName())
+    #     return userText

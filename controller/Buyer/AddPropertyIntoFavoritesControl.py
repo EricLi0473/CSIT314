@@ -13,7 +13,7 @@ class AddPropertyIntoFavoritesControl:
             userId = User().findUserIdByUserName(username)
             propertyId = Property().findPropertyIdByTitle(title)
             Property().favoritesCountPlasOne(title)
-            if property.getStatus() == "available":
+            if property.status == "available":
                 return NewFavorites().addIntoNewFavorities(userId,propertyId)
             else:
                 return OldFavorites().addIntoOldFavorities(userId,propertyId)

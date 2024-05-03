@@ -7,8 +7,8 @@ class CreatePropertyControl:
     def createProperty(self,agentName,title, description, bedNum, bathNum, size, price,
                        Sellername):
         try:
-            agentID = User().findUserIdByUserName(agentName)
-            sellerID = User().findUserIdByUserName(Sellername)
+            agentID = User().findAUser(agentName).userid
+            sellerID = User().findAUser(Sellername).userid
             ##检测类型 "1" = True, "xxx" False
             bedNum = int(bedNum)
             size = float(size)

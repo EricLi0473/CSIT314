@@ -6,7 +6,7 @@ class CreateUserController:
         pass
 
     def createUser(self,username,password,email,userType):
-        if User().findAUser(username).getUserID() is not None:
+        if User().findAUser(username).userid is not None:
             return False
         userTypeId = Profile().findProfileIdByName(userType)
         return User().addUser(username,password,email,userTypeId)

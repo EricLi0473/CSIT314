@@ -13,9 +13,9 @@ class DialogAddProperty(QDialog):
     propertyAdded = pyqtSignal()
 
 
-    def __init__(self, agent_name, parent=None):
+    def __init__(self, user, parent=None):
         super(DialogAddProperty, self).__init__(parent)
-        self.agent_name = agent_name
+        self.user = user
         self.ui = Ui_Dialog_AddProperty()
         self.ui.setupUi(self)
 
@@ -51,8 +51,7 @@ class DialogAddProperty(QDialog):
 
             # 调用后端的 createUser 方法
             create_control = CreatePropertyControl()
-            print(self.agent_name,title,description,bedrooms,bathrooms,size,price,seller)
-            success = create_control.createProperty(self.agent_name, title, description, bedrooms, bathrooms
+            success = create_control.createProperty(self.user.username, title, description, bedrooms, bathrooms
                                                     , size, price, seller)
 
             if success:

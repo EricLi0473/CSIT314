@@ -44,12 +44,8 @@ class DialogCalculation(QDialog):
         interest_rate = self.ui.LineEdit_interest_rate.text()
         loan_years = self.ui.LineEdit_loan_year.text()
 
-
-
         calculation_control = CalculateMonthlyPaymentControl()
         result = calculation_control.calculateMonthlyPayment(price, interest_rate, loan_years, down_payment_rate)
         result = str(result)
         self.ui.SubtitleLabel.setText(result)
-        print(result)
-        print(type(result))
 

@@ -1,21 +1,12 @@
 import pymysql
 class Rating:
-    def __init__(self,ratingId = None,senderId = None,receiverID = None,rating = -1):
+    def __init__(self,ratingId = None,senderId = None,receiverID = None,rating = -1,senderName = None,receiverName = None):
         self.ratingId = ratingId
         self.senderId = senderId
         self.receiverId = receiverID
         self.rating = rating
-    def getRatingId(self):
-        return self.ratingId
-
-    def getSenderId(self):
-        return self.senderId
-
-    def getReceiverId(self):
-        return self.receiverId
-
-    def getRating(self):
-        return self.rating
+        self.senderName = senderName
+        self.receiverName = receiverName
 
     # 19 As a real estate agent, I want to be able to view my rating of my services so that I can understand customer feedback and improve my service.
     def findRatingByAgentId(self, agentId):
@@ -23,11 +14,11 @@ class Rating:
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = f'select * from rating where receiverId = %s'
+            sqlQuery = f'select * from rating left join users As Sender ON SenderId = Sender.UserId left join users As Receiver on ReceiverId = Receiver.UserId where receiverId = %s'
             cursor.execute(sqlQuery, agentId)
             reviewsDataList = cursor.fetchall()
             for review in reviewsDataList:
-                review = Rating(review['RatingID'],review['SenderId'],review['ReceiverId'],review['Rating'])
+                review = Rating(review['RatingID'],review['SenderId'],review['ReceiverId'],review['Rating'],review['Username'],review['Receiver.Username'])
                 reviewsList.append(review)
         connect.close()
         return reviewsList
@@ -44,3 +35,4 @@ class Rating:
             connect.commit()
         connect.close()
         return True
+

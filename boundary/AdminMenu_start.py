@@ -71,8 +71,6 @@ class ProfileListItem(QWidget):
             # 用户点击了对话框中的确认按钮，信号是Accepted
             newProfileName = update_dialog.getUpdatedData()
 
-            print(oldProfilename, newProfileName)
-
             # 调用后端的更新方法来更新用户信息
             if UpdateProfileController().updateProfile(oldProfilename, newProfileName):
                 QMessageBox.information(self, 'Success', f"Successful update")
@@ -222,16 +220,26 @@ class AdminMenu(QMainWindow):
 
 
 
-
     # 在user manage页面中的表格窗口（user_manage_table_widget)中显示数据库中user的信息
     def displayUserList(self):
         viewUser_control = ViewUserController()    # 实例化AdminControl()
 
         # 调用ViewUserController()中的viewAllUser（）方法，获取用户信息，并添加到user_list
-        user_list = viewUser_control.TransferUserToList(viewUser_control.viewAllUser())
+        user_list = viewUser_control.viewAllUser()
 
+        userTextList = []
+        for user in user_list:
+            userText = []
+            userText.append(user.username)
+            userText.append(user.password)
+            userText.append(user.email)
+            userText.append(user.userTypeName)
+            userText.append(user.userStatus)
+            userTextList.append(userText)
+
+        #todo
         self.ui.TableWidget1.clearContents()        # 清除 QTableWidget 中现有的内容，但保留表头
-        self.ui.TableWidget1.setRowCount(len(user_list))        # 根据用户列表的长度，设置 QTableWidget 的行数
+        self.ui.TableWidget1.setRowCount(len(userTextList))        # 根据用户列表的长度，设置 QTableWidget 的行数
         self.ui.TableWidget1.setColumnCount(8)          # 设置 QTableWidget 的列数为8（用户名，密码，邮箱，用户类型，状态）
 
         # 设置 QTableWidget 的水平表头标签

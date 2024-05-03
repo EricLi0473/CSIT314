@@ -2,26 +2,15 @@ import pymysql
 from entity.Profile import Profile
 class User:
 
-    def __init__(self,userid = None,username = None,password = None,email = None,userTypeId = None,userStatus = None):
+    def __init__(self,userid = None,username = None,password = None,email = None,userTypeId = None,userStatus = None,userTypeName = None):
         self.userid = userid
         self.username = username
         self.password = password
         self.email = email
         self.userTypeId = userTypeId
         self.userStatus = userStatus
+        self.userTypeName = userTypeName
 
-    def getUserID(self):
-        return self.userid
-    def getUsername(self):
-        return self.username
-    def getPassword(self):
-        return self.password
-    def getEmail(self):
-        return self.email
-    def getUserTypeId(self):
-        return self.userTypeId
-    def getUserStatus(self):
-        return self.userStatus
     def findUsernameByUserId(self,userId):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
@@ -83,11 +72,12 @@ class User:
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = f'select * from users'
+            sqlQuery = f'select * from users left join profile on users.UserTypeId = profile.ProfileId;'
             cursor.execute(sqlQuery)
             userDataList = cursor.fetchall()
             for userData in userDataList:
-                user = User(userData['UserId'],userData['Username'], userData['Password'], userData['Email'],userData['UserTypeId'],userData['UserStatus'])
+                user = User(userData['UserId'],userData['Username'], userData['Password'], userData['Email'],userData['UserTypeId'],userData['UserStatus'],
+                            userData['ProfileName'])
                 userList.append(user)
         connect
         return userList
@@ -136,12 +126,11 @@ class User:
                                   cursorclass=pymysql.cursors.DictCursor)
         try:
             with connect.cursor() as cursor:
-                sqlQuery = 'select * from users where username = %s'
+                sqlQuery = 'select * from users left join profile on users.UserTypeId = profile.ProfileId where username = %s'
                 cursor.execute(sqlQuery, username)
                 userData = cursor.fetchone()
-                user = User(userid= userData['UserId'],username= userData['Username'],
-                            password= userData['Password'],email= userData['Email'],userTypeId= userData['UserTypeId'],
-                            userStatus= userData['UserStatus'])
+                user = User(userData['UserId'],userData['Username'], userData['Password'], userData['Email'],userData['UserTypeId'],userData['UserStatus'],
+                            userData['ProfileName'])
                 return user
         except Exception:
             return User()

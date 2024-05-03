@@ -14,24 +14,24 @@ class SearchPropertyControl:
     中介按照title搜索房产
     搜索成功返回Property:object，不成功返回 空的 Property:object,
     '''
-    def transferPropertyToList(self, property):
-        propertyTextList = []
-        propertyTextList.append(property.getTitle())
-        propertyTextList.append(property.getDescription())
-        propertyTextList.append(property.getBathNum())
-        propertyTextList.append(property.getBathNum())
-        propertyTextList.append(property.getSize())
-        propertyTextList.append(property.getPrice())
-        propertyTextList.append(property.getStatus())
-        propertyTextList.append(property.getViews())
-        propertyTextList.append(property.getShortListed())
-        try:
-            sellerId = property.getSellerId()
-            sellerName = User().findUsernameByUserId(sellerId)
-            propertyTextList.append(sellerName)
-        except Exception:
-            propertyTextList.append(None)
-        return propertyTextList
+    # def transferPropertyToList(self, property):
+    #     propertyTextList = []
+    #     propertyTextList.append(property.getTitle())
+    #     propertyTextList.append(property.getDescription())
+    #     propertyTextList.append(property.getBathNum())
+    #     propertyTextList.append(property.getBathNum())
+    #     propertyTextList.append(property.getSize())
+    #     propertyTextList.append(property.getPrice())
+    #     propertyTextList.append(property.getStatus())
+    #     propertyTextList.append(property.getViews())
+    #     propertyTextList.append(property.getShortListed())
+    #     try:
+    #         sellerId = property.getSellerId()
+    #         sellerName = User().findUsernameByUserId(sellerId)
+    #         propertyTextList.append(sellerName)
+    #     except Exception:
+    #         propertyTextList.append(None)
+    #     return propertyTextList
 
     '''
     Property:object -> propertyList:list

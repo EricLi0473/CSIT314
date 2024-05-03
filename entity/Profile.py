@@ -4,12 +4,6 @@ class Profile:
         self.profileId = id
         self.profileName = name
 
-    def getProfileId(self):
-        return self.profileId
-
-    def getProfileName(self):
-        return self.profileName
-
     def findProfileNameById(self,profileId):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)

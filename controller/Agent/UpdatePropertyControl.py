@@ -6,7 +6,7 @@ class UpdatePropertyControl:
         pass
     def updatePropertry(self,newTitle,oldTitle,description,bedNum,bathNum,size,price,status,sellerName):
         try:
-            sellerID = User().findUserIdByUserName(sellerName)
+            sellerID = User().findAUser(sellerName).userid
             Property().findAProperty(oldTitle)
             Property().updateProperty(newTitle=newTitle, oldTitle=oldTitle, description=description, bedNum=bedNum, bathNum=bathNum, size=size, price=price, status=status,sellerId=sellerID)
         except Exception:

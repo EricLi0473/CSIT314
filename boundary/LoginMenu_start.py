@@ -57,7 +57,7 @@ class LoginMenu(QMainWindow):
 
     # 改进了代码架构，把登录成功后的检查userType并打开对应窗口封装成了一个方法
     def after_login_success(self, username):
-        user_type = self.user_login_control.findUserType(username)
+        user = self.user_login_control.findUser(username)
 
         # 它首先检查是否存在现有会话窗口 ( currentSession)。
         # 如果是这样，它就会隐藏它。这可确保一次仅打开一个会话窗口。
@@ -66,16 +66,17 @@ class LoginMenu(QMainWindow):
 
         # 根据用户类型 ( user_type)，它实例化AdminMenu AgentMenu并将其分配给currentSession。
         # 新实例化的会话窗口将显示给用户。
-        if user_type == 1:
+        if user.userTypeId == 1:
+            #todo AdminMenu没有传user进去，我不太清楚要怎么重构
             self.adminMenu = AdminMenu(self)
             self.currentSession = self.adminMenu
             self.adminMenu.show()
-        elif user_type == 2:
-            self.agentMenu = AgentMenu(username, self)
+        elif user.userTypeId == 2:
+            self.agentMenu = AgentMenu(user, self)
             self.currentSession = self.agentMenu
             self.agentMenu.show()
-        elif user_type == 4:
-            self.buyerMenu = BuyerMenu(username, self)
+        elif user.userTypeId == 4:
+            self.buyerMenu = BuyerMenu(user, self)
             self.currentSession = self.buyerMenu
             self.buyerMenu.show()
         else:
