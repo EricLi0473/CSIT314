@@ -100,12 +100,12 @@ class Property:
 
     # 16 As a real estate agent, I want to be able to update property listings so that I can ensure the details of the property are correct.
     def updateProperty(self,oldTitle,newTitle,description,bedNum,bathNum,size,price,status,
-                       sellerId):
-        values = (newTitle,description,bedNum,bathNum,size,price,status,sellerId,oldTitle)
+                       sellerId,views):
+        values = (newTitle,description,bedNum,bathNum,size,price,status,views,sellerId,oldTitle)
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = 'update properties set title = %s, description = %s, bedNum = %s, bathNum = %s ,size = %s, price = %s,status = %s,SellerId = %s where title = %s'
+            sqlQuery = 'update properties set title = %s, description = %s, bedNum = %s, bathNum = %s ,size = %s, price = %s,status = %s,views = %s,SellerId = %s where title = %s'
             cursor.execute(sqlQuery, values)
             connect.commit()
         connect.close()
