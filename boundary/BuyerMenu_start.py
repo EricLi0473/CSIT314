@@ -473,7 +473,7 @@ class BuyerMenu(QMainWindow):
             layout.addWidget(label_no_result)
 
     #42
-    def addOldFavContentDashboardCardWidgets(self, search_text=""):
+    def viewOldPropertyFavouritesList(self, search_text=""):
 
         old_favorite_control = ViewOldFavouritesControl()  # 实例化后端class
 

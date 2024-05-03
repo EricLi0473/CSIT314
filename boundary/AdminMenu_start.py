@@ -83,12 +83,10 @@ class ProfileListItem(QWidget):
 
 
 class AdminMenu(QMainWindow):
-    def __init__(self, user,loginMenu):
+    def __init__(self,loginMenu):
         super().__init__()
         self.ui = Ui_AdminMenu()
         self.ui.setupUi(self)
-        #新建一个user对象
-        self.user = user
 
         # 实例化后，它会收到对实例的引用LoginMenu( loginMenu)。
         # 创建一个注销按钮，并将其clicked信号连接到实例logout的方法LoginMenu。
@@ -239,6 +237,7 @@ class AdminMenu(QMainWindow):
             userText.append(user.userStatus)
             userTextList.append(userText)
 
+
         #todo
         self.ui.TableWidget1.clearContents()        # 清除 QTableWidget 中现有的内容，但保留表头
         self.ui.TableWidget1.setRowCount(len(userTextList))        # 根据用户列表的长度，设置 QTableWidget 的行数
@@ -252,7 +251,7 @@ class AdminMenu(QMainWindow):
         # 遍历单个用户信息的每一项，填充对应的单元格
         # 在指定行和列创建表格项 QTableWidgetItem，并设置其文本为用户信息数据
 
-        for row_index, user_info in enumerate(user_list):
+        for row_index, user_info in enumerate(userTextList):
             for column_index, data in enumerate(user_info):
                 self.ui.TableWidget1.setItem(row_index, column_index, QTableWidgetItem(str(data)))
                 self.setupTableButtons(row_index)

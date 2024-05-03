@@ -33,7 +33,7 @@ class DialogFeedback(QDialog):
 
         self.ui.ComboBox_agent.addItems(agent_list)
         self.ui.ComboBox_agent_2.addItems(agent_list)
-        self.ui.ComboBox_score.addItems(["1", "2"])
+        self.ui.ComboBox_score.addItems(["1", "2", "3", "4", "5"])
     # GUI窗口拖动
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
