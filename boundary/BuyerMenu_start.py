@@ -18,7 +18,7 @@ from controller.Buyer.ViewNewFavouritesControl import ViewNewFavouritesControl
 from controller.Buyer.ViewOldFavouritesControl import ViewOldFavouritesControl
 from controller.User.SearchUserController import SearchUserController
 from controller.User.UpdateUserController import UpdateUserController
-
+from controller.Buyer.SearchPropertyController import SearchPropertyController
 
 
 """
@@ -35,7 +35,7 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
 
     # 参数是icon，title，content
     def __init__(self, icon, property , user, isChecked=True, parent=None):
-        super().__init__(icon=icon, title=title, content=content, isChecked=isChecked, parent=parent)
+        super().__init__(icon=icon, title=property.title, content=property.description, isChecked=isChecked, parent=parent)
 
         # self.property_title = title
         # self.content = content
@@ -291,7 +291,7 @@ class BuyerMenu(QMainWindow):
         self.viewNewAndOldProperties()
         self.viewNewPropertyFavouritesList()
         self.viewOldPropertyFavouritesList()
-        self.profilePage()
+        self.accountPage()
         # property页面中的add按钮绑定openAddPropertyDialog方法
 
 
@@ -317,10 +317,7 @@ class BuyerMenu(QMainWindow):
         self.ui.btn_feedback.clicked.connect(self.OpenFeedbackDialog)
         self.ui.btn_update_profile.clicked.connect(self.updateInfo)
 
-
-        self.ui.SearchLineEdit.textChanged.connect(self.searchPropertyAll)
-        self.ui.SearchLineEdit_new.textChanged.connect(self.searchPropertyNew)
-        self.ui.SearchLineEdit_old.textChanged.connect(self.searchPropertyOld)
+        self.ui.SearchLineEdit.textChanged.connect(self.searchAllpropertyManage)
 
         self.ui.icon_name_widget.setHidden(True)
 
@@ -353,20 +350,69 @@ class BuyerMenu(QMainWindow):
     def refreshFavProperty(self):
         self.viewNewPropertyFavouritesList()
         self.viewOldPropertyFavouritesList()
-    #35
-    def searchPropertyAll(self):
-        search_text = self.ui.SearchLineEdit.text().strip().lower()
-        self.viewNewAndOldProperties(search_text)
 
-    def searchPropertyNew(self):
-        search_text = self.ui.SearchLineEdit_new.text().strip().lower()
-        self.viewNewPropertyFavouritesList(search_text)
+    def searchAllpropertyManage(self, text):
+        if text.strip() == "":
+            self.viewNewAndOldProperties()
+        else:
+            self.SearchApropery()
 
-    def searchPropertyOld(self):
-        search_text = self.ui.SearchLineEdit_old.text().strip().lower()
-        self.viewOldPropertyFavouritesList(search_text)
-    #todo userstory:35, search both new and old property listings,将搜索和 viewAll分开
-    #todo 34
+    # todo userstory:35, search both new and old property listings
+    def SearchApropery(self):
+        search_property_control = SearchPropertyController()
+        target_property = self.ui.SearchLineEdit.text()
+        found_property = search_property_control.searchProperty(target_property)
+
+        scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
+
+        # scroll内部需要一个Widget组件，使用代码创建以一个widget，并且添加到scroll_area中
+        content_widget = QWidget()
+        scroll_area.setWidget(content_widget)
+        scroll_area.setWidgetResizable(True)
+
+        # 在content_widget中创建一个垂直布局，将来用于动态添加房产卡片信息
+        layout = QVBoxLayout(content_widget)
+        content_widget.setLayout(layout)
+
+        # 清除既有的 widgets，以添加最新的数据
+        for i in reversed(range(layout.count())):
+            widget_to_remove = layout.itemAt(i).widget()
+            if widget_to_remove is not None:
+                widget_to_remove.setParent(None)
+                widget_to_remove.deleteLater()
+
+        if found_property.propertyId == None:
+            for i in reversed(range(layout.count())):
+                widget_to_remove = layout.itemAt(i).widget()
+                if widget_to_remove is not None:
+                    widget_to_remove.setParent(None)
+                    widget_to_remove.deleteLater()
+        else:
+            card_widget = BuyerContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                ##title=property_data.title,  # 获取title
+                # content=property_data.description,  # 获取description
+                # buyer_name=self.user.username,
+                property=found_property,
+                user=self.user,
+                isChecked=False
+            )
+
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {found_property.bedNum}")
+            card_widget.label_baths.setText(f"Baths: {found_property.bathNum}")
+            card_widget.label_size.setText(f"Size: {found_property.size}")
+            card_widget.label_price.setText(f"Price: {found_property.price}")
+            card_widget.label_status.setText(f"Status: {found_property.status}")
+            card_widget.label_views.setText(f"Views: {found_property.views}")
+            card_widget.label_agent.setText(f"Agents: {found_property.agentName}")
+
+            layout.addWidget(card_widget)
+
+            card_widget.favoriteAdded.connect(self.refreshFavProperty)
+
+
+    #todo 34  As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
     def viewNewAndOldProperties(self, search_text=""):
 
         property_control = ViewPropertiesController()  # 实例化后端class
@@ -402,7 +448,7 @@ class BuyerMenu(QMainWindow):
                 found = True
                 card_widget = BuyerContentDashboardCardWidget(
                     icon=QIcon('path_to_icon.png'),
-                    # title=property_data.title,  # 获取title
+                    ##title=property_data.title,  # 获取title
                     # content=property_data.description,  # 获取description
                     # buyer_name=self.user.username,
                     property = property_data,
@@ -547,11 +593,12 @@ class BuyerMenu(QMainWindow):
             layout.addWidget(label_no_result)
 
     def OpenFeedbackDialog(self):
-        dialog_feedback = DialogFeedback(buyer_name=self.user)
+        dialog_feedback = DialogFeedback(self.user)
 
         dialog_feedback.exec_()  # 以模态方式运行对话框
-#todo 32
-    def profilePage(self):
+#todo 32 As a buyer, I want to be able to view my account so that I can ensure my details are correct.
+
+    def accountPage(self):
         get_user_info = SearchUserController()
         info_list = get_user_info.seachAUser(self.user.username)
 
@@ -560,9 +607,9 @@ class BuyerMenu(QMainWindow):
         self.ui.Label_email.setText(info_list.email)
         self.ui.Label_status.setText(info_list.userStatus)
 
-    def refreshprofilePage(self):
-        self.profilePage()
-#todo 33
+    def refreshaccountPage(self):
+        self.accountPage()
+#todo 33 As a buyer, I want to be able to update my account so that I can keep my information new.
     def updateInfo(self):
         newUserName = self.ui.LineEdit_newUserName.text()
         newPassword = self.ui.LineEdit_newPassword.text()
@@ -572,5 +619,5 @@ class BuyerMenu(QMainWindow):
         updated_info_control = UpdateUserController()
         updated_info_control.updateUser(self.user.username, newUserName, newPassword, newEmail, userType)
         self.user.username = newUserName
-        self.refreshprofilePage()
+        self.refreshaccountPage()
         self.refreshAllProperty()

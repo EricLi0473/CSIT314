@@ -5,3 +5,5 @@ class SearchProfileController:
     def searchAProfile(self,name):
         return Profile().findAProfile(name)
 
+
+print(SearchProfileController().searchAProfile("adm1in"))

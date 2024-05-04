@@ -15,6 +15,7 @@ from controller.Agent.ViewRatingControl import ViewRatingControl
 from controller.Agent.ViewCommentControl import ViewCommentControl
 from AgentMenu_Dialog_AddProperty_start import DialogAddProperty
 from AgentMenu_Dialog_UpdateProperty_start import DialogUpdateProperty
+from controller.Agent.SearchPropertyControl import SearchPropertyControl
 
 """
 自定义拓展了插件包中的ContentDashboardCardWidget组件，增加了一个一组水平布局的labels，用于清晰显示房产的信息
@@ -137,6 +138,7 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
         main_layout.setSpacing(10)
 
     # 编辑按钮对应的触发函数
+    # todo 16 As a real estate agent, I want to be able to update property listings so that I can ensure the details of the property are correct.
     def updateProperty(self):
         # 当编辑按钮被点击时调用此方法
         # 打包创建content card时传进来的当前数据
@@ -173,6 +175,7 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
 
 
     # 删除按钮的函数
+    # todo 17 As a real estate agent, I want to be able to remove property listings so that I can remove the unavailability property.
     def deleteProperty(self):
         # 需要当前title参数
         property_title_to_delete = self.property_title
@@ -213,7 +216,7 @@ class AgentMenu(QMainWindow):
         self.ui.btn_addProperty.clicked.connect(self.openAddPropertyDialog)
 
         # property页面中的SearchLine实现动态搜索，并绑定searchProperty方法
-        self.ui.SearchLineEdit.textChanged.connect(self.searchProperty)
+        self.ui.SearchLineEdit.textChanged.connect(self.searchLineManage)
 
         # 给缩小化和正常化的导航栏里的每一个图标（button）绑定到stack widget里对应的页面
         self.ui.btn_dashboard1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
@@ -255,13 +258,62 @@ class AgentMenu(QMainWindow):
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
     # 根据后端方法（数据库）动态添加ContentDashboardCardWidgets组件，这里的search_text参数被search line传递
-    #todo userstory#18:search property listings,将搜索和 viewAll分开
+    def searchLineManage(self, text):
+        if text.strip() == "":
+            self.refreshPropertyList()
+        else:
+            self.searchAProperty()
 
-    def searchProperty(self):
-        search_text = self.ui.SearchLineEdit.text().strip().lower()
-        self.viewAllProperties(search_text)
+    # todo 18:search property listings
+    def searchAProperty(self):
+        search_property_control = SearchPropertyControl()
+        target_property = self.ui.SearchLineEdit.text()
+        found_property = search_property_control.searchProperty(target_property)
 
+        scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
 
+        # scroll内部需要一个Widget组件，使用代码创建以一个widget，并且添加到scroll_area中
+        content_widget = QWidget()
+        scroll_area.setWidget(content_widget)
+        scroll_area.setWidgetResizable(True)
+
+        # 在content_widget中创建一个垂直布局，将来用于动态添加房产卡片信息
+        layout = QVBoxLayout(content_widget)
+        content_widget.setLayout(layout)
+
+        # 清除既有的 widgets，以添加最新的数据
+        for i in reversed(range(layout.count())):
+            widget_to_remove = layout.itemAt(i).widget()
+            if widget_to_remove is not None:
+                widget_to_remove.setParent(None)
+                widget_to_remove.deleteLater()
+
+        if found_property.propertyId == None:
+            for i in reversed(range(layout.count())):
+                widget_to_remove = layout.itemAt(i).widget()
+                if widget_to_remove is not None:
+                    widget_to_remove.setParent(None)
+                    widget_to_remove.deleteLater()
+        else:
+            card_widget = ExtendedContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                title=found_property.title,  # 获取title
+                content=found_property.description,  # 获取description
+                isChecked=False
+            )
+
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {found_property.bedNum}")
+            card_widget.label_baths.setText(f"Baths: {found_property.bathNum}")
+            card_widget.label_size.setText(f"Size: {found_property.size}")
+            card_widget.label_price.setText(f"Price: {found_property.price}")
+            card_widget.label_status.setText(f"Status: {found_property.status}")
+            card_widget.label_views.setText(f"Views: {found_property.views}")
+            card_widget.label_seller.setText(f"Seller: {found_property.sellerName}")
+
+            layout.addWidget(card_widget)
+
+    # todo 15 As a real estate agent, I want to be able to view all properties in my account so that I can know what properties are in my property list.
     def viewAllProperties(self, search_text=""):
 
         property_control = ViewAllPropertyControl()  # 实例化后端class
@@ -320,6 +372,7 @@ class AgentMenu(QMainWindow):
             label_no_result = QLabel("No properties found matching the search criteria.")
             layout.addWidget(label_no_result)
 
+    # todo 14 As a real estate agent, I want to be able to create property listings so that I can show the property I am responsible for.
     def openAddPropertyDialog(self):
         # 创建并显示 AddUserDialog 对话框
         dialog_addProperty = DialogAddProperty(self.user, self)
@@ -332,6 +385,7 @@ class AgentMenu(QMainWindow):
 
         self.viewAllProperties()
 
+    # todo 19 As a real estate agent, I want to be able to view my rating of my services so that I can understand customer feedback and improve my service.
     def viewRatings(self):
         rating_control = ViewRatingControl()
         rating_list = rating_control.viewRating(self.user.userid)
@@ -353,6 +407,7 @@ class AgentMenu(QMainWindow):
             # 将列表项添加到列表中
             self.ui.RoundListWidget.addItem(list_item)
 
+    # todo 20 As a real estate agent, I want to be able to view my reviews of my services so that I can understand customer feedback and improve my service.
     def viewComments(self):
         comment_control = ViewCommentControl()
         comment_list = comment_control.viewComment(self.user.userid)

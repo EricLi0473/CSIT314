@@ -98,7 +98,7 @@ class LoginMenu(QMainWindow):
         except Exception as e:  # Replace SpecificException with the actual exception you expect
             QMessageBox.warning(self, 'Error', str(e))
 
-
+#todo 23,31 create user account in login menu
     def signUp(self):
         username = self.ui.lineEdit_username_reg.text()
         password = self.ui.lineEdit_password_reg.text()
@@ -111,6 +111,7 @@ class LoginMenu(QMainWindow):
 
         if success:
             try:
+                QMessageBox.warning(self, 'Success', 'You have create a new account.')
                 username = username
                 password = password
                 self.user_login_control = LoginController()

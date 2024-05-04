@@ -92,8 +92,8 @@ class AdminMenu(QMainWindow):
         # 实例化后，它会收到对实例的引用LoginMenu( loginMenu)。
         # 创建一个注销按钮，并将其clicked信号连接到实例logout的方法LoginMenu。
         self.loginMenu = loginMenu
-        self.ui.btn_log_out.clicked.connect(self.loginMenu.logout)
-
+        self.ui.btn_log_out.clicked.connect(self.logoutOut)
+        self.loginMenu.logout
 
         # 自运行下列方法
         self.ViewAllUser()
@@ -127,6 +127,7 @@ class AdminMenu(QMainWindow):
 
         # 给user mange的搜索栏绑定实时搜索方法
         self.ui.SearchLineEdit.textChanged.connect(self.reViewAlluserAccount)
+        self.ui.SearchLineEdit_2.textChanged.connect(self.reViewAlluserProfile)
 
         #  隐藏window窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -294,7 +295,7 @@ class AdminMenu(QMainWindow):
         self.ui.RoundListWidget.clear()
 
         # 重新从数据库获取数据并填充到 QTableWidget
-        self.viewProfile()
+        self.readUserProfile()
 
     # 编辑对应用户，用row参数定位定位老数据
     def updateUserAccount(self, row):
@@ -326,24 +327,24 @@ class AdminMenu(QMainWindow):
         # 获取用户信息
         username = self.ui.TableWidget1.item(row, 0).text()
         # 弹出对话框，等待用户选择
-        reply = QMessageBox.question(self, '确认', f"您确定要冻结用户 {username} 吗？",
+        reply = QMessageBox.question(self, 'confirm', f"Are you sure freeze {username} ？",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # 选择是的时候，调用AdminControl中的freezeUser方法
         if reply == QMessageBox.Yes:
             freeze_control = FreezeUserController()
             success = freeze_control.freezeUser(username)
             if success:
-                QMessageBox.information(self, '成功', f"用户 {username} 已被冻结")
+                QMessageBox.information(self, 'success', f"User {username} has been frozen")
                 self.ui.TableWidget1.item(row, 4).setText('invalid')  # 更新状态
             else:
-                QMessageBox.warning(self, '失败', f"用户 {username} 冻结失败")
+                QMessageBox.warning(self, 'fail', f"User {username} freeze failed")
 
 
     def activateUser(self, row):
         # 获取用户信息
         username = self.ui.TableWidget1.item(row, 0).text()
         # 弹出对话框，等待用户选择
-        reply = QMessageBox.question(self, '确认', f"您确定要激活用户 {username} 吗？",
+        reply = QMessageBox.question(self, 'confirm', f"您确定要激活用户 {username} ？",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # 选择是的时候，调用AdminControl中的activateUser方法
         if reply == QMessageBox.Yes:
@@ -355,10 +356,6 @@ class AdminMenu(QMainWindow):
             else:
                 QMessageBox.warning(self, '失败', f"用户 {username} 激活失败")
 
-    # 搜索栏过滤用户，用户输入的text是参数
-    def filterUsers(self, text):
-        # 从当前用户数据中过滤用户
-        self.searchAUserAccount(text)
 
     # todo 11
     # 根据用户输入的文本来过滤和显示用户信息到表格
@@ -395,6 +392,9 @@ class AdminMenu(QMainWindow):
 
         else:
             QMessageBox.warning(self, 'No Result', 'No user found with that information')
+
+
+
 #todo 4
     # profile 页面信息获取
     def readUserProfile(self):
@@ -419,8 +419,45 @@ class AdminMenu(QMainWindow):
             self.ui.RoundListWidget.addItem(list_item)
             self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
 
+
+#todo 6 search user profile
+    def searchAUserProfile(self):
+        search_profile_control = SearchProfileController()
+        target_profile = self.ui.SearchLineEdit_2.text()
+        found_profile = search_profile_control.searchAProfile(target_profile).profileName
+        self.ui.RoundListWidget.clear()
+
+        profile_name = found_profile
+
+        # Create the custom widget for the list item
+        profile_widget = ProfileListItem(profile_name)
+        ##profile_widget.requestRefresh.connect(self.reViewAlluserProfile)
+
+        # Create the list item and set its widget
+        list_item = QListWidgetItem(self.ui.RoundListWidget)
+        list_item.setSizeHint(
+            profile_widget.sizeHint())  # Ensure the list item has the right size for the custom widget
+
+        # Finally, add the widget to the list
+        self.ui.RoundListWidget.addItem(list_item)
+        self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
+
+
     def reViewAlluserAccount(self, text):
         if text.strip() == "":
             self.refreshUserList()
         else:
             self.searchAUserAccount()
+
+    def reViewAlluserProfile(self, text):
+        if text.strip() == "":
+            self.refreshProfileList()
+        else:
+            self.searchAUserProfile()
+
+    def logoutOut(self):
+        reply = QMessageBox.question(self, 'log out', f" are you sure log out ？",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.loginMenu.logout()
+

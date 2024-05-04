@@ -39,35 +39,6 @@ class Property:
         connect.close()
         return propertyTitle
 
-    def viewsCountPlasOne(self, title):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select views from properties where title = %s'
-            cursor.execute(sqlQuery, title)
-            count = cursor.fetchone()['views']
-            count = count + 1
-            value = (count, title)
-            sqlQuery = 'update properties set views = %s where title = %s'
-            cursor.execute(sqlQuery, value)
-            connect.commit()
-        connect.close()
-        return True
-
-    def favoritesCountPlasOne(self, title):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select shortlisted from properties where title = %s'
-            cursor.execute(sqlQuery, title)
-            count = cursor.fetchone()['shortlisted']
-            count = count + 1
-            value = (count, title)
-            sqlQuery = 'update properties set shortlisted = %s where title = %s'
-            cursor.execute(sqlQuery, value)
-            connect.commit()
-        connect.close()
-        return True
 
     # 14 As a real estate agent, I want to be able to create property listings so that I can show the property I am responsible for.
     def addProperty(self,title,description,bedNum,bathNum,size,price,agentid,sellerid):

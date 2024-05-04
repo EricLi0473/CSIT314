@@ -65,10 +65,13 @@ class Profile:
     def findAProfile(self,profileName):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select * from profile where profileName = %s'
-            cursor.execute(sqlQuery,profileName)
-            profileData = cursor.fetchone()
-            profile = Profile(profileData['ProfileId'],profileData['ProfileName'])
-        connect.close()
-        return profile
+        try:
+            with connect.cursor() as cursor:
+                sqlQuery = f'select * from profile where profileName = %s'
+                cursor.execute(sqlQuery,profileName)
+                profileData = cursor.fetchone()
+                profile = Profile(profileData['ProfileId'],profileData['ProfileName'])
+            connect.close()
+            return profile
+        except Exception:
+            return Profile()
