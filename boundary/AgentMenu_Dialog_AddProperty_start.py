@@ -55,16 +55,22 @@ class DialogAddProperty(QDialog):
                                                     , size, price, seller)
 
             if success:
-                QMessageBox.information(self, 'Success', f"Successful create property")
+                self.information('Success', f"Successful create property")
                 self.propertyAdded.emit()
                 self.accept()  # 关闭对话框
                 return True
             else:
-                QMessageBox.warning(self, "Error", "Could not create property.")
+                self.warning("Error", "Could not create property.")
                 return False
         except Exception as e:
             # 打印或记录异常信息
             print(f"Failed to create user: {e}")
-            QMessageBox.warning(self, "Error", f"Failed to create user: {e}")
+            self.warning("Error", f"Failed to create user: {e}")
             # 返回 False
             return False
+
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)

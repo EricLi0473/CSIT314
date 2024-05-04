@@ -74,13 +74,17 @@ class ProfileListItem(QWidget):
 
             # 调用后端的更新方法来更新用户信息
             if UpdateProfileController().updateProfile(oldProfilename, newProfileName):
-                QMessageBox.information(self, 'Success', f"Successful update")
+                self.information('Success', f"Successful update")
                 self.requestRefresh.emit()
             else:
-                QMessageBox.warning(self, 'Failed', f"Update failure")
+                self.warning('Failed', f"Update failure")
             # 更新完毕后刷新表格显示
 
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
 
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
 
 
 class AdminMenu(QMainWindow):
@@ -222,14 +226,16 @@ class AdminMenu(QMainWindow):
         self.addButtonToTable(row_index, 7, "Activate", lambda checked, row=row_index: self.activateUser(row))
 
 
-
+#todo split view all user
     # 在user manage页面中的表格窗口（user_manage_table_widget)中显示数据库中user的信息
     def ViewAllUser(self):
         viewUser_control = ViewUserController()    # 实例化AdminControl()
 
         # 调用ViewUserController()中的viewAllUser（）方法，获取用户信息，并添加到user_list
         user_list = viewUser_control.viewAllUser()
+        self.showAllUser(user_list)
 
+    def showAllUser(self,user_list):
         userTextList = []
         for user in user_list:
             userText = []
@@ -259,6 +265,7 @@ class AdminMenu(QMainWindow):
                 self.ui.TableWidget1.setItem(row_index, column_index, QTableWidgetItem(str(data)))
                 self.setupTableButtons(row_index)
         self.ui.TableWidget1.viewport().update()  # 要求 QTableWidget 的视图组件进行更新，以便显示最新的内容
+
 
     # add user窗口
     def openAddUserDialog(self):
@@ -313,9 +320,9 @@ class AdminMenu(QMainWindow):
             update_control = UpdateUserController()
             success = update_control.updateUser(oldUsername, newUsername, newPassword, newEmail, newUserType)
             if success:
-                QMessageBox.information(self, 'Success', f"Successful update account")
+                self.information('Success', f"Successful update account")
             else:
-                QMessageBox.information(self, 'Error', f"Could not update account")
+                self.information('Error', f"Could not update account")
             # 更新完毕后刷新表格显示
             self.ViewAllUser()
 
@@ -334,10 +341,10 @@ class AdminMenu(QMainWindow):
             freeze_control = FreezeUserController()
             success = freeze_control.freezeUser(username)
             if success:
-                QMessageBox.information(self, 'success', f"User {username} has been frozen")
+                self.information('success', f"User {username} has been frozen")
                 self.ui.TableWidget1.item(row, 4).setText('invalid')  # 更新状态
             else:
-                QMessageBox.warning(self, 'fail', f"User {username} freeze failed")
+                self.warning('fail', f"User {username} freeze failed")
 
 
     def activateUser(self, row):
@@ -351,10 +358,10 @@ class AdminMenu(QMainWindow):
             activate_user_control = ActivateUserController()
             success = activate_user_control.activateUser(username)
             if success:
-                QMessageBox.information(self, '成功', f"用户 {username} 已被激活")
+                self.information('成功', f"用户 {username} 已被激活")
                 self.ui.TableWidget1.item(row, 4).setText('valid')  # 更新状态
             else:
-                QMessageBox.warning(self, '失败', f"用户 {username} 激活失败")
+                self.warning('失败', f"用户 {username} 激活失败")
 
 
     # todo 11
@@ -363,7 +370,9 @@ class AdminMenu(QMainWindow):
         target_user = self.ui.SearchLineEdit.text()
         search_user_controller = SearchUserController()
         found_user = search_user_controller.seachAUser(target_user)
+        self.showAUser(found_user)
 
+    def showAUser(self,found_user):
         if found_user:
             userText = [
                 found_user.username,
@@ -391,18 +400,17 @@ class AdminMenu(QMainWindow):
             self.ui.TableWidget1.viewport().update()  # 要求 QTableWidget 的视图组件进行更新，以便显示最新的内容
 
         else:
-            QMessageBox.warning(self, 'No Result', 'No user found with that information')
-
-
+            self.warning('No Result', 'No user found with that information')
 
 #todo 4
     # profile 页面信息获取
     def readUserProfile(self):
         view_profile_control = ViewProfilesController()
         profile_list = view_profile_control.viewAllProfile()
-
         self.ui.RoundListWidget.clear()
+        self.showAllUserProfile(profile_list)
 
+    def showAllUserProfile(self,profile_list):
         for profile in profile_list:
             profile_name = profile.profileName
 
@@ -420,12 +428,17 @@ class AdminMenu(QMainWindow):
             self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
 
 
+
 #todo 6 search user profile
     def searchAUserProfile(self):
         search_profile_control = SearchProfileController()
         target_profile = self.ui.SearchLineEdit_2.text()
         found_profile = search_profile_control.searchAProfile(target_profile).profileName
         self.ui.RoundListWidget.clear()
+        self.showAUserProfile(found_profile)
+
+
+    def showAUserProfile(self,found_profile):
 
         profile_name = found_profile
 
@@ -460,4 +473,12 @@ class AdminMenu(QMainWindow):
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             self.loginMenu.logout()
+
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
+
+
 

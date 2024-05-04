@@ -5,6 +5,7 @@ from boundary.LoginMenu import *
 from boundary.AdminMenu_start import AdminMenu
 from boundary.AgentMenu_start import AgentMenu
 from boundary.BuyerMenu_start import BuyerMenu
+from boundary.SellerMenu_start import SellerMenu
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
@@ -29,7 +30,7 @@ class LoginMenu(QMainWindow):
         self.ui.pushButton_account.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
         self.ui.pushButton_Sign.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(1))
 
-        self.ui.ComboBox_type.addItems(["admin","agent", "buyer", "seller"])    # 给注册时的combobox增加选项卡
+        self.ui.ComboBox_type.addItems(["admin", "agent", "buyer", "seller"])    # 给注册时的combobox增加选项卡
 
         self.ui.pushButton_reg.clicked.connect(self.signUp)     # 给sign up界面绑定signUp的方法
 
@@ -74,6 +75,10 @@ class LoginMenu(QMainWindow):
             self.agentMenu = AgentMenu(user, self)
             self.currentSession = self.agentMenu
             self.agentMenu.show()
+        elif user.userTypeId ==3:
+            self.sellerMenu = SellerMenu(user, self)
+            self.currentSession = self.sellerMenu
+            self.sellerMenu.show()
         elif user.userTypeId == 4:
             self.buyerMenu = BuyerMenu(user, self)
             self.currentSession = self.buyerMenu
@@ -90,13 +95,13 @@ class LoginMenu(QMainWindow):
 
         try:
             if self.user_login_control.checkLogin(username, password):
-                QMessageBox.warning(self, 'Success', f'Welcome, {username}')
+                self.warning('Success', f'Welcome, {username}')
                 self.hide()
                 self.after_login_success(username)      # 调用上面的type检查方法，套娃
             else:
-                QMessageBox.warning(self, 'Error', 'Invalid username or password.')
+                self.warning('Error', 'Invalid username or password.')
         except Exception as e:  # Replace SpecificException with the actual exception you expect
-            QMessageBox.warning(self, 'Error', str(e))
+            self.warning('Error', str(e))
 
 #todo 23,31 create user account in login menu
     def signUp(self):
@@ -111,7 +116,7 @@ class LoginMenu(QMainWindow):
 
         if success:
             try:
-                QMessageBox.warning(self, 'Success', 'You have create a new account.')
+                self.warning('Success', 'You have create a new account.')
                 username = username
                 password = password
                 self.user_login_control = LoginController()
@@ -120,18 +125,22 @@ class LoginMenu(QMainWindow):
                     self.hide()
                     self.after_login_success(username)  # 调用上面的type检查方法，套娃
                 else:
-                    QMessageBox.warning(self, 'Error', 'Invalid username or password.')
+                    self.warning('Error', 'Invalid username or password.')
             except Exception as e:  # Replace SpecificException with the actual exception you expect
-                QMessageBox.warning(self, 'Error', str(e))
+                self.warning('Error', str(e))
 
         else:
-            QMessageBox.warning(self, 'Error', 'Sign up failed. Please check your details.')
+            self.warning('Error', 'Sign up failed. Please check your details.')
 
     def logout(self):
         if self.currentSession:
             self.currentSession.hide()
         self.currentSession = None
         self.show()
+
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
 
 if __name__ == '__main__':
     setLicense(

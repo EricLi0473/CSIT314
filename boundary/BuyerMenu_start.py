@@ -148,14 +148,14 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
     def addFavorite(self):
         if self.property.status == "available":
             if AddNewPropertyIntoFavoritesControl().addNewPropertyIntoFavorites(self.user.userid, self.property.propertyId):
-                QMessageBox.warning(self, 'Success', 'Success to Add property to favorite list.')
+                self.warning('Success', 'Success to Add property to favorite list.')
             else:
-                QMessageBox.warning(self, 'fail', 'failed to Add property to favorite list.')
-        else:
-            if AddOldPropertyIntoFavoritesControl.addOldPropertyIntoFavorites(self.user.userid, self.property.propertyId):
-                QMessageBox.warning(self, 'Success', 'Success to Add property to favorite list.')
+                self.warning('fail', 'failed to Add property to favorite list.')
+        elif self.property.status == "sold":
+            if AddOldPropertyIntoFavoritesControl().addOldPropertyIntoFavorites(self.user.userid, self.property.propertyId):
+                self.warning('Success', 'Success to Add property to favorite list.')
             else:
-                QMessageBox.warning(self, 'fail', 'failed to Add property to favorite list.')
+                self.warning('fail', 'failed to Add property to favorite list.')
 
 
 
@@ -170,6 +170,12 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
 
         dialog_addProperty.exec_()  # 以模态方式运行对话框
         # 需要当前title参数
+
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
 
 class BuyerFavContentDashboardCardWidget(ContentDashboardCardWidget):
 
@@ -274,6 +280,12 @@ class BuyerFavContentDashboardCardWidget(ContentDashboardCardWidget):
         dialog_addProperty.exec_()  # 以模态方式运行对话框
         # 需要当前title参数
 
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
+
 class BuyerMenu(QMainWindow):
     def __init__(self, user, loginMenu):
         super().__init__()
@@ -362,7 +374,8 @@ class BuyerMenu(QMainWindow):
         search_property_control = SearchPropertyController()
         target_property = self.ui.SearchLineEdit.text()
         found_property = search_property_control.searchProperty(target_property)
-
+        self.ShowAApropery(found_property)
+    def ShowAApropery(self,found_property):
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
 
         # scroll内部需要一个Widget组件，使用代码创建以一个widget，并且添加到scroll_area中
@@ -412,6 +425,8 @@ class BuyerMenu(QMainWindow):
             card_widget.favoriteAdded.connect(self.refreshFavProperty)
 
 
+
+
     #todo 34  As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
     def viewNewAndOldProperties(self, search_text=""):
 
@@ -419,7 +434,9 @@ class BuyerMenu(QMainWindow):
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
         properties_data = property_control.viewProperties()
+        self.showAllProperties(properties_data)
 
+    def showAllProperties(self,properties_data):
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
         # 并且用scroll_area储存位置
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
@@ -441,37 +458,30 @@ class BuyerMenu(QMainWindow):
                 widget_to_remove.deleteLater()
 
         # 动态创建和添加属性卡片到 UI，默认给found绑定了一个false用于搜索
-        found = False
         for property_data in properties_data:
-            # 搜索时如果有任何字母时是属于title的
-            if search_text.lower() in property_data.title.lower():
-                found = True
-                card_widget = BuyerContentDashboardCardWidget(
-                    icon=QIcon('path_to_icon.png'),
-                    ##title=property_data.title,  # 获取title
-                    # content=property_data.description,  # 获取description
-                    # buyer_name=self.user.username,
-                    property = property_data,
-                    user = self.user,
-                    isChecked=False
-                )
+            card_widget = BuyerContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                ##title=property_data.title,  # 获取title
+                # content=property_data.description,  # 获取description
+                # buyer_name=self.user.username,
+                property = property_data,
+                user = self.user,
+                isChecked=False
+            )
 
-                # 设置自定义属性数据
-                card_widget.label_beds.setText(f"Beds: {property_data.bedNum}")
-                card_widget.label_baths.setText(f"Baths: {property_data.bathNum}")
-                card_widget.label_size.setText(f"Size: {property_data.size}")
-                card_widget.label_price.setText(f"Price: {property_data.price}")
-                card_widget.label_status.setText(f"Status: {property_data.status}")
-                card_widget.label_views.setText(f"Views: {property_data.views}")
-                card_widget.label_agent.setText(f"Agents: {property_data.agentName}")
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {property_data.bedNum}")
+            card_widget.label_baths.setText(f"Baths: {property_data.bathNum}")
+            card_widget.label_size.setText(f"Size: {property_data.size}")
+            card_widget.label_price.setText(f"Price: {property_data.price}")
+            card_widget.label_status.setText(f"Status: {property_data.status}")
+            card_widget.label_views.setText(f"Views: {property_data.views}")
+            card_widget.label_agent.setText(f"Agents: {property_data.agentName}")
 
-                layout.addWidget(card_widget)
+            layout.addWidget(card_widget)
 
-                card_widget.favoriteAdded.connect(self.refreshFavProperty)
+                ##card_widget.favoriteAdded.connect(self.refreshFavProperty)
 
-        if not found:  # 如果没有找到匹配的房产，可能需要处理这种情况
-            label_no_result = QLabel("No properties found matching the search criteria.")
-            layout.addWidget(label_no_result)
 
     #todo 41
     def viewNewPropertyFavouritesList(self, search_text=""):
@@ -480,7 +490,9 @@ class BuyerMenu(QMainWindow):
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
         properties_data = new_favorite_control.viewNewFavorites(self.user.userid)
+        self.showNewPropertyFavouritesList(properties_data)
 
+    def showNewPropertyFavouritesList(self,properties_data):
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
         # 并且用scroll_area储存位置
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea_2')
@@ -502,35 +514,28 @@ class BuyerMenu(QMainWindow):
                 widget_to_remove.deleteLater()
 
         # 动态创建和添加属性卡片到 UI，默认给found绑定了一个false用于搜索
-        found = False
         for property_data in properties_data:
-            # 搜索时如果有任何字母时是属于title的
-            if search_text.lower() in property_data.Title.lower():
-                found = True
-                card_widget = BuyerFavContentDashboardCardWidget(
-                    icon=QIcon('path_to_icon.png'),
-                    title=property_data.Title,  # 获取title
-                    content=property_data.Description,  # 获取description
-                    buyer_name=self.user.username,
-                    isChecked=False
-                )
+            card_widget = BuyerFavContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                title=property_data.Title,  # 获取title
+                content=property_data.Description,  # 获取description
+                buyer_name=self.user.username,
+                isChecked=False
+            )
 
-                # 设置自定义属性数据
-                card_widget.label_beds.setText(f"Beds: {property_data.BedNum}")
-                card_widget.label_baths.setText(f"Baths: {property_data.BathNum}")
-                card_widget.label_size.setText(f"Size: {property_data.Size}")
-                card_widget.label_price.setText(f"Price: {property_data.Price}")
-                card_widget.label_status.setText(f"Status: {property_data.Status}")
-                card_widget.label_views.setText(f"Views: {property_data.Views}")
-                card_widget.label_agent.setText(f"Agents: {property_data.Agentname}")
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {property_data.BedNum}")
+            card_widget.label_baths.setText(f"Baths: {property_data.BathNum}")
+            card_widget.label_size.setText(f"Size: {property_data.Size}")
+            card_widget.label_price.setText(f"Price: {property_data.Price}")
+            card_widget.label_status.setText(f"Status: {property_data.Status}")
+            card_widget.label_views.setText(f"Views: {property_data.Views}")
+            card_widget.label_agent.setText(f"Agents: {property_data.Agentname}")
 
-                #刷新页面，refreshRequested信号绑定到了refreshUserList
+            # 刷新页面，refreshRequested信号绑定到了refreshUserList
 
-                layout.addWidget(card_widget)
+            layout.addWidget(card_widget)
 
-        if not found:  # 如果没有找到匹配的房产，可能需要处理这种情况
-            label_no_result = QLabel("No properties found matching the search criteria.")
-            layout.addWidget(label_no_result)
 
     #todo 42
     def viewOldPropertyFavouritesList(self, search_text=""):
@@ -539,8 +544,9 @@ class BuyerMenu(QMainWindow):
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
         properties_data = old_favorite_control.viewOldFavorites(self.user.userid)
+        self.showOldPropertyFavouritesList(properties_data)
 
-
+    def showOldPropertyFavouritesList(self,properties_data):
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
         # 并且用scroll_area储存位置
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea_3')
@@ -562,35 +568,27 @@ class BuyerMenu(QMainWindow):
                 widget_to_remove.deleteLater()
 
         # 动态创建和添加属性卡片到 UI，默认给found绑定了一个false用于搜索
-        found = False
         for property_data in properties_data:
-            # 搜索时如果有任何字母时是属于title的
-            if search_text.lower() in property_data.Title.lower():
-                found = True
-                card_widget = BuyerFavContentDashboardCardWidget(
-                    icon=QIcon('path_to_icon.png'),
-                    title=property_data.Title,  # 获取title
-                    content=property_data.Description,  # 获取description
-                    buyer_name=self.user.username,
-                    isChecked=False
-                )
+            card_widget = BuyerFavContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                title=property_data.Title,  # 获取title
+                content=property_data.Description,  # 获取description
+                buyer_name=self.user.username,
+                isChecked=False
+            )
 
-                # 设置自定义属性数据
-                card_widget.label_beds.setText(f"Beds: {property_data.BedNum}")
-                card_widget.label_baths.setText(f"Baths: {property_data.BathNum}")
-                card_widget.label_size.setText(f"Size: {property_data.Size}")
-                card_widget.label_price.setText(f"Price: {property_data.Price}")
-                card_widget.label_status.setText(f"Status: {property_data.Status}")
-                card_widget.label_views.setText(f"Views: {property_data.Views}")
-                card_widget.label_agent.setText(f"Agents: {property_data.Agentname}")
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {property_data.BedNum}")
+            card_widget.label_baths.setText(f"Baths: {property_data.BathNum}")
+            card_widget.label_size.setText(f"Size: {property_data.Size}")
+            card_widget.label_price.setText(f"Price: {property_data.Price}")
+            card_widget.label_status.setText(f"Status: {property_data.Status}")
+            card_widget.label_views.setText(f"Views: {property_data.Views}")
+            card_widget.label_agent.setText(f"Agents: {property_data.Agentname}")
 
-                #刷新页面，refreshRequested信号绑定到了refreshUserList
+            #刷新页面，refreshRequested信号绑定到了refreshUserList
 
-                layout.addWidget(card_widget)
-
-        if not found:  # 如果没有找到匹配的房产，可能需要处理这种情况
-            label_no_result = QLabel("No properties found matching the search criteria.")
-            layout.addWidget(label_no_result)
+            layout.addWidget(card_widget)
 
     def OpenFeedbackDialog(self):
         dialog_feedback = DialogFeedback(self.user)
@@ -601,7 +599,9 @@ class BuyerMenu(QMainWindow):
     def accountPage(self):
         get_user_info = SearchUserController()
         info_list = get_user_info.seachAUser(self.user.username)
+        self.showAccount(info_list)
 
+    def showAccount(self,info_list):
         self.ui.Label_username.setText(info_list.username)
         self.ui.Label_password.setText(info_list.password)
         self.ui.Label_email.setText(info_list.email)
@@ -621,3 +621,12 @@ class BuyerMenu(QMainWindow):
         self.user.username = newUserName
         self.refreshaccountPage()
         self.refreshAllProperty()
+
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
+
+
+

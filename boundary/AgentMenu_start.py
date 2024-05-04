@@ -166,9 +166,9 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
             success = update_control.updatePropertry(newTitle, self.property_title, description, bedNum, bathNum, size, price,
                                            status, sellerName)
             if success:
-                QMessageBox.information(self, 'Success', f"Successful update property")
+                self.information('Success', f"Successful update property")
             else:
-                QMessageBox.information(self, 'Error', f"failed to update property")
+                self.information('Error', f"failed to update property")
             # 更新完毕后刷新表格显示，前面的信号也跟这里连接
             self.refreshRequested.emit()
 
@@ -185,12 +185,18 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
         success = remove_property_control.remove_property(property_title_to_delete)
 
         if success:
-            QMessageBox.information(self, 'Success', f"Successful delete property")
+            self.information('Success', f"Successful delete property")
         else:
-            QMessageBox.information(self, 'Error', f"Failed to delete property")
+            self.information('Error', f"Failed to delete property")
 
         self.setParent(None)  # 从布局中移除卡片
         self.deleteLater()  # 删除卡片对象
+
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
 
 
 class AgentMenu(QMainWindow):
@@ -269,7 +275,9 @@ class AgentMenu(QMainWindow):
         search_property_control = SearchPropertyControl()
         target_property = self.ui.SearchLineEdit.text()
         found_property = search_property_control.searchProperty(target_property)
+        self.showAProperty(found_property)
 
+    def showAProperty(self,found_property):
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
 
         # scroll内部需要一个Widget组件，使用代码创建以一个widget，并且添加到scroll_area中
@@ -320,7 +328,9 @@ class AgentMenu(QMainWindow):
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
         properties_data = property_control.viewAllProperties(self.user.userid)
+        self.showAllProperties(properties_data)
 
+    def showAllProperties(self,properties_data):
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
         # 并且用scroll_area储存位置
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
@@ -342,35 +352,30 @@ class AgentMenu(QMainWindow):
                 widget_to_remove.deleteLater()
 
         # 动态创建和添加属性卡片到 UI，默认给found绑定了一个false用于搜索
-        found = False
+
         for property_data in properties_data:
             # 搜索时如果有任何字母时是属于title的
-            if search_text.lower() in property_data.title.lower():
-                found = True
-                card_widget = ExtendedContentDashboardCardWidget(
-                    icon=QIcon('path_to_icon.png'),
-                    title=property_data.title,  # 获取title
-                    content=property_data.description,  # 获取description
-                    isChecked=False
-                )
+            card_widget = ExtendedContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                title=property_data.title,  # 获取title
+                content=property_data.description,  # 获取description
+                isChecked=False
+            )
 
-                # 设置自定义属性数据
-                card_widget.label_beds.setText(f"Beds: {property_data.bedNum}")
-                card_widget.label_baths.setText(f"Baths: {property_data.bathNum}")
-                card_widget.label_size.setText(f"Size: {property_data.size}")
-                card_widget.label_price.setText(f"Price: {property_data.price}")
-                card_widget.label_status.setText(f"Status: {property_data.status}")
-                card_widget.label_views.setText(f"Views: {property_data.views}")
-                card_widget.label_seller.setText(f"Seller: {property_data.sellerName}")
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {property_data.bedNum}")
+            card_widget.label_baths.setText(f"Baths: {property_data.bathNum}")
+            card_widget.label_size.setText(f"Size: {property_data.size}")
+            card_widget.label_price.setText(f"Price: {property_data.price}")
+            card_widget.label_status.setText(f"Status: {property_data.status}")
+            card_widget.label_views.setText(f"Views: {property_data.views}")
+            card_widget.label_seller.setText(f"Seller: {property_data.sellerName}")
 
-                #刷新页面，refreshRequested信号绑定到了refreshPropertyList
-                card_widget.refreshRequested.connect(self.refreshPropertyList)
+            #刷新页面，refreshRequested信号绑定到了refreshPropertyList
+            # card_widget.refreshRequested.connect(self.refreshPropertyList)
 
-                layout.addWidget(card_widget)
+            layout.addWidget(card_widget)
 
-        if not found:  # 如果没有找到匹配的房产，可能需要处理这种情况
-            label_no_result = QLabel("No properties found matching the search criteria.")
-            layout.addWidget(label_no_result)
 
     # todo 14 As a real estate agent, I want to be able to create property listings so that I can show the property I am responsible for.
     def openAddPropertyDialog(self):
@@ -389,7 +394,9 @@ class AgentMenu(QMainWindow):
     def viewRatings(self):
         rating_control = ViewRatingControl()
         rating_list = rating_control.viewRating(self.user.userid)
+        self.showRatings(rating_list)
 
+    def showRatings(self,rating_list):
         self.ui.RoundListWidget.clear()
 
         font = QFont()
@@ -407,11 +414,15 @@ class AgentMenu(QMainWindow):
             # 将列表项添加到列表中
             self.ui.RoundListWidget.addItem(list_item)
 
+
     # todo 20 As a real estate agent, I want to be able to view my reviews of my services so that I can understand customer feedback and improve my service.
     def viewComments(self):
         comment_control = ViewCommentControl()
         comment_list = comment_control.viewComment(self.user.userid)
+        self.showComments(comment_list)
 
+
+    def showComments(self,comment_list):
         self.ui.RoundListWidget_2.clear()
 
         font = QFont()
@@ -430,3 +441,8 @@ class AgentMenu(QMainWindow):
             self.ui.RoundListWidget_2.addItem(list_item)
 
 
+    def warning(self,windowName,windowMassage):
+        QMessageBox.warning(self, windowName, windowMassage)
+
+    def information(self, windowName, windowMassage):
+        QMessageBox.information(self, windowName, windowMassage)
