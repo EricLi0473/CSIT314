@@ -1,8 +1,9 @@
 import pymysql
 class Property:
 
-    def __init__(self,title=None,description=None,bedNum=None,bathNum=None,size=None,price=None,status=None,
+    def __init__(self,propertyId = None,title=None,description=None,bedNum=None,bathNum=None,size=None,price=None,status=None,
                  views=None,shortListed=None,agentId = None,sellerId = None,sellerName = None,agentName = None):
+        self.propertyId = propertyId
         self.title = title
         self.description = description
         self.bedNum = bedNum
@@ -90,7 +91,7 @@ class Property:
             cursor.execute(sqlQuery,agentId)
             propertyDataList = cursor.fetchall()
             for propertyData in propertyDataList:
-                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                property = Property(propertyData['PropertyId'],propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
                                     propertyData['BathNum'], propertyData['Size'], propertyData['Price'],
                                     propertyData['Status'], propertyData['Views'], propertyData['Shortlisted'],
                                     propertyData['AgentId'], propertyData['SellerId'], propertyData['Username'],propertyData['Agent.Username'])
@@ -132,7 +133,7 @@ class Property:
                 sqlQuery = 'SELECT * FROM properties LEFT JOIN users AS Seller ON properties.SellerId = Seller.UserId LEFT JOIN users AS Agent ON properties.AgentId = Agent.UserId where Title = %s'
                 cursor.execute(sqlQuery, title)
                 propertyData = cursor.fetchone()
-                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                property = Property(propertyData['PropertyId'],propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
                                     propertyData['BathNum'],propertyData['Size'],propertyData['Price'],
                                     propertyData['Status'],propertyData['Views'],propertyData['Shortlisted'],
                                     propertyData['AgentId'],propertyData['SellerId'],propertyData['Username'],propertyData['Agent.Username'])
@@ -152,7 +153,7 @@ class Property:
             cursor.execute(sqlQuery)
             propertyDataList = cursor.fetchall()
             for propertyData in propertyDataList:
-                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                property = Property(propertyData['PropertyId'],propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
                                     propertyData['BathNum'], propertyData['Size'], propertyData['Price'],
                                     propertyData['Status'], propertyData['Views'], propertyData['Shortlisted'],
                                     propertyData['AgentId'], propertyData['SellerId'],propertyData['Username'],propertyData['Agent.Username'])
@@ -170,7 +171,7 @@ class Property:
             cursor.execute(sqlQuery,sellerId)
             propertyDataList = cursor.fetchall()
             for propertyData in propertyDataList:
-                property = Property(propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
+                property = Property(propertyData['PropertyId'],propertyData['Title'], propertyData['Description'], propertyData['BedNum'],
                                     propertyData['BathNum'], propertyData['Size'], propertyData['Price'],
                                     propertyData['Status'], propertyData['Views'], propertyData['Shortlisted'],
                                     propertyData['AgentId'], propertyData['SellerId'],propertyData['Username'],propertyData['Agent.Username'])

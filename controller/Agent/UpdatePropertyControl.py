@@ -18,5 +18,3 @@ class UpdatePropertyControl:
 更新成功返回True，如果错误返回False
 '''
 
-# u1 = UpdatePropertyControl()
-# u1.updatePropertry("property1","property1","111",1,1,1000,10000,"available","seller1")

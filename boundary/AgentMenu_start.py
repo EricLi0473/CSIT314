@@ -334,7 +334,7 @@ class AgentMenu(QMainWindow):
 
     def viewRatings(self):
         rating_control = ViewRatingControl()
-        rating_list = rating_control.viewRating(self.user.username)
+        rating_list = rating_control.viewRating(self.user.userid)
 
         self.ui.RoundListWidget.clear()
 
@@ -355,7 +355,7 @@ class AgentMenu(QMainWindow):
 
     def viewComments(self):
         comment_control = ViewCommentControl()
-        comment_list = comment_control.viewComment(self.user.username)
+        comment_list = comment_control.viewComment(self.user.userid)
 
         self.ui.RoundListWidget_2.clear()
 

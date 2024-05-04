@@ -2,8 +2,7 @@ class CalculateMonthlyPaymentControl:
     def __init__(self):
         pass
 
-
-    # 39 As a buyer, I want to be able to calculate the monthly payments based on the price of the property, interest rate, and other relevant factors so that I can know if the property is within my budget.
+    # 38 As a buyer, I want to be able to calculate the monthly payments based on the price of the property, interest rate, and other relevant factors so that I can know if the property is within my budget.
     def calculateMonthlyPayment(self,house_price, interest_rate, loan_years, down_payment_rate):
         try:
             house_price = float(house_price)
@@ -27,11 +26,4 @@ class CalculateMonthlyPaymentControl:
                           / ((1 + monthly_interest_rate) ** total_payments - 1)
         return int(monthly_payment)
 
-
-# 示例用法
-# house_price = 1000000
-# interest_rate = 0.03
-# loan_years = 5
-# down_payment_rate = 0.25
-# print(CalculateMonthlyPaymentControl().calculateMonthlyPayment(house_price, interest_rate, loan_years,down_payment_rate))
 

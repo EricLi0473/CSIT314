@@ -1,7 +1,8 @@
 from PyQt5.QtCore import pyqtSignal
 
 from boundary.BuyerMenu_Dialog_feedback import *
-from controller.User.GiveReviewToAgentControl import GiveReviewToAgentControl
+from controller.User.GiveRatingToAgentControl import GiveRatingToAgentControl
+from controller.User.GiveCommentToAgentControl import GiveCommentToAgentControl
 from controller.Buyer.getAllAgentNameController import getAllAgentNameController
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
@@ -14,11 +15,11 @@ class DialogFeedback(QDialog):
     propertyAdded = pyqtSignal()
 
 
-    def __init__(self, buyer_name, parent=None):
+    def __init__(self, user, parent=None):
         super(DialogFeedback, self).__init__(parent)
         self.ui = Ui_BuyerMenu_Dialog_feedback()
         self.ui.setupUi(self)
-        self.buyer_name = buyer_name
+        self.user = user
 
         self.ui.btn_score.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
         self.ui.btn_review.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(1))
@@ -50,22 +51,23 @@ class DialogFeedback(QDialog):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-
+#todo 39
     def giveScore(self):
-        score_control = GiveReviewToAgentControl()
+        score_control = GiveRatingToAgentControl()
         score = self.ui.ComboBox_score.currentText()
         agent = self.ui.ComboBox_agent_2.currentText()
 
-        if score_control.giveRatingToAgent(self.buyer_name, agent, score):
+        if score_control.giveRatingToAgent(self.user.userid, agent, score):
             QMessageBox.warning(self, 'Submission Result', 'Successfully submitted!')
         else:
             QMessageBox.warning(self, 'Submission Result', 'Failed to submit.')
+#todo 40
     def giveReview(self):
-        review_control = GiveReviewToAgentControl()
+        review_control = GiveCommentToAgentControl()
         review = self.ui.TextEdit_review.toPlainText()
         agent = self.ui.ComboBox_agent.currentText()
 
-        if review_control.giveCommentToAgent(self.buyer_name, agent, review):
+        if review_control.giveCommentToAgent(self.user.userid, agent, review):
             QMessageBox.warning(self, 'Submission Result', 'Successfully submitted!')
         else:
             QMessageBox.warning(self, 'Submission Result', 'Failed to submit.')

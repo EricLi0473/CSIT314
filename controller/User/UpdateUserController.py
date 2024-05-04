@@ -7,6 +7,3 @@ class UpdateUserController:
     def updateUser(self,oldUsername,newUsername,password,email,userType):
         userTypeId = Profile().findProfileIdByName(userType)
         return User().updateUser(oldUsername,newUsername,password,email,userTypeId)
-
-# u1 = UpdateUserController()
-# print(u1.updateUser("buyer1","buyer1","buyer123","buyer1@example.com","buyer"))

@@ -11,15 +11,4 @@ class SearchPropertyController:
                                   property.bathNum,property.size,property.price,property.status,property.sellerId,view)
         return Property().findAProperty(title)
 
-    # def transferPropertyToList(self,property):
-    #     propertyText = []
-    #     propertyText.append(property.getTitle())
-    #     propertyText.append(property.getDescription())
-    #     propertyText.append(property.getBedNum())
-    #     propertyText.append(property.getBathNum())
-    #     propertyText.append(property.getSize())
-    #     propertyText.append(property.getPrice())
-    #     propertyText.append(property.getStatus())
-    #     return propertyText
-
 

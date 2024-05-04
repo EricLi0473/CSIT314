@@ -5,8 +5,7 @@ class ViewPropertiesControl:
     def __init__(self):
         pass
 
-    def viewProperties(self,username):
-        userId = User().findAUser(username).userid
+    def viewProperties(self,userId):
         propertiesList = Property().findPropertyBySellerId(userId)
         return propertiesList
 '''''

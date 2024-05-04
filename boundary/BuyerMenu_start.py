@@ -11,8 +11,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetI
 from qfluentwidgetspro import ContentDashboardCardWidget, SingleScoreWidget
 
 from controller.Buyer.ViewPropertiesController import ViewPropertiesController
-from controller.Buyer.AddPropertyIntoFavoritesControl import AddPropertyIntoFavoritesControl
-from controller.Buyer.calculateMonthlyPaymentControl import CalculateMonthlyPaymentControl
+from controller.Buyer.AddNewPropertyIntoFavoritesControl import AddNewPropertyIntoFavoritesControl
+from controller.Buyer.AddOldPropertyIntoFavoritesControl import AddOldPropertyIntoFavoritesControl
+# from controller.Buyer.calculateMonthlyPaymentControl import CalculateMonthlyPaymentControl
 from controller.Buyer.ViewNewFavouritesControl import ViewNewFavouritesControl
 from controller.Buyer.ViewOldFavouritesControl import ViewOldFavouritesControl
 from controller.User.SearchUserController import SearchUserController
@@ -33,13 +34,14 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
     favoriteAdded = pyqtSignal()
 
     # 参数是icon，title，content
-    def __init__(self, icon, title, content, buyer_name, isChecked=True, parent=None):
+    def __init__(self, icon, property , user, isChecked=True, parent=None):
         super().__init__(icon=icon, title=title, content=content, isChecked=isChecked, parent=parent)
 
-        self.property_title = title
-        self.content = content
-        self.buyer_name = buyer_name
-
+        # self.property_title = title
+        # self.content = content
+        # self.buyer_name = buyer_name
+        self.property = property
+        self.user = user
         # 创建水平布局放置房产属性标签
         properties_layout = QHBoxLayout()
 
@@ -142,12 +144,21 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
         main_layout.setSpacing(10)
 
     # 编辑按钮对应的触发函数
+    #todo 36 & 37
     def addFavorite(self):
-        favorite_control = AddPropertyIntoFavoritesControl()
-        if favorite_control.addpropertyIntoFavorites(self.buyer_name, self.property_title):
-            QMessageBox.warning(self, 'Success', 'Success to Add property to favorite list.')
+        if self.property.status == "available":
+            if AddNewPropertyIntoFavoritesControl().addNewPropertyIntoFavorites(self.user.userid, self.property.propertyId):
+                QMessageBox.warning(self, 'Success', 'Success to Add property to favorite list.')
+            else:
+                QMessageBox.warning(self, 'fail', 'failed to Add property to favorite list.')
         else:
-            QMessageBox.warning(self, 'fail', 'failed to Add property to favorite list.')
+            if AddOldPropertyIntoFavoritesControl.addOldPropertyIntoFavorites(self.user.userid, self.property.propertyId):
+                QMessageBox.warning(self, 'Success', 'Success to Add property to favorite list.')
+            else:
+                QMessageBox.warning(self, 'fail', 'failed to Add property to favorite list.')
+
+
+
         self.favoriteAdded.emit()
 
 
@@ -354,7 +365,8 @@ class BuyerMenu(QMainWindow):
     def searchPropertyOld(self):
         search_text = self.ui.SearchLineEdit_old.text().strip().lower()
         self.viewOldPropertyFavouritesList(search_text)
-    #todo userstory:36, search both new and old property listings,将搜索和 viewAll分开
+    #todo userstory:35, search both new and old property listings,将搜索和 viewAll分开
+    #todo 34
     def viewNewAndOldProperties(self, search_text=""):
 
         property_control = ViewPropertiesController()  # 实例化后端class
@@ -390,9 +402,11 @@ class BuyerMenu(QMainWindow):
                 found = True
                 card_widget = BuyerContentDashboardCardWidget(
                     icon=QIcon('path_to_icon.png'),
-                    title=property_data.title,  # 获取title
-                    content=property_data.description,  # 获取description
-                    buyer_name=self.user.username,
+                    # title=property_data.title,  # 获取title
+                    # content=property_data.description,  # 获取description
+                    # buyer_name=self.user.username,
+                    property = property_data,
+                    user = self.user,
                     isChecked=False
                 )
 
@@ -413,13 +427,13 @@ class BuyerMenu(QMainWindow):
             label_no_result = QLabel("No properties found matching the search criteria.")
             layout.addWidget(label_no_result)
 
-    #41
+    #todo 41
     def viewNewPropertyFavouritesList(self, search_text=""):
 
         new_favorite_control = ViewNewFavouritesControl()  # 实例化后端class
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
-        properties_data = new_favorite_control.viewNewFavorites(self.user.username)
+        properties_data = new_favorite_control.viewNewFavorites(self.user.userid)
 
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
         # 并且用scroll_area储存位置
@@ -472,13 +486,13 @@ class BuyerMenu(QMainWindow):
             label_no_result = QLabel("No properties found matching the search criteria.")
             layout.addWidget(label_no_result)
 
-    #42
+    #todo 42
     def viewOldPropertyFavouritesList(self, search_text=""):
 
         old_favorite_control = ViewOldFavouritesControl()  # 实例化后端class
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
-        properties_data = old_favorite_control.viewOldFavorites(self.user.username)
+        properties_data = old_favorite_control.viewOldFavorites(self.user.userid)
 
 
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
@@ -533,10 +547,10 @@ class BuyerMenu(QMainWindow):
             layout.addWidget(label_no_result)
 
     def OpenFeedbackDialog(self):
-        dialog_feedback = DialogFeedback(buyer_name=self.user.username)
+        dialog_feedback = DialogFeedback(buyer_name=self.user)
 
         dialog_feedback.exec_()  # 以模态方式运行对话框
-
+#todo 32
     def profilePage(self):
         get_user_info = SearchUserController()
         info_list = get_user_info.seachAUser(self.user.username)
@@ -548,7 +562,7 @@ class BuyerMenu(QMainWindow):
 
     def refreshprofilePage(self):
         self.profilePage()
-
+#todo 33
     def updateInfo(self):
         newUserName = self.ui.LineEdit_newUserName.text()
         newPassword = self.ui.LineEdit_newPassword.text()

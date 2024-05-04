@@ -51,7 +51,7 @@ class DialogAddProperty(QDialog):
 
             # 调用后端的 createUser 方法
             create_control = CreatePropertyControl()
-            success = create_control.createProperty(self.user.username, title, description, bedrooms, bathrooms
+            success = create_control.createProperty(self.user.userid, title, description, bedrooms, bathrooms
                                                     , size, price, seller)
 
             if success:
