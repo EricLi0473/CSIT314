@@ -173,33 +173,28 @@ class SellerMenu(QMainWindow):
                 widget_to_remove.setParent(None)
                 widget_to_remove.deleteLater()
 
-        # 动态创建和添加属性卡片到 UI，默认给found绑定了一个false用于搜索
-        found = False
         for property_data in seller_properties:
-            # 搜索时如果有任何字母时是属于title的
-            if search_text.lower() in property_data.title.lower():
-                found = True
-                card_widget = BuyerContentDashboardCardWidget(
-                    icon=QIcon('path_to_icon.png'),
-                    ##title=property_data.title,  # 获取title
-                    # content=property_data.description,  # 获取description
-                    # buyer_name=self.user.username,
-                    property=property_data,
-                    user=self.user,
-                    isChecked=False
-                )
+            card_widget = BuyerContentDashboardCardWidget(
+                icon=QIcon('path_to_icon.png'),
+                ##title=property_data.title,  # 获取title
+                # content=property_data.description,  # 获取description
+                # buyer_name=self.user.username,
+                property=property_data,
+                user=self.user,
+                isChecked=False
+            )
 
-                # 设置自定义属性数据
-                card_widget.label_beds.setText(f"Beds: {property_data.bedNum}")
-                card_widget.label_baths.setText(f"Baths: {property_data.bathNum}")
-                card_widget.label_size.setText(f"Size: {property_data.size}")
-                card_widget.label_price.setText(f"Price: {property_data.price}")
-                card_widget.label_status.setText(f"Status: {property_data.status}")
-                card_widget.label_views.setText(f"Views: {property_data.views}")
-                card_widget.label_agent.setText(f"Agents: {property_data.agentName}")
-                card_widget.label_seller.setText(f"Seller: {property_data.sellerName}")
+            # 设置自定义属性数据
+            card_widget.label_beds.setText(f"Beds: {property_data.bedNum}")
+            card_widget.label_baths.setText(f"Baths: {property_data.bathNum}")
+            card_widget.label_size.setText(f"Size: {property_data.size}")
+            card_widget.label_price.setText(f"Price: {property_data.price}")
+            card_widget.label_status.setText(f"Status: {property_data.status}")
+            card_widget.label_views.setText(f"Views: {property_data.views}")
+            card_widget.label_agent.setText(f"Agents: {property_data.agentName}")
+            card_widget.label_seller.setText(f"Seller: {property_data.sellerName}")
 
-                layout.addWidget(card_widget)
+            layout.addWidget(card_widget)
 
 
     def refreshSellerProperties(self):
