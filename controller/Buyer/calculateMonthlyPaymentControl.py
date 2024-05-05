@@ -10,9 +10,9 @@ class CalculateMonthlyPaymentControl:
             loan_years = int(loan_years)
             down_payment_rate = float(down_payment_rate)
         except Exception:
-            return False
+            return -1
         if loan_years < 1 or down_payment_rate > 1 or interest_rate < 0:
-            return False
+            return -1
         # 计算首付金额
         down_payment = house_price * down_payment_rate
         # 计算贷款金额

@@ -5,5 +5,5 @@ class UpdateUserController:
         pass
 
     def updateUser(self,oldUsername,newUsername,password,email,userType):
-        userTypeId = Profile().findProfileIdByName(userType)
+        userTypeId = Profile().findAProfile(userType).profileId
         return User().updateUser(oldUsername,newUsername,password,email,userTypeId)

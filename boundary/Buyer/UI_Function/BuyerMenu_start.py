@@ -295,7 +295,7 @@ class BuyerMenu(QMainWindow):
         # 与 类似AdminMenu，它是使用username（登录代理的用户名）和对LoginMenu实例的引用来初始化的。
         # 添加注销按钮，该按钮连接到实例logout的方法LoginMenu
         self.loginMenu = loginMenu
-        self.ui.btn_logout.clicked.connect(self.loginMenu.logout)
+        self.ui.btn_logout.clicked.connect(self.logout)
 
         # 自使用函数
         self.viewNewAndOldProperties()
@@ -615,5 +615,10 @@ class BuyerMenu(QMainWindow):
     def information(self, windowName, windowMassage):
         QMessageBox.information(self, windowName, windowMassage)
 
+    def logout(self):
+        reply = QMessageBox.question(self, 'log out', f" are you sure log out ？",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.loginMenu.logout()
 
 

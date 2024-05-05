@@ -41,7 +41,9 @@ class DialogCalculation(QDialog):
 
         calculation_control = CalculateMonthlyPaymentControl()
         result = calculation_control.calculateMonthlyPayment(price, interest_rate, loan_years, down_payment_rate)
+        self.showCalculationResult(result)
 
+
+    def showCalculationResult(self,result):
         result = 'S$ ' + str(int(result))
         self.ui.SubtitleLabel.setText(result)
-

@@ -11,27 +11,6 @@ class User:
         self.userStatus = userStatus
         self.userTypeName = userTypeName
 
-    def findUsernameByUserId(self,userId):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select username from users where userid = %s'
-            cursor.execute(sqlQuery,userId)
-            username = cursor.fetchone()['username']
-        connect.close()
-        return username
-
-    def findUserIdByUserName(self,username):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select userid from users where username = %s'
-            cursor.execute(sqlQuery,username)
-            user = cursor.fetchone()
-            userId = user['userid']
-        connect.close()
-        return userId
-
     # 1.As a system admin, I want to be able to log into my account so that I can manage the system.
     # 12 As a real estate agent, I want to be able to log into my account so that I can access and manage various aspects of properties.
     # 21 As a seller, I want to be able to log into my account so that I can enter the real estate system.
@@ -43,7 +22,7 @@ class User:
             sqlQuery = f'select password,userstatus from users where username = %s'
             cursor.execute(sqlQuery,username)
             value = cursor.fetchone()
-            if value is None:
+            if value is None or value['UserStatus'] == 'invalid':
                 return False
             realPassword = value['password']
             realStatus = value['userstatus']

@@ -4,26 +4,6 @@ class Profile:
         self.profileId = id
         self.profileName = name
 
-    def findProfileNameById(self,profileId):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select profileName from profile where profileId = %s'
-            cursor.execute(sqlQuery,profileId)
-            name = cursor.fetchone()['profileName']
-        connect.close()
-        return name
-
-    def findProfileIdByName(self,name):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select ProfileId from Profile where profileName = %s'
-            cursor.execute(sqlQuery,name)
-            profileId = cursor.fetchone()['ProfileId']
-        connect.close()
-        return profileId
-
     # 3 As a system admin, I want to be able to create a user profile so that I can create a profile for users.
     def addProfile(self,profileName):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',

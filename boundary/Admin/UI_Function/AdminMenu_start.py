@@ -95,7 +95,7 @@ class AdminMenu(QMainWindow):
         # 实例化后，它会收到对实例的引用LoginMenu( loginMenu)。
         # 创建一个注销按钮，并将其clicked信号连接到实例logout的方法LoginMenu。
         self.loginMenu = loginMenu
-        self.ui.btn_log_out.clicked.connect(self.logoutOut)
+        self.ui.btn_log_out.clicked.connect(self.logout)
 
         # 自运行下列方法
         self.ViewAllUser()
@@ -463,7 +463,7 @@ class AdminMenu(QMainWindow):
         else:
             self.searchAUserProfile()
 
-    def logoutOut(self):
+    def logout(self):
         reply = QMessageBox.question(self, 'log out', f" are you sure log out ？",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:

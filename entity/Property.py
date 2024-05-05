@@ -18,28 +18,6 @@ class Property:
         self.sellerName = sellerName
         self.agentName = agentName
 
-    def findPropertyIdByTitle(self,title):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select PropertyId from properties where Title = %s'
-            cursor.execute(sqlQuery,title)
-            property = cursor.fetchone()
-            propertyId = property['PropertyId']
-        connect.close()
-        return propertyId
-
-    def findPropertyTitledById(self, propertyId):
-        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
-                                  cursorclass=pymysql.cursors.DictCursor)
-        with connect.cursor() as cursor:
-            sqlQuery = f'select Title from properties where PropertyId= %s'
-            cursor.execute(sqlQuery, propertyId)
-            propertyTitle = cursor.fetchone()['Title']
-        connect.close()
-        return propertyTitle
-
-
     # 14 As a real estate agent, I want to be able to create property listings so that I can show the property I am responsible for.
     def addProperty(self,title,description,bedNum,bathNum,size,price,agentid,sellerid):
         values = (title, description, bedNum, bathNum, size,price,'available','0','0',agentid,sellerid)
