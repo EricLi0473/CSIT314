@@ -1,5 +1,12 @@
 from qfluentwidgetspro import setLicense
 
+import sys
+import os
+
+from Crypto.Cipher import AES
+import Crypto.Util.Padding
+from qframelesswindow.webengine import FramelessWindow
+
 from boundary.Login.UI.LoginMenu import *
 from boundary.Admin.UI_Function.AdminMenu_start import AdminMenu
 from boundary.Agent.UI_Function.AgentMenu_start import AgentMenu
@@ -18,6 +25,9 @@ class LoginMenu(QMainWindow):
         super().__init__()
         self.ui = Ui_loginWindow()
         self.ui.setupUi(self)
+
+        project_dir = os.path.dirname(sys.argv[0])
+        print(project_dir)
 
         # 引入了一个currentSession属性来跟踪当前活动的会话窗口（如AdminMenu或AgentMenu）
         # 最初，它被设置为None因为第一次启动时没有活动会话LoginMenu。
