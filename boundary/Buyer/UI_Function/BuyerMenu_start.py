@@ -1,19 +1,17 @@
 from PyQt5.QtCore import QSize, pyqtSignal
-from PyQt5.QtGui import QIcon, QColor, QFont
+from PyQt5.QtGui import QIcon, QFont
 
-from boundary.BuyerMenu import *
-from boundary.BuyerMenu_Dialog_calculation_start import DialogCalculation
-from boundary.BuyerMenu_Dialog_feedback_start import DialogFeedback
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog, QVBoxLayout, QScrollArea, QLabel
+from boundary.Buyer.UI.BuyerMenu import *
+from boundary.Buyer.UI_Function.BuyerMenu_Dialog_calculation_start import DialogCalculation
+from boundary.Buyer.UI_Function.BuyerMenu_Dialog_feedback_start import DialogFeedback
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QPushButton, \
+    QWidget, QHBoxLayout, QVBoxLayout, QLabel
 
-from qfluentwidgetspro import ContentDashboardCardWidget, SingleScoreWidget
+from qfluentwidgetspro import ContentDashboardCardWidget
 
 from controller.Buyer.ViewPropertiesController import ViewPropertiesController
 from controller.Buyer.AddNewPropertyIntoFavoritesControl import AddNewPropertyIntoFavoritesControl
 from controller.Buyer.AddOldPropertyIntoFavoritesControl import AddOldPropertyIntoFavoritesControl
-# from controller.Buyer.calculateMonthlyPaymentControl import CalculateMonthlyPaymentControl
 from controller.Buyer.ViewNewFavouritesControl import ViewNewFavouritesControl
 from controller.Buyer.ViewOldFavouritesControl import ViewOldFavouritesControl
 from controller.User.SearchUserController import SearchUserController
@@ -306,9 +304,7 @@ class BuyerMenu(QMainWindow):
         self.accountPage()
         # property页面中的add按钮绑定openAddPropertyDialog方法
 
-
         # property页面中的SearchLine实现动态搜索，并绑定searchProperty方法
-
 
         # 给缩小化和正常化的导航栏里的每一个图标（button）绑定到stack widget里对应的页面
         self.ui.btn_dashboard1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
@@ -331,7 +327,7 @@ class BuyerMenu(QMainWindow):
 
         self.ui.SearchLineEdit.textChanged.connect(self.searchAllpropertyManage)
 
-        self.ui.icon_name_widget.setHidden(True)
+        self.ui.icon_name_widget_2.setHidden(True)
 
         #  隐藏window窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -358,7 +354,7 @@ class BuyerMenu(QMainWindow):
         self.viewNewAndOldProperties()
         self.viewNewPropertyFavouritesList()
         self.viewOldPropertyFavouritesList()
-    ##def ContentDashboardCardWidgets
+
     def refreshFavProperty(self):
         self.viewNewPropertyFavouritesList()
         self.viewOldPropertyFavouritesList()
@@ -424,11 +420,8 @@ class BuyerMenu(QMainWindow):
 
             card_widget.favoriteAdded.connect(self.refreshFavProperty)
 
-
-
-
     #todo 34  As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
-    def viewNewAndOldProperties(self, search_text=""):
+    def viewNewAndOldProperties(self):
 
         property_control = ViewPropertiesController()  # 实例化后端class
 
@@ -480,11 +473,8 @@ class BuyerMenu(QMainWindow):
 
             layout.addWidget(card_widget)
 
-                ##card_widget.favoriteAdded.connect(self.refreshFavProperty)
-
-
     #todo 41
-    def viewNewPropertyFavouritesList(self, search_text=""):
+    def viewNewPropertyFavouritesList(self):
 
         new_favorite_control = ViewNewFavouritesControl()  # 实例化后端class
 
@@ -532,13 +522,11 @@ class BuyerMenu(QMainWindow):
             card_widget.label_views.setText(f"Views: {property_data.Views}")
             card_widget.label_agent.setText(f"Agents: {property_data.Agentname}")
 
-            # 刷新页面，refreshRequested信号绑定到了refreshUserList
-
             layout.addWidget(card_widget)
 
 
     #todo 42
-    def viewOldPropertyFavouritesList(self, search_text=""):
+    def viewOldPropertyFavouritesList(self):
 
         old_favorite_control = ViewOldFavouritesControl()  # 实例化后端class
 
@@ -586,8 +574,6 @@ class BuyerMenu(QMainWindow):
             card_widget.label_views.setText(f"Views: {property_data.Views}")
             card_widget.label_agent.setText(f"Agents: {property_data.Agentname}")
 
-            #刷新页面，refreshRequested信号绑定到了refreshUserList
-
             layout.addWidget(card_widget)
 
     def OpenFeedbackDialog(self):
@@ -603,7 +589,8 @@ class BuyerMenu(QMainWindow):
 
     def showAccount(self,info_list):
         self.ui.Label_username.setText(info_list.username)
-        self.ui.Label_password.setText(info_list.password)
+        self.ui.Label_username_2.setText(info_list.username)
+        self.ui.Label_Password.setText(info_list.password)
         self.ui.Label_email.setText(info_list.email)
         self.ui.Label_status.setText(info_list.userStatus)
 

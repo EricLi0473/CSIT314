@@ -1,12 +1,10 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.SellerMenu_Dialog_feedback import *
+from boundary.Seller.UI.SellerMenu_Dialog_feedback import *
 from controller.User.GiveRatingToAgentControl import GiveRatingToAgentControl
 from controller.User.GiveCommentToAgentControl import GiveCommentToAgentControl
 from controller.Buyer.getAllAgentNameController import getAllAgentNameController
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog
+from PyQt5.QtWidgets import QMessageBox, QDialog
 
 
 class DialogFeedback(QDialog):

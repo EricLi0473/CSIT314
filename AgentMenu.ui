@@ -211,6 +211,12 @@ QPushButton:checked{
        <item>
         <widget class="QWidget" name="header_widget" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QPushButton" name="btn_nav_bar">
             <property name="styleSheet">
@@ -221,7 +227,13 @@ QPushButton:checked{
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
-              <normaloff>:/icons2/icons/icon2/menu.png</normaloff>:/icons2/icons/icon2/menu.png</iconset>
+              <normaloff>:/blue/icons/blue/align-justify.svg</normaloff>:/blue/icons/blue/align-justify.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>40</height>
+             </size>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -247,26 +259,41 @@ QPushButton:checked{
              <number>7</number>
             </property>
             <item>
-             <widget class="LineEdit" name="LineEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btn_search">
+             <widget class="QPushButton" name="pushButton">
               <property name="styleSheet">
-               <string notr="true">border:none</string>
+               <string notr="true">QPushButton{
+
+	border:none;
+}</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset resource="res.qrc">
-                <normaloff>:/icons2/icons/icon2/search.png</normaloff>:/icons2/icons/icon2/search.png</iconset>
+                <normaloff>:/blue/icons/blue/airplay.svg</normaloff>:/blue/icons/blue/airplay.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="font">
+               <font>
+                <family>PT Root UI Bold</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 77, 61);</string>
+              </property>
+              <property name="text">
+               <string>AgentMenu</string>
               </property>
              </widget>
             </item>
@@ -314,7 +341,7 @@ QPushButton:checked{
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_dashborad">
           <widget class="TitleLabel" name="TitleLabel">
@@ -346,7 +373,7 @@ QPushButton:checked{
                 </font>
                </property>
                <property name="text">
-                <string>Property info</string>
+                <string>Property Management Terminal</string>
                </property>
               </widget>
              </item>
@@ -371,6 +398,12 @@ QPushButton:checked{
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <widget class="FilledPushButton" name="btn_addProperty">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>Add property</string>
                </property>
@@ -382,20 +415,7 @@ QPushButton:checked{
                 <string/>
                </property>
                <property name="placeholderText">
-                <string>search user name</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="PushButton" name="btn_search_property">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>search</string>
+                <string>search a property title</string>
                </property>
               </widget>
              </item>
@@ -412,7 +432,7 @@ QPushButton:checked{
                 <x>0</x>
                 <y>0</y>
                 <width>839</width>
-                <height>623</height>
+                <height>640</height>
                </rect>
               </property>
              </widget>

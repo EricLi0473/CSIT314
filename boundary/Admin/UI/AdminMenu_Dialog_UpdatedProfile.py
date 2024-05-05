@@ -245,7 +245,7 @@ class Ui_Dialog_UpdateProfile(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog_UpdateProfile.setWindowTitle(_translate("Dialog_UpdateProfile", "Dialog"))
         self.label_profile.setText(_translate("Dialog_UpdateProfile", "new profile name"))
-        self.PushButton_create.setText(_translate("Dialog_UpdateProfile", "Create user"))
+        self.PushButton_create.setText(_translate("Dialog_UpdateProfile", "update profile"))
         self.PushButton_cancel.setText(_translate("Dialog_UpdateProfile", "Cancel"))
 from qfluentwidgets import LineEdit, PushButton
 from qfluentwidgetspro import FilledPushButton

@@ -1,14 +1,13 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QFont
 
-from boundary.AdminMenu import *
-from AdminMenu_Dialog_AddUser_start import DialogAddUser
-from AdminMenu_Dialog_UpdateUser_start import DialogUpdateUser
-from AdminMenu_Dialog_AddProfile_start import DialogAddProfile
-from AdminMenu_Dialog_UpdatedProfile_start import DialogUpdateProfile
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog, QLabel
+from boundary.Admin.UI.AdminMenu import *
+from boundary.Admin.UI_Function.AdminMenu_Dialog_AddUser_start import DialogAddUser
+from boundary.Admin.UI_Function.AdminMenu_Dialog_UpdateUser_start import DialogUpdateUser
+from boundary.Admin.UI_Function.AdminMenu_Dialog_AddProfile_start import DialogAddProfile
+from boundary.Admin.UI_Function.AdminMenu_Dialog_UpdatedProfile_start import DialogUpdateProfile
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
+    QWidget, QHBoxLayout, QLabel
 
 from controller.Admin.FreezeUserController import FreezeUserController
 from controller.Admin.ActivateUserController import ActivateUserController
@@ -97,7 +96,6 @@ class AdminMenu(QMainWindow):
         # 创建一个注销按钮，并将其clicked信号连接到实例logout的方法LoginMenu。
         self.loginMenu = loginMenu
         self.ui.btn_log_out.clicked.connect(self.logoutOut)
-        self.loginMenu.logout
 
         # 自运行下列方法
         self.ViewAllUser()
@@ -127,7 +125,6 @@ class AdminMenu(QMainWindow):
         # 给user mange和profile manage中的add按钮绑定对应的触发窗口
         self.ui.btn_addUser.clicked.connect(self.openAddUserDialog)
         self.ui.btn_addProfile1.clicked.connect(self.openAddProfileDialog)
-        self.ui.btn_search_user.clicked.connect(self.searchAUserAccount)
 
         # 给user mange的搜索栏绑定实时搜索方法
         self.ui.SearchLineEdit.textChanged.connect(self.reViewAlluserAccount)
@@ -138,7 +135,7 @@ class AdminMenu(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.show()
         # 开启窗口时默认隐藏缩小化的导航栏
-        self.ui.icon_name_widget.setHidden(True)
+        self.ui.icon_name_widget_2.setHidden(True)
 
 
         # 给user_info_table_widget里的动态添加的3种button（edit,freeze，activate)
@@ -326,8 +323,6 @@ class AdminMenu(QMainWindow):
             # 更新完毕后刷新表格显示
             self.ViewAllUser()
 
-
-
     # function冻结用户
     #todo 10
     def freezeUser(self, row):
@@ -373,7 +368,10 @@ class AdminMenu(QMainWindow):
         self.showAUser(found_user)
 
     def showAUser(self,found_user):
-        if found_user:
+        if found_user.userTypeId is None:
+            self.ui.TableWidget1.clearContents()
+            self.ui.TableWidget1.setRowCount(0)
+        else:
             userText = [
                 found_user.username,
                 found_user.password,
@@ -399,8 +397,6 @@ class AdminMenu(QMainWindow):
                 self.setupTableButtons(0)
             self.ui.TableWidget1.viewport().update()  # 要求 QTableWidget 的视图组件进行更新，以便显示最新的内容
 
-        else:
-            self.warning('No Result', 'No user found with that information')
 
 #todo 4
     # profile 页面信息获取
@@ -427,8 +423,6 @@ class AdminMenu(QMainWindow):
             self.ui.RoundListWidget.addItem(list_item)
             self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
 
-
-
 #todo 6 search user profile
     def searchAUserProfile(self):
         search_profile_control = SearchProfileController()
@@ -439,21 +433,22 @@ class AdminMenu(QMainWindow):
 
 
     def showAUserProfile(self,found_profile):
+        if found_profile is None:
+            self.ui.RoundListWidget.clear()
+        else:
+            profile_name = found_profile
 
-        profile_name = found_profile
+            # Create the custom widget for the list item
+            profile_widget = ProfileListItem(profile_name)
 
-        # Create the custom widget for the list item
-        profile_widget = ProfileListItem(profile_name)
-        ##profile_widget.requestRefresh.connect(self.reViewAlluserProfile)
+            # Create the list item and set its widget
+            list_item = QListWidgetItem(self.ui.RoundListWidget)
+            list_item.setSizeHint(
+                profile_widget.sizeHint())  # Ensure the list item has the right size for the custom widget
 
-        # Create the list item and set its widget
-        list_item = QListWidgetItem(self.ui.RoundListWidget)
-        list_item.setSizeHint(
-            profile_widget.sizeHint())  # Ensure the list item has the right size for the custom widget
-
-        # Finally, add the widget to the list
-        self.ui.RoundListWidget.addItem(list_item)
-        self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
+            # Finally, add the widget to the list
+            self.ui.RoundListWidget.addItem(list_item)
+            self.ui.RoundListWidget.setItemWidget(list_item, profile_widget)
 
 
     def reViewAlluserAccount(self, text):

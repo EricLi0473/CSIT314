@@ -1,20 +1,19 @@
 from PyQt5.QtCore import QSize, pyqtSignal
-from PyQt5.QtGui import QIcon, QColor, QFont
+from PyQt5.QtGui import QIcon, QFont
 
-from boundary.AgentMenu import *
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog, QVBoxLayout, QScrollArea, QLabel
+from boundary.Agent.UI.AgentMenu import *
+from boundary.Agent.UI_Function.AgentMenu_Dialog_AddProperty_start import DialogAddProperty
+from boundary.Agent.UI_Function.AgentMenu_Dialog_UpdateProperty_start import DialogUpdateProperty
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QListWidgetItem, QPushButton, \
+    QWidget, QHBoxLayout, QVBoxLayout, QLabel
 
-from qfluentwidgetspro import ContentDashboardCardWidget, SingleScoreWidget
+from qfluentwidgetspro import ContentDashboardCardWidget
 
 from controller.Agent.RemovePropertyControl import RemovePropertyControl
 from controller.Agent.UpdatePropertyControl import UpdatePropertyControl
 from controller.Agent.ViewAllPropertyControl import ViewAllPropertyControl
 from controller.Agent.ViewRatingControl import ViewRatingControl
 from controller.Agent.ViewCommentControl import ViewCommentControl
-from AgentMenu_Dialog_AddProperty_start import DialogAddProperty
-from AgentMenu_Dialog_UpdateProperty_start import DialogUpdateProperty
 from controller.Agent.SearchPropertyControl import SearchPropertyControl
 
 """
@@ -217,7 +216,6 @@ class AgentMenu(QMainWindow):
         self.viewRatings()
         self.viewComments()
 
-
         # property页面中的add按钮绑定openAddPropertyDialog方法
         self.ui.btn_addProperty.clicked.connect(self.openAddPropertyDialog)
 
@@ -240,7 +238,7 @@ class AgentMenu(QMainWindow):
         self.ui.btn_messages1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(4))
         self.ui.btn_messages2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(4))
 
-        self.ui.icon_name_widget.setHidden(True)
+        self.ui.icon_name_widget_2.setHidden(True)
 
         #  隐藏window窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -322,7 +320,7 @@ class AgentMenu(QMainWindow):
             layout.addWidget(card_widget)
 
     # todo 15 As a real estate agent, I want to be able to view all properties in my account so that I can know what properties are in my property list.
-    def viewAllProperties(self, search_text=""):
+    def viewAllProperties(self):
 
         property_control = ViewAllPropertyControl()  # 实例化后端class
 
@@ -371,9 +369,6 @@ class AgentMenu(QMainWindow):
             card_widget.label_views.setText(f"Views: {property_data.views}")
             card_widget.label_seller.setText(f"Seller: {property_data.sellerName}")
 
-            #刷新页面，refreshRequested信号绑定到了refreshPropertyList
-            # card_widget.refreshRequested.connect(self.refreshPropertyList)
-
             layout.addWidget(card_widget)
 
 
@@ -421,14 +416,8 @@ class AgentMenu(QMainWindow):
         comment_list = comment_control.viewComment(self.user.userid)
         self.showComments(comment_list)
 
-
     def showComments(self,comment_list):
         self.ui.RoundListWidget_2.clear()
-
-        font = QFont()
-        font.setPointSize(9)
-        font.setFamily("PT Root UI Bold")
-
         for comment in comment_list:
             username = comment.senderName
             comment = comment.comment
@@ -436,7 +425,6 @@ class AgentMenu(QMainWindow):
             item_text = f"{username}:\t{comment}"
             # 创建一个新的列表项
             list_item = QListWidgetItem(item_text)
-            # list_item.setFont(font)
             # 将列表项添加到列表中
             self.ui.RoundListWidget_2.addItem(list_item)
 

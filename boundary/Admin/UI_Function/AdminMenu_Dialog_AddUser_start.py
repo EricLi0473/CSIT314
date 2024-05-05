@@ -1,24 +1,24 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.AdminMenu_Dialog_AddProfile import *
-from controller.Admin.CreateProfileController import CreateProfileController
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog
+from boundary.Admin.UI.AdminMenu_Dialog_AddUser import *
+from controller.User.CreateUserController import CreateUserController
+from PyQt5.QtWidgets import QMessageBox, QDialog
 
 
-class DialogAddProfile(QDialog):
+class DialogAddUser(QDialog):
 
     # 为dialog窗口设置触发信号
-    profileAdded = pyqtSignal()
+    userAdded = pyqtSignal()
 
 
     def __init__(self, parent=None):
-        super(DialogAddProfile, self).__init__(parent)
-        self.ui = Ui_Dialog_AddProfile()
+        super(DialogAddUser, self).__init__(parent)
+        self.ui = Ui_Dialog_AddUser()
         self.ui.setupUi(self)
 
-        self.ui.PushButton_create.clicked.connect(self.profileCreate)
+        self.ui.ComboBox_type.addItems(["admin", "agent", "buyer", "seller"])
+
+        self.ui.PushButton_create.clicked.connect(self.userCreate)
 
     # GUI窗口拖动
     def mousePressEvent(self, event):
@@ -36,20 +36,22 @@ class DialogAddProfile(QDialog):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-#todo 3
-    def profileCreate(self):
+#todo 7
+    def userCreate(self):
         try:
             # 获取输入框和组合框中的值
-            profileName = self.ui.LineEdit_profile.text()
-
+            username = self.ui.LineEdit_username.text()
+            password = self.ui.LineEdit_password.text()
+            email = self.ui.LineEdit_email.text()
+            userType = self.ui.ComboBox_type.currentText()
 
             # 调用后端的 createUser 方法
-            create_control = CreateProfileController()
-            success = create_control.createProfile(profileName)
+            create_control = CreateUserController()
+            success = create_control.createUser(username, password, email, userType)
 
             if success:
-                QMessageBox.information(self, 'Success', f"Successful create new profile")
-                self.profileAdded.emit()
+                QMessageBox.information(self, 'Success', f"Successful create new account")
+                self.userAdded.emit()
                 self.accept()  # 关闭对话框
                 return True
             else:

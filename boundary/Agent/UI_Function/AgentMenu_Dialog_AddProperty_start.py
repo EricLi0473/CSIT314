@@ -1,10 +1,8 @@
 from PyQt5.QtCore import pyqtSignal
 
-from boundary.AgentMenu_Dialog_AddProperty import *
+from boundary.Agent.UI.AgentMenu_Dialog_AddProperty import *
 from controller.Agent.CreatePropertyControl import CreatePropertyControl
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog
+from PyQt5.QtWidgets import QMessageBox, QDialog
 
 
 class DialogAddProperty(QDialog):

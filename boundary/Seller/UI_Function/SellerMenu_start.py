@@ -1,17 +1,15 @@
-from PyQt5.QtCore import QSize, pyqtSignal
-from PyQt5.QtGui import QIcon, QColor, QFont
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QIcon, QFont
 
-from boundary.SellerMenu import *
-from boundary.BuyerMenu_Dialog_calculation_start import DialogCalculation
-from boundary.SellerMenu_Dialog_feedback_start import DialogFeedback
+from boundary.Seller.UI.SellerMenu import *
+from boundary.Seller.UI_Function.SellerMenu_Dialog_feedback_start import DialogFeedback
 from controller.Seller.ViewPropertiesControl import ViewPropertiesControl
 from controller.User.SearchUserController import SearchUserController
 from controller.User.UpdateUserController import UpdateUserController
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog, QVBoxLayout, QScrollArea, QLabel
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QWidget, QHBoxLayout, QVBoxLayout, QLabel
 
-from qfluentwidgetspro import ContentDashboardCardWidget, SingleScoreWidget
+from qfluentwidgetspro import ContentDashboardCardWidget
+
 
 class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
 
@@ -95,14 +93,11 @@ class SellerMenu(QMainWindow):
 
         # 自使用函数
         self.viewSellerProperties()
-        ## self.viewNewPropertyFavouritesList()
-        ## self.viewOldPropertyFavouritesList()
         self.accountPage()
         # property页面中的add按钮绑定openAddPropertyDialog方法
         self.ui.btn_feedback.clicked.connect(self.OpenFeedbackDialog)
 
         # property页面中的SearchLine实现动态搜索，并绑定searchProperty方法
-
 
         # 给缩小化和正常化的导航栏里的每一个图标（button）绑定到stack widget里对应的页面
         self.ui.btn_dashboard1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(0))
@@ -114,11 +109,10 @@ class SellerMenu(QMainWindow):
         self.ui.btn_profile1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(2))
         self.ui.btn_profile2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(2))
 
-        ##self.ui.btn_feedback.clicked.connect(self.OpenFeedbackDialog)
         self.ui.btn_update_profile.clicked.connect(self.updateInfo)
 
 
-        self.ui.icon_name_widget.setHidden(True)
+        self.ui.icon_name_widget_2.setHidden(True)
 
         #  隐藏window窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -142,13 +136,13 @@ class SellerMenu(QMainWindow):
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
 
-    def viewSellerProperties(self, search_text=""):
+    def viewSellerProperties(self):
 
         view_property_control = ViewPropertiesControl()  # 实例化后端class
 
         # 调用实例化之后的后端class内的viewAllProperty方法，使用properties_data储存后端返回的房产数据
         seller_properties = view_property_control.viewProperties(self.user.userid)
-        self.showSellerProperties(seller_properties )
+        self.showSellerProperties(seller_properties)
 
 
 
@@ -196,7 +190,6 @@ class SellerMenu(QMainWindow):
 
             layout.addWidget(card_widget)
 
-
     def refreshSellerProperties(self):
         self.viewSellerProperties()
 
@@ -211,14 +204,12 @@ class SellerMenu(QMainWindow):
         info_list = get_user_info.seachAUser(self.user.username)
         self.showAccount(info_list)
 
-
-
     def showAccount(self,info_list):
         self.ui.Label_username.setText(info_list.username)
-        self.ui.Label_password.setText(info_list.password)
+        self.ui.Label_username_2.setText(info_list.username)
+        self.ui.Label_Password.setText(info_list.password)
         self.ui.Label_email.setText(info_list.email)
         self.ui.Label_status.setText(info_list.userStatus)
-
 
     def refreshaccountPage(self):
         self.accountPage()

@@ -1,9 +1,5 @@
-import pymysql
-from PyQt5.QtSql import QSqlDatabase
-
-from boundary.BuyerMenu import *
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
+from boundary.Buyer.UI.BuyerMenu import *
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem, QPushButton, \
     QWidget, QHBoxLayout
 
 from controller.AdminControl import AdminControl

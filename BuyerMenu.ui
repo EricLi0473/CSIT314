@@ -372,6 +372,12 @@ QPushButton:checked{
        <item>
         <widget class="QWidget" name="header_widget" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QPushButton" name="btn_nav_bar">
             <property name="styleSheet">
@@ -382,7 +388,13 @@ QPushButton:checked{
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
-              <normaloff>:/icons2/icons/icon2/menu.png</normaloff>:/icons2/icons/icon2/menu.png</iconset>
+              <normaloff>:/blue/icons/blue/align-justify.svg</normaloff>:/blue/icons/blue/align-justify.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>40</height>
+             </size>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -408,26 +420,41 @@ QPushButton:checked{
              <number>7</number>
             </property>
             <item>
-             <widget class="LineEdit" name="LineEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btn_search">
+             <widget class="QPushButton" name="pushButton">
               <property name="styleSheet">
-               <string notr="true">border:none</string>
+               <string notr="true">QPushButton{
+
+	border:none;
+}</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset resource="res.qrc">
-                <normaloff>:/icons2/icons/icon2/search.png</normaloff>:/icons2/icons/icon2/search.png</iconset>
+                <normaloff>:/blue/icons/blue/airplay.svg</normaloff>:/blue/icons/blue/airplay.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>40</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="font">
+               <font>
+                <family>PT Root UI Bold</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 77, 61);</string>
+              </property>
+              <property name="text">
+               <string>BuyerMenu</string>
               </property>
              </widget>
             </item>
@@ -543,7 +570,7 @@ QPushButton:checked{
                 <string/>
                </property>
                <property name="placeholderText">
-                <string>search property title</string>
+                <string>search a property title</string>
                </property>
               </widget>
              </item>
@@ -560,7 +587,7 @@ QPushButton:checked{
                 <x>0</x>
                 <y>0</y>
                 <width>839</width>
-                <height>544</height>
+                <height>561</height>
                </rect>
               </property>
              </widget>
@@ -569,45 +596,332 @@ QPushButton:checked{
           </layout>
          </widget>
          <widget class="QWidget" name="page_rating">
-          <layout class="QVBoxLayout" name="verticalLayout_6">
+          <layout class="QVBoxLayout" name="verticalLayout_21">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
+             <property name="topMargin">
+              <number>10</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Ignored">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>64</width>
+                   <height>55</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton{
+
+	border:none;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="res.qrc">
+                   <normaloff>:/blue/icons/blue/user.svg</normaloff>:/blue/icons/blue/user.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>60</width>
+                   <height>60</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="Label_username_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Ignored">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>54</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Bold</family>
+                   <pointsize>14</pointsize>
+                  </font>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::LeftToRight</enum>
+                 </property>
+                 <property name="inputMethodHints">
+                  <set>Qt::ImhNone</set>
+                 </property>
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="margin">
+                  <number>129</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
            <item>
             <widget class="QLabel" name="label_6">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <family>PT Root UI Bold</family>
-               <pointsize>20</pointsize>
-               <italic>false</italic>
-               <underline>false</underline>
+               <pointsize>13</pointsize>
               </font>
              </property>
-             <property name="text">
-              <string>Profile info</string>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(76, 163, 255);</string>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="LargeTitleLabel" name="LargeTitleLabel">
              <property name="text">
-              <string>currently profile here</string>
+              <string>Your currently account information:</string>
              </property>
             </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel">
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <property name="rightMargin">
+                <number>100</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_12">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Medium</family>
+                   <pointsize>11</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>username:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="Label_username">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Bold</family>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+    border: 2px solid #0078D7;
+    background-color: #F0F0F1;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_14">
+               <property name="rightMargin">
+                <number>100</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_15">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Medium</family>
+                   <pointsize>11</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>password:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="Label_Password">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Bold</family>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+    border: 2px solid #0078D7;
+    background-color: #F0F0F1;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_15">
+               <item>
+                <widget class="QLabel" name="label_17">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Medium</family>
+                   <pointsize>11</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Email:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="Label_email">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Bold</family>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+    border: 2px solid #0078D7;
+    background-color: #F0F0F1;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QLabel" name="label_18">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>PT Root UI Medium</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>your username:</string>
+                <string>Status:</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="SubtitleLabel" name="Label_username">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>11</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
+              <widget class="QLabel" name="Label_status">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>PT Root UI Bold</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+    border: 2px solid #0078D7;
+    background-color: #F0F0F1;
+}</string>
                </property>
                <property name="text">
                 <string>N/A</string>
@@ -617,145 +931,154 @@ QPushButton:checked{
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel_3">
-               <property name="text">
-                <string>your password:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="SubtitleLabel" name="Label_password">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>1</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>N/A</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel_2">
-               <property name="text">
-                <string>your Email:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="SubtitleLabel" name="Label_email">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>1</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>N/A</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
-             <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel_7">
-               <property name="text">
-                <string>your Status:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="SubtitleLabel" name="Label_status">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>1</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>N/A</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="LargeTitleLabel" name="LargeTitleLabel_2">
+            <widget class="QLabel" name="label_21">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>PT Root UI Bold</family>
+               <pointsize>13</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 2, 6);</string>
+             </property>
              <property name="text">
-              <string>update profile here</string>
+              <string>Update your account information:</string>
              </property>
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <layout class="QVBoxLayout" name="verticalLayout_20">
              <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel_4">
-               <property name="text">
-                <string>new username:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="LineEdit" name="LineEdit_newUserName"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
-             <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel_5">
-               <property name="text">
-                <string>new password:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="PasswordLineEdit" name="LineEdit_newPassword"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_14">
-             <item>
-              <widget class="SubtitleLabel" name="SubtitleLabel_6">
-               <property name="text">
-                <string>new Email:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="LineEdit" name="LineEdit_newEmail"/>
+              <layout class="QVBoxLayout" name="verticalLayout_19">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <property name="rightMargin">
+                  <number>50</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_14">
+                   <property name="minimumSize">
+                    <size>
+                     <width>150</width>
+                     <height>15</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>PT Root UI Medium</family>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>new username:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="LineEdit" name="LineEdit_newUserName">
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>33</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_18">
+                 <property name="rightMargin">
+                  <number>50</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_19">
+                   <property name="minimumSize">
+                    <size>
+                     <width>150</width>
+                     <height>15</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>PT Root UI Medium</family>
+                     <pointsize>11</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>new password:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="PasswordLineEdit" name="LineEdit_newPassword">
+                   <property name="minimumSize">
+                    <size>
+                     <width>250</width>
+                     <height>33</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_20">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>15</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>PT Root UI Medium</family>
+                   <pointsize>11</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>new Email:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="LineEdit" name="LineEdit_newEmail">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>33</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
            <item>
             <widget class="PrimaryPushButton" name="btn_update_profile">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>50</height>
+              </size>
+             </property>
              <property name="text">
               <string>confirm update</string>
              </property>
             </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -804,16 +1127,6 @@ QPushButton:checked{
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="SearchLineEdit" name="SearchLineEdit_new">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>search property title</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item>
@@ -827,7 +1140,7 @@ QPushButton:checked{
                 <x>0</x>
                 <y>0</y>
                 <width>839</width>
-                <height>544</height>
+                <height>562</height>
                </rect>
               </property>
              </widget>
@@ -880,16 +1193,6 @@ QPushButton:checked{
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="SearchLineEdit" name="SearchLineEdit_old">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>search proptery title</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item>
@@ -903,7 +1206,7 @@ QPushButton:checked{
                 <x>0</x>
                 <y>0</y>
                 <width>839</width>
-                <height>623</height>
+                <height>562</height>
                </rect>
               </property>
              </widget>
@@ -948,17 +1251,7 @@ QPushButton:checked{
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SubtitleLabel</class>
-   <extends>QLabel</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
    <class>TitleLabel</class>
-   <extends>QLabel</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>LargeTitleLabel</class>
    <extends>QLabel</extends>
    <header>qfluentwidgets</header>
   </customwidget>

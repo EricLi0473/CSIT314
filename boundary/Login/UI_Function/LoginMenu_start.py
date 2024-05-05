@@ -1,11 +1,10 @@
-from PyQt5.QtCore import pyqtSignal
 from qfluentwidgetspro import setLicense
 
-from boundary.LoginMenu import *
-from boundary.AdminMenu_start import AdminMenu
-from boundary.AgentMenu_start import AgentMenu
-from boundary.BuyerMenu_start import BuyerMenu
-from boundary.SellerMenu_start import SellerMenu
+from boundary.Login.UI.LoginMenu import *
+from boundary.Admin.UI_Function.AdminMenu_start import AdminMenu
+from boundary.Agent.UI_Function.AgentMenu_start import AgentMenu
+from boundary.Buyer.UI_Function.BuyerMenu_start import BuyerMenu
+from boundary.Seller.UI_Function.SellerMenu_start import SellerMenu
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox

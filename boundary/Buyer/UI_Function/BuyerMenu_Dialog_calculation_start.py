@@ -1,9 +1,5 @@
-from PyQt5.QtCore import pyqtSignal
-
-from boundary.BuyerMenu_Dialog_calculation import *
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QListWidgetItem, QTableWidgetItem, QPushButton, \
-    QWidget, QHBoxLayout, QDialog
+from boundary.Buyer.UI.BuyerMenu_Dialog_calculation import *
+from PyQt5.QtWidgets import QDialog
 
 from controller.Buyer.calculateMonthlyPaymentControl import CalculateMonthlyPaymentControl
 

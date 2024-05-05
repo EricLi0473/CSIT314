@@ -242,7 +242,7 @@ RoundPushButton[hasIcon=true] {
 }</string>
        </property>
        <property name="text">
-        <string>Create user</string>
+        <string>update profile</string>
        </property>
       </widget>
      </item>

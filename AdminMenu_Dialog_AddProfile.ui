@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>346</width>
+    <width>347</width>
     <height>199</height>
    </rect>
   </property>
@@ -242,7 +242,7 @@ RoundPushButton[hasIcon=true] {
 }</string>
        </property>
        <property name="text">
-        <string>Create user</string>
+        <string>Create profile</string>
        </property>
       </widget>
      </item>

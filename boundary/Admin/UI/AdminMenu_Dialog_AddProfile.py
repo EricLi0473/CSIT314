@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog_AddProfile(object):
     def setupUi(self, Dialog_AddProfile):
         Dialog_AddProfile.setObjectName("Dialog_AddProfile")
-        Dialog_AddProfile.resize(346, 199)
+        Dialog_AddProfile.resize(347, 199)
         Dialog_AddProfile.setStyleSheet("background-color: rgb(245, 250, 254);")
         self.gridLayout = QtWidgets.QGridLayout(Dialog_AddProfile)
         self.gridLayout.setObjectName("gridLayout")
@@ -245,7 +245,7 @@ class Ui_Dialog_AddProfile(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog_AddProfile.setWindowTitle(_translate("Dialog_AddProfile", "Dialog"))
         self.label_profile.setText(_translate("Dialog_AddProfile", "new profile name"))
-        self.PushButton_create.setText(_translate("Dialog_AddProfile", "Create user"))
+        self.PushButton_create.setText(_translate("Dialog_AddProfile", "Create profile"))
         self.PushButton_cancel.setText(_translate("Dialog_AddProfile", "Cancel"))
 from qfluentwidgets import LineEdit, PushButton
 from qfluentwidgetspro import FilledPushButton
