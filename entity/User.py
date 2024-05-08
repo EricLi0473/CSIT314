@@ -22,7 +22,7 @@ class User:
             sqlQuery = f'select password,userstatus from users where username = %s'
             cursor.execute(sqlQuery,username)
             value = cursor.fetchone()
-            if value is None or value['UserStatus'] == 'invalid':
+            if value is None or value['userstatus'] == 'invalid':
                 return False
             realPassword = value['password']
             realStatus = value['userstatus']

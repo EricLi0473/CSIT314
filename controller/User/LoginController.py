@@ -9,3 +9,4 @@ class LoginController:
     def findUser(self,username)-> User:
         return User().findAUser(username)
 
+print(LoginController().checkLogin('Alice', 'password4977'))

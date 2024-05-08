@@ -329,6 +329,7 @@ class AgentMenu(QMainWindow):
         self.showAllProperties(properties_data)
 
     def showAllProperties(self,properties_data):
+        properties_data = sorted(properties_data, key=lambda x: x.shortListed + x.views, reverse=True)
         # 定位并获取对应的stacked widget中的页面位置，在这里我把他放进了page_manage中的SmoothScrollArea组件里
         # 并且用scroll_area储存位置
         scroll_area = self.ui.SlideAniStackedWidget.findChild(SmoothScrollArea, 'SmoothScrollArea')
