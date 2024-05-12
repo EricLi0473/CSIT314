@@ -1,4 +1,5 @@
 import pymysql
+from entity.Property import *
 class NewFavorites:
 
     def __init__(self,userId = None, propertyId = None,Title = None,Description = None,BedNum = None,BathNum = None,Size = None,Price = None,Status = None,
@@ -25,6 +26,9 @@ class NewFavorites:
         with connect.cursor() as cursor:
             sqlQuery = ('insert into newfavoriteslist (userid,propertyid) values (%s,%s)')
             cursor.execute(sqlQuery, values)
+            connect.commit()
+            sqlQuery = 'UPDATE properties SET shortlisted = shortlisted + 1 WHERE propertyId = %s'
+            cursor.execute(sqlQuery, propertyId)
             connect.commit()
         connect.close()
         return True
@@ -53,4 +57,3 @@ class NewFavorites:
             sqlQuery = f'select * from newfavoriteslist where PropertyId = %s'
             cursor.execute(sqlQuery, propertyId)
             return cursor.fetchall()
-

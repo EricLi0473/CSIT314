@@ -151,28 +151,28 @@ class BuyerMenu(QMainWindow):
         # 获取用户信息
         username = self.ui.TableWidget1.item(row, 0).text()
         # 执行删除操作
-        reply = QMessageBox.question(self, '确认', f"您确定要冻结用户 {username} 吗？",
+        reply = QMessageBox.question(self, 'Success', f"Are you sure you want to freeze the user {username} ?",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             admin_control = AdminControl()
             success = admin_control.freezeUser(username)
             if success:
-                QMessageBox.information(self, '成功', f"用户 {username} 已被冻结")
+                QMessageBox.information(self, 'Success', f" {username} has been frozen.")
                 self.ui.TableWidget1.item(row, 4).setText('invalid')  # 更新状态
             else:
-                QMessageBox.warning(self, '失败', f"用户 {username} 冻结失败")
+                QMessageBox.warning(self, 'Failed', f" {username} frozen filed.")
 
     def activateUser(self, row):
         # 获取用户信息
         username = self.ui.TableWidget1.item(row, 0).text()
         # 执行删除操作
-        reply = QMessageBox.question(self, '确认', f"您确定要激活用户 {username} 吗？",
+        reply = QMessageBox.question(self, 'Confirm', f"Are you sure to activate {username} ?",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             admin_control = AdminControl()
             success = admin_control.activateUser(username)
             if success:
-                QMessageBox.information(self, '成功', f"用户 {username} 已被激活")
+                QMessageBox.information(self, 'Success', f" {username} has been activated.")
                 self.ui.TableWidget1.item(row, 4).setText('valid')  # 更新状态
             else:
-                QMessageBox.warning(self, '失败', f"用户 {username} 激活失败")
+                QMessageBox.warning(self, 'Failed', f" {username} activated failed.")

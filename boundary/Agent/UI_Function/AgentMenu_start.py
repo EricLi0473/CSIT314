@@ -184,16 +184,12 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
 
         success = remove_property_control.remove_property(property_Id_to_delete)
 
-        print(success)
-        print(property_Id_to_delete)
-
         if success:
+            self.setParent(None)  # 从布局中移除卡片
+            self.deleteLater()  # 删除卡片对象
             self.information('Success', f"Successful delete property")
         else:
             self.information('Error', f"Failed to delete property")
-
-        self.setParent(None)  # 从布局中移除卡片
-        self.deleteLater()  # 删除卡片对象
 
     def warning(self,windowName,windowMassage):
         QMessageBox.warning(self, windowName, windowMassage)
