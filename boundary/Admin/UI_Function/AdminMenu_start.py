@@ -61,7 +61,7 @@ class ProfileListItem(QWidget):
         # Adjust the margins and spacing as needed
         layout.setContentsMargins(2, 2, 2, 2)
         layout.setSpacing(2)
-#todo 5
+#todo 5 update profile
     def updateUserProfile(self):
         oldProfilename = self.text_label.text()
 
@@ -223,7 +223,7 @@ class AdminMenu(QMainWindow):
         self.addButtonToTable(row_index, 7, "Activate", lambda checked, row=row_index: self.activateUser(row))
 
 
-#todo split view all user
+#todo 8 view  users
     # 在user manage页面中的表格窗口（user_manage_table_widget)中显示数据库中user的信息
     def ViewAllUser(self):
         viewUser_control = ViewUserController()    # 实例化AdminControl()
@@ -243,8 +243,6 @@ class AdminMenu(QMainWindow):
             userText.append(user.userStatus)
             userTextList.append(userText)
 
-
-        #todo 8
         self.ui.TableWidget1.clearContents()        # 清除 QTableWidget 中现有的内容，但保留表头
         self.ui.TableWidget1.setRowCount(len(userTextList))        # 根据用户列表的长度，设置 QTableWidget 的行数
         self.ui.TableWidget1.setColumnCount(8)          # 设置 QTableWidget 的列数为8（用户名，密码，邮箱，用户类型，状态）
@@ -303,7 +301,7 @@ class AdminMenu(QMainWindow):
 
     # 编辑对应用户，用row参数定位定位老数据
     def updateUserAccount(self, row):
-#todo 9
+#todo 9 update user account
         oldUsername = self.ui.TableWidget1.item(row, 0).text()
 
         update_dialog = DialogUpdateUser()
@@ -324,7 +322,7 @@ class AdminMenu(QMainWindow):
             self.ViewAllUser()
 
     # function冻结用户
-    #todo 10
+    #todo 10 suspend account
     def freezeUser(self, row):
         # 获取用户信息
         username = self.ui.TableWidget1.item(row, 0).text()
@@ -359,7 +357,7 @@ class AdminMenu(QMainWindow):
                 self.warning('失败', f"用户 {username} 激活失败")
 
 
-    # todo 11
+    # todo 11 search user account
     # 根据用户输入的文本来过滤和显示用户信息到表格
     def searchAUserAccount(self):
         target_user = self.ui.SearchLineEdit.text()
@@ -398,7 +396,7 @@ class AdminMenu(QMainWindow):
             self.ui.TableWidget1.viewport().update()  # 要求 QTableWidget 的视图组件进行更新，以便显示最新的内容
 
 
-#todo 4
+#todo 4 read user profile
     # profile 页面信息获取
     def readUserProfile(self):
         view_profile_control = ViewProfilesController()

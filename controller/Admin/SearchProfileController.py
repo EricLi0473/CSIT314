@@ -6,4 +6,4 @@ class SearchProfileController:
         return Profile().findAProfile(name)
 
 
-print(SearchProfileController().searchAProfile("adm1in"))
+# print(SearchProfileController().searchAProfile("adm1in"))

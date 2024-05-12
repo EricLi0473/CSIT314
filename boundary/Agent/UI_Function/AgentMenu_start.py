@@ -29,9 +29,10 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
     refreshRequested = pyqtSignal()
 
     # 参数是icon，title，content
-    def __init__(self, icon, title, content, isChecked=True, parent=None):
+    def __init__(self, icon, title, id, content, isChecked=True, parent=None):
         super().__init__(icon=icon, title=title, content=content, isChecked=isChecked, parent=parent)
 
+        self.propertyId = id
         self.property_title = title
         self.content = content
 
@@ -177,11 +178,14 @@ class ExtendedContentDashboardCardWidget(ContentDashboardCardWidget):
     # todo 17 As a real estate agent, I want to be able to remove property listings so that I can remove the unavailability property.
     def deleteProperty(self):
         # 需要当前title参数
-        property_title_to_delete = self.property_title
+        property_Id_to_delete = self.propertyId
 
         remove_property_control = RemovePropertyControl()
 
-        success = remove_property_control.remove_property(property_title_to_delete)
+        success = remove_property_control.remove_property(property_Id_to_delete)
+
+        print(success)
+        print(property_Id_to_delete)
 
         if success:
             self.information('Success', f"Successful delete property")
@@ -304,6 +308,7 @@ class AgentMenu(QMainWindow):
             card_widget = ExtendedContentDashboardCardWidget(
                 icon=QIcon('path_to_icon.png'),
                 title=found_property.title,  # 获取title
+                id=found_property.propertyId,
                 content=found_property.description,  # 获取description
                 isChecked=False
             )
@@ -319,7 +324,7 @@ class AgentMenu(QMainWindow):
 
             layout.addWidget(card_widget)
 
-    # todo 15 As a real estate agent, I want to be able to view all properties in my account so that I can know what properties are in my property list.
+    #todo 15 As a real estate agent, I want to be able to view all properties in my account so that I can know what properties are in my property list.
     def viewAllProperties(self):
 
         property_control = ViewAllPropertyControl()  # 实例化后端class
@@ -357,6 +362,7 @@ class AgentMenu(QMainWindow):
             card_widget = ExtendedContentDashboardCardWidget(
                 icon=QIcon('path_to_icon.png'),
                 title=property_data.title,  # 获取title
+                id = property_data.propertyId,
                 content=property_data.description,  # 获取description
                 isChecked=False
             )

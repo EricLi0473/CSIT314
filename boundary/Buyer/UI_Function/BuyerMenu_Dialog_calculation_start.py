@@ -31,7 +31,7 @@ class DialogCalculation(QDialog):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-#todo 38
+#todo 39 calculate the monthly payment
     def calculation(self):
         # 收集对话框中的数据
         price = self.ui.LineEdit_price.text()
@@ -41,8 +41,8 @@ class DialogCalculation(QDialog):
 
         calculation_control = CalculateMonthlyPaymentControl()
         result = calculation_control.calculateMonthlyPayment(price, interest_rate, loan_years, down_payment_rate)
-        self.showCalculationResult(result)
 
+        self.showCalculationResult(result)
 
     def showCalculationResult(self,result):
         result = 'S$ ' + str(int(result))

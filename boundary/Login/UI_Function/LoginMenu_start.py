@@ -94,7 +94,7 @@ class LoginMenu(QMainWindow):
             self.buyerMenu.show()
         else:
             QMessageBox.warning(self, 'Error', 'User type not recognized.')
-
+#todo 1,12,21,30 login
     # login方法，封装套娃
     def login(self):
         self.user_login_control = LoginController()

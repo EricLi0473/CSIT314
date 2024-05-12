@@ -49,7 +49,7 @@ class DialogFeedback(QDialog):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-#todo 39
+#todo 40 submit a rating
     def giveScore(self):
         score_control = GiveRatingToAgentControl()
         score = self.ui.ComboBox_score.currentText()
@@ -59,7 +59,7 @@ class DialogFeedback(QDialog):
             QMessageBox.warning(self, 'Submission Result', 'Successfully submitted!')
         else:
             QMessageBox.warning(self, 'Submission Result', 'Failed to submit.')
-#todo 40
+#todo 41 submit a review
     def giveReview(self):
         review_control = GiveCommentToAgentControl()
         review = self.ui.TextEdit_review.toPlainText()

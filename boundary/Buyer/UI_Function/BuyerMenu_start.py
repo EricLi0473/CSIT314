@@ -142,7 +142,8 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
         main_layout.setSpacing(10)
 
     # 编辑按钮对应的触发函数
-    #todo 36 & 37
+    #todo 37 save new property
+    #todo 38 save old property
     def addFavorite(self):
         if self.property.status == "available":
             if AddNewPropertyIntoFavoritesControl().addNewPropertyIntoFavorites(self.user.userid, self.property.propertyId):
@@ -154,8 +155,6 @@ class BuyerContentDashboardCardWidget(ContentDashboardCardWidget):
                 self.warning('Success', 'Success to Add property to favorite list.')
             else:
                 self.warning('fail', 'failed to Add property to favorite list.')
-
-
 
         self.favoriteAdded.emit()
 
@@ -365,7 +364,7 @@ class BuyerMenu(QMainWindow):
         else:
             self.SearchApropery()
 
-    # todo userstory:35, search both new and old property listings
+    # todo 36, search both new and old property listings
     def SearchApropery(self):
         search_property_control = SearchPropertyController()
         target_property = self.ui.SearchLineEdit.text()
@@ -418,9 +417,9 @@ class BuyerMenu(QMainWindow):
 
             layout.addWidget(card_widget)
 
-            card_widget.favoriteAdded.connect(self.refreshFavProperty)
+            ##card_widget.favoriteAdded.connect(self.refreshFavProperty)
 
-    #todo 34  As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
+    #todo 35  As a buyer, I want to be able to view both new and old property listings so that I can view present property information.
     def viewNewAndOldProperties(self):
 
         property_control = ViewPropertiesController()  # 实例化后端class
@@ -475,7 +474,8 @@ class BuyerMenu(QMainWindow):
 
             layout.addWidget(card_widget)
 
-    #todo 41
+            card_widget.favoriteAdded.connect(self.refreshFavProperty)
+    #todo 103
     def viewNewPropertyFavouritesList(self):
 
         new_favorite_control = ViewNewFavouritesControl()  # 实例化后端class
@@ -527,7 +527,7 @@ class BuyerMenu(QMainWindow):
             layout.addWidget(card_widget)
 
 
-    #todo 42
+    #todo 104
     def viewOldPropertyFavouritesList(self):
 
         old_favorite_control = ViewOldFavouritesControl()  # 实例化后端class
@@ -582,7 +582,7 @@ class BuyerMenu(QMainWindow):
         dialog_feedback = DialogFeedback(self.user)
 
         dialog_feedback.exec_()  # 以模态方式运行对话框
-#todo 32 As a buyer, I want to be able to view my account so that I can ensure my details are correct.
+#todo 33 As a buyer, I want to be able to view my account so that I can ensure my details are correct.
 
     def accountPage(self):
         get_user_info = SearchUserController()
@@ -598,7 +598,7 @@ class BuyerMenu(QMainWindow):
 
     def refreshaccountPage(self):
         self.accountPage()
-#todo 33 As a buyer, I want to be able to update my account so that I can keep my information new.
+#todo 34 As a buyer, I want to be able to update my account so that I can keep my information new.
     def updateInfo(self):
         newUserName = self.ui.LineEdit_newUserName.text()
         newPassword = self.ui.LineEdit_newPassword.text()

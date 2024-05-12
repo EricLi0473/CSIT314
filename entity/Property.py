@@ -1,4 +1,6 @@
 import pymysql
+from entity.NewFavorites import *
+from entity.OldFavorits import *
 class Property:
 
     def __init__(self,propertyId = None,title=None,description=None,bedNum=None,bathNum=None,size=None,price=None,status=None,
@@ -62,12 +64,18 @@ class Property:
         return True
 
     # 17 As a real estate agent, I want to be able to remove property listings so that I can remove the unavailability property.
-    def removeProperty(self, title):
+    def removeProperty(self, propertyId):
         connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
                                   cursorclass=pymysql.cursors.DictCursor)
         with connect.cursor() as cursor:
-            sqlQuery = 'delete from properties where title = %s'
-            cursor.execute(sqlQuery, title)
+            if NewFavorites().FindNewFavouritesById(propertyId):
+                sqlQuery = 'delete from newfavoriteslist where PropertyId = %s'
+                cursor.execute(sqlQuery, propertyId)
+            if OldFavorites().FindOldFavouritesById(propertyId):
+                sqlQuery = 'delete from oldfavoriteslist where PropertyId = %s'
+                cursor.execute(sqlQuery, propertyId)
+            sqlQuery = 'delete from properties where PropertyId = %s'
+            cursor.execute(sqlQuery, propertyId)
             connect.commit()
         connect.close()
         return True
@@ -127,3 +135,5 @@ class Property:
                 propertyList.append(property)
         connect.close()
         return propertyList
+
+# print(Property().removeProperty(1))

@@ -135,7 +135,7 @@ class SellerMenu(QMainWindow):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
-
+#todo 26 view all properties
     def viewSellerProperties(self):
 
         view_property_control = ViewPropertiesControl()  # 实例化后端class
@@ -198,7 +198,7 @@ class SellerMenu(QMainWindow):
         dialog_feedback = DialogFeedback(self.user)
 
         dialog_feedback.exec_()  # 以模态方式运行对话框
-#todo 32 As a buyer, I want to be able to view my account so that I can ensure my details are correct.
+#todo 24 As a buyer, I want to be able to view my account so that I can ensure my details are correct.
 
     def accountPage(self):
         get_user_info = SearchUserController()
@@ -215,7 +215,7 @@ class SellerMenu(QMainWindow):
     def refreshaccountPage(self):
         self.accountPage()
 
-#todo 33 As a buyer, I want to be able to update my account so that I can keep my information new.
+#todo 25 As a buyer, I want to be able to update my account so that I can keep my information new.
     def updateInfo(self):
         newUserName = self.ui.LineEdit_newUserName.text()
         newPassword = self.ui.LineEdit_newPassword.text()

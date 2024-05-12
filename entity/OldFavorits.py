@@ -45,3 +45,11 @@ class OldFavorites:
                 OldFavoritesList.append(oldFavorites)
         connect.close()
         return OldFavoritesList
+
+    def FindOldFavouritesById(self,propertyId):
+        connect = pymysql.connect(host='localhost', user='root', password='123456', database='db314',
+                                  cursorclass=pymysql.cursors.DictCursor)
+        with connect.cursor() as cursor:
+            sqlQuery = f'select * from oldfavoriteslist where PropertyId = %s'
+            cursor.execute(sqlQuery, propertyId)
+            return cursor.fetchall()
