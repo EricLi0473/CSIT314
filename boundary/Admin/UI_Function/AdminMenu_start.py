@@ -116,12 +116,6 @@ class AdminMenu(QMainWindow):
         self.ui.btn_profile1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(2))
         self.ui.btn_profile2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(2))
 
-        self.ui.btn_favorites1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(3))
-        self.ui.btn_favorites2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(3))
-
-        self.ui.btn_messages1.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(4))
-        self.ui.btn_messages2.clicked.connect(lambda: self.ui.SlideAniStackedWidget.setCurrentIndex(4))
-
         # 给user mange和profile manage中的add按钮绑定对应的触发窗口
         self.ui.btn_addUser.clicked.connect(self.openAddUserDialog)
         self.ui.btn_addProfile1.clicked.connect(self.openAddProfileDialog)
@@ -344,17 +338,17 @@ class AdminMenu(QMainWindow):
         # 获取用户信息
         username = self.ui.TableWidget1.item(row, 0).text()
         # 弹出对话框，等待用户选择
-        reply = QMessageBox.question(self, 'confirm', f"您确定要激活用户 {username} ？",
+        reply = QMessageBox.question(self, 'confirm', f"Are you sure activate {username} ？",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # 选择是的时候，调用AdminControl中的activateUser方法
         if reply == QMessageBox.Yes:
             activate_user_control = ActivateUserController()
             success = activate_user_control.activateUser(username)
             if success:
-                self.information('成功', f"用户 {username} 已被激活")
+                self.information('success', f"User {username} has been activated")
                 self.ui.TableWidget1.item(row, 4).setText('valid')  # 更新状态
             else:
-                self.warning('失败', f"用户 {username} 激活失败")
+                self.warning('failed', f"User {username} activate failed")
 
 
     # todo 11 search user account

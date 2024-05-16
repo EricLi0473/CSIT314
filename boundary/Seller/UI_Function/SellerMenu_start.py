@@ -223,9 +223,13 @@ class SellerMenu(QMainWindow):
         userType = "seller"
 
         updated_info_control = UpdateUserController()
-        updated_info_control.updateUser(self.user.username, newUserName, newPassword, newEmail, userType)
-        self.user.username = newUserName
-        self.refreshaccountPage()
+        success = updated_info_control.updateUser(self.user.username, newUserName, newPassword, newEmail, userType)
+        if success:
+            self.warning("success", "update successfully")
+            self.user.username = newUserName
+            self.refreshaccountPage()
+        else:
+            self.warning("fail", "update failed")
 
     def warning(self,windowName,windowMassage):
         QMessageBox.warning(self, windowName, windowMassage)

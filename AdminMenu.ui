@@ -136,42 +136,6 @@ QPushButton:checked{
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="btn_favorites1">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/white/icons/white/heart.svg</normaloff>
-             <normalon>:/icons2/icons/icon2/iconizer-heart.svg</normalon>:/white/icons/white/heart.svg</iconset>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_messages1">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/icons2/icons/icon2/messages_white.png</normaloff>
-             <normalon>:/icons2/icons/icon2/messages.png</normalon>:/icons2/icons/icon2/messages_white.png</iconset>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -349,7 +313,7 @@ QPushButton:checked{
           <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_dashborad">
           <widget class="TitleLabel" name="TitleLabel">
@@ -625,36 +589,6 @@ QTableCornerButton::section:pressed {
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_favorites">
-          <widget class="TitleLabel" name="TitleLabel_4">
-           <property name="geometry">
-            <rect>
-             <x>270</x>
-             <y>140</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Favorites</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_messages">
-          <widget class="TitleLabel" name="TitleLabel_5">
-           <property name="geometry">
-            <rect>
-             <x>240</x>
-             <y>190</y>
-             <width>123</width>
-             <height>38</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Messages</string>
-           </property>
-          </widget>
-         </widget>
         </widget>
        </item>
       </layout>
@@ -788,42 +722,6 @@ QPushButton:checked{
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="btn_favorites2">
-           <property name="text">
-            <string>Favorites</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/white/icons/white/heart.svg</normaloff>
-             <normalon>:/icons2/icons/icon2/iconizer-heart.svg</normalon>:/white/icons/white/heart.svg</iconset>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_messages2">
-           <property name="text">
-            <string>Messages</string>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/icons2/icons/icon2/messages_white.png</normaloff>
-             <normalon>:/icons2/icons/icon2/messages.png</normalon>:/icons2/icons/icon2/messages_white.png</iconset>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -912,38 +810,6 @@ QPushButton:checked{
   <include location="res.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>btn_messages1</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>btn_messages2</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>58</x>
-     <y>298</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>171</x>
-     <y>294</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_favorites1</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>btn_favorites2</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>58</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>161</x>
-     <y>248</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>btn_profile1</sender>
    <signal>toggled(bool)</signal>
@@ -1037,38 +903,6 @@ QPushButton:checked{
     <hint type="destinationlabel">
      <x>53</x>
      <y>209</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_favorites2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>btn_favorites1</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>127</x>
-     <y>255</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>68</x>
-     <y>256</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_messages2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>btn_messages1</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>123</x>
-     <y>298</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>52</x>
-     <y>300</y>
     </hint>
    </hints>
   </connection>

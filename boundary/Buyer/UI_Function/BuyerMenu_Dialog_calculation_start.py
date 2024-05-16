@@ -11,6 +11,7 @@ class DialogCalculation(QDialog):
         self.ui.setupUi(self)
 
         self.ui.PushButton_calculate.clicked.connect(self.calculation)
+        self.ui.PushButton_clear.clicked.connect(self.clearCalculate)
 
         if price:
             self.ui.LineEdit_price.setText(str(price.get('price', '')))
@@ -47,3 +48,9 @@ class DialogCalculation(QDialog):
     def showCalculationResult(self,result):
         result = 'S$ ' + str(int(result))
         self.ui.SubtitleLabel.setText(result)
+
+    def clearCalculate(self):
+        self.ui.LineEdit_payment_rate.setText("")
+        self.ui.LineEdit_interest_rate.setText("")
+        self.ui.LineEdit_loan_year.setText("")
+

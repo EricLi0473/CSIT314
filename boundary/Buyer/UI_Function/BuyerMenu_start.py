@@ -389,13 +389,7 @@ class BuyerMenu(QMainWindow):
                 widget_to_remove.setParent(None)
                 widget_to_remove.deleteLater()
 
-        if found_property.propertyId == None:
-            for i in reversed(range(layout.count())):
-                widget_to_remove = layout.itemAt(i).widget()
-                if widget_to_remove is not None:
-                    widget_to_remove.setParent(None)
-                    widget_to_remove.deleteLater()
-        else:
+        if found_property.propertyId is not None:
             card_widget = BuyerContentDashboardCardWidget(
                 icon=QIcon('path_to_icon.png'),
                 ##title=property_data.title,  # 获取title
@@ -606,10 +600,14 @@ class BuyerMenu(QMainWindow):
         userType = "buyer"
 
         updated_info_control = UpdateUserController()
-        updated_info_control.updateUser(self.user.username, newUserName, newPassword, newEmail, userType)
-        self.user.username = newUserName
-        self.refreshaccountPage()
-        self.refreshAllProperty()
+        success = updated_info_control.updateUser(self.user.username, newUserName, newPassword, newEmail, userType)
+        if success:
+            self.warning("sellerMenu", "update success")
+            self.user.username = newUserName
+            self.refreshaccountPage()
+            self.refreshAllProperty()
+        else:
+            self.warning("sellerMenu", "update failed")
 
     def warning(self,windowName,windowMassage):
         QMessageBox.warning(self, windowName, windowMassage)

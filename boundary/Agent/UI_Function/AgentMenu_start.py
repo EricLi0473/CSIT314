@@ -294,13 +294,7 @@ class AgentMenu(QMainWindow):
                 widget_to_remove.setParent(None)
                 widget_to_remove.deleteLater()
 
-        if found_property.propertyId == None:
-            for i in reversed(range(layout.count())):
-                widget_to_remove = layout.itemAt(i).widget()
-                if widget_to_remove is not None:
-                    widget_to_remove.setParent(None)
-                    widget_to_remove.deleteLater()
-        else:
+        if found_property.propertyId is not None:
             card_widget = ExtendedContentDashboardCardWidget(
                 icon=QIcon('path_to_icon.png'),
                 title=found_property.title,  # 获取title

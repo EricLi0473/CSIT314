@@ -433,7 +433,6 @@ class Ui_BuyerMenu_Dialog_calculation(object):
         self.verticalLayout.addWidget(self.SubtitleLabel)
 
         self.retranslateUi(BuyerMenu_Dialog_calculation)
-        self.PushButton_clear.clicked.connect(BuyerMenu_Dialog_calculation.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(BuyerMenu_Dialog_calculation)
 
     def retranslateUi(self, BuyerMenu_Dialog_calculation):

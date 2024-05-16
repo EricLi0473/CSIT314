@@ -506,22 +506,5 @@ RoundPushButton[hasIcon=true] {
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>PushButton_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>BuyerMenu_Dialog_calculation</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>322</x>
-     <y>442</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>318</x>
-     <y>465</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
